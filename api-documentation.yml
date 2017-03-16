@@ -1,0 +1,12 @@
+paths:
+  /researchers:
+    get:
+      summary: Researchers Types
+      description: |
+        The Researchers endpoint returns information about all researchers on
+        the database
+      responses:
+        200:
+          description: An array of researchers
+      tags:
+        - Researchers

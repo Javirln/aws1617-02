@@ -26,12 +26,12 @@ const options = {
   // Import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // Path to the API docs
-  apis: ['./api-documentation.yaml'],
+  apis: ['./api-documentation.yml'],
 };
 
 const optionsSwaggerUi = {
     validatorUrl : null
-}
+};
 
 const swaggerSpec = swaggerJSDoc(options);
 
