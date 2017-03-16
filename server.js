@@ -121,8 +121,3 @@ researchers.connectDb((err) => {
         console.log("Server with GUI up and running!");
     });
 });
-
-/*
-app.listen(port, () => {
-    console.log('Server up and running');
-});*/
