@@ -1,45 +1,86 @@
 'use strict';
 
-var MongoClient = require('mongodb').MongoClient;
-var db;
+const express = require('express');
+const router = express.Router();
 
+const researchers = require('./researchers-service');
 
-var Researchers = function () {};
-
-Researchers.prototype.connectDb = function(callback) {
-    MongoClient.connect(process.env.MONGODB_URL, function(err, database) {
-        if(err) {
-            callback(err);
+router.get('/', function (req, res) {
+    
+    researchers.allresearchers((err, researchers) => {
+        if (err) {
+            res.status(404).send({msg: err});
+        } else {
+            res.status(200).send(researchers);   
         }
-        
-        db = database.collection('researchers');
-        
-        callback(err, database);
     });
-};
+    
+});
 
-Researchers.prototype.allResearchers = function(callback) {
-    return db.find({}).toArray(callback);
-};
+router.get('/:dni', function (req, res) {
+    const dni = req.params.dni;
+    
+    researchers.get(dni, (err, contact) => {
+        if (err) {
+            res.status(404).send({msg: err});
+        } else {
+            res.status(200).send(contact[0]);   
+        }
+    });
 
-Researchers.prototype.add = function(researcher, callback) {
-    return db.insert(researcher, callback);
-};
+});
 
-Researchers.prototype.removeAll = function(callback) {
-    return db.remove({},{ multi: true},callback);
-};
+router.post('/', function (req, res) {
+    researchers.add(req.body, (err, newDoc) => {
+        if (err || newDoc === undefined) {
+            res.status(404).send({msg: err});
+        } else {
+            res.status(201).send(req.body);       
+        }
+    });
+    
+});
 
-Researchers.prototype.get = function(dni, callback) {
-    return db.find({dni:dni}).toArray(callback);
-};
+router.put('/:dni', function (req, res) {
+    const dni = req.params.dni;
+    const updatedContact = req.body;
+    
+    researchers.update(dni, updatedContact, (err, numUpdates) => {
+        if (err || numUpdates === 0) {
+            res.statusCode = 404;
+            res.send({msg: err});
+        } else {
+            res.statusCode = 200;
+            res.send(numUpdates.toString());
+        }
+    });
+});
 
-Researchers.prototype.remove = function(dni, callback) {
-    return db.remove({dni:dni},{ multi: true}, callback);
-};
 
-Researchers.prototype.update = function(dni, updatedContact, callback) {
-    return db.update({dni:dni},updatedContact,{}, callback);
-};
+router.delete('/:dni', function (req, res) {
+    
+    researchers.remove(req.params.dni, (err, numRemoved) => {
+        if (err) {
+            res.status(404).send({msg: err});
+        } else {
+            res.statusCode = 200;
+            res.send(numRemoved.toString());
+        }
+    });
+    
+});
 
-module.exports = new Researchers();
+router.delete('/', function (req, res) {
+    
+    researchers.removeAll((err, numRemoved) => {
+        if (err) {
+            res.status(404).send({msg: err});
+        } else {
+            res.statusCode = 200;
+            res.send(numRemoved.toString());
+        }
+    });
+    
+});
+
+module.exports = router;
