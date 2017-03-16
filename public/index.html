@@ -1,0 +1,150 @@
+<html ng-app="ResearcherListApp">
+
+<head>
+    <title>Researchers Info</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/styles.css" rel="stylesheet">
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="researcher-list-app.js"></script>
+    <script type="text/javascript" src="list-controller.js"></script>
+</head>
+
+<body ng-controller="ListCtrl">
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="./index.html">Researchers</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Tests</a></li>
+                <li><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body p-t-0">
+                        <h2>Filter</h2>
+                        <hr>
+                        <div class="input-group">
+                            <span class="input-group-addon">DNI</span>
+                            <input type="text" id="dniFilter" ng-model="dniFilter" class="form-control" placeholder="Search">
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-success" ng-click="searchContact()">Search</button>
+                            <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="contact in contacts">
+                    <div class="panel">
+                        <div class="panel-body p-t-10">
+                            <div class="media-main">
+                                <div class="pull-left">
+                                    <img class="thumb-lg img-circle bx-s" ng-src="./img/user_{{contact.gender}}.png" alt="User pic">
+                                </div>
+                                <div class="pull-right btn-group-sm">
+                                    <div class="btn btn-warning tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
+                                        <i class="fa fa-pencil" ng-click="preUpdateContact($index)"></i>
+                                    </div>
+                                    <div class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
+                                        <i class="fa fa-close" ng-click="deleteContact($index)"></i>
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <h4>{{contact.name}}</h4>
+                                    <p class="text-muted">{{contact.dni}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <ul class="list-inline">
+                                <li class="list-group-item"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>{{contact.phone}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>{{contact.email}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{contact.address}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body p-t-0">
+                        <h2>{{actionTitle}}</h2>
+                        <hr>
+                        <form name="addContactForm" ng-submit="submitForm()" novalidate>
+                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.dni.$invalid && !addContactForm.dni.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">DNI</span>
+                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="newContact.dni" required>
+                                </div>
+                                <p ng-show="addContactForm.dni.$invalid && !addContactForm.dni.$pristine" class="help-block">DNI is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.name.$invalid && !addContactForm.name.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Name</span>
+                                    <input type="text" name="name" class="form-control" placeholder="Julius Silver" ng-model="newContact.name" required>
+                                </div>
+                                <p ng-show="addContactForm.name.$invalid && !addContactForm.name.$pristine" class="help-block">Name is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.phone.$invalid && !addContactForm.phone.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Phone</span>
+                                    <input type="number" name="phone" class="form-control" placeholder="677455122" ng-model="newContact.phone" ng-minlength="9" ng-maxlength="9" required>
+                                </div>
+                                <p ng-show="addContactForm.phone.$error.minlength" class="help-block">Phone is too short.</p>
+                                <p ng-show="addContactForm.phone.$error.maxlength" class="help-block">Phone is too long.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.email.$invalid && !addContactForm.email.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Email</span>
+                                    <input type="email" name="email" class="form-control" placeholder="name@domain.com" ng-model="newContact.email" ng-pattern="/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/" required>
+                                </div>
+                                <p ng-show="addContactForm.email.$invalid && !addContactForm.email.$pristine" class="help-block">Email type is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.address.$invalid && !addContactForm.address.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Address</span>
+                                    <input type="text" name="address" class="form-control" placeholder="123 Fake St." ng-model="newContact.address" required>
+                                </div>
+                                <p ng-show="addContactForm.address.$invalid && !addContactForm.address.$pristine" class="help-block">Address is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.gender.$invalid && !addContactForm.gender.$pristine }">
+                                <h4 for="gender">Gender</h4>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="gender" value="male" ng-model="newContact.gender">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="gender" value="female" ng-model="newContact.gender">
+                                        Female
+                                    </label>
+                                </div>
+                                <p ng-show="addContactForm.gender.$invalid && !addContactForm.gender.$pristine" class="help-block">Gender is required.</p>
+                            </div>
+                            <button type="submit" ng-disabled="addContactForm.$invalid" ng-class="buttonClass">{{action}}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body p-t-0">
+                        <h2>Purge</h2>
+                        <hr>
+                        <h5>Click the button if you want to delete all the researchers.</h5>
+                        <button class="btn btn-danger" ng-click="deleteAll()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
