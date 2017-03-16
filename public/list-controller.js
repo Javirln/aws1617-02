@@ -6,65 +6,65 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
         $http.get("/api/v1/researchers").then(function(response) {
-            $scope.contacts = response.data;
-            $scope.addContactForm.$setPristine();
-            $scope.newContact = {};
+            $scope.researchers = response.data;
+            $scope.addResearcherForm.$setPristine();
+            $scope.newResearcher = {};
             $scope.dniFilter = null;
         });
     }
 
     $scope.submitForm = function() {
         if ($scope.actionTitle == "Add researcher") {
-            console.log("Adding researcher " + $scope.newContact.name);
-            $http.post("/api/v1/researchers", $scope.newContact).then(function() {
+            console.log("Adding researcher " + $scope.newResearcher.name);
+            $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
                 refresh();
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
-            console.log("Updating researcher " + $scope.contactToUpdate.name);
-            $http.put("/api/v1/researchers/" + $scope.contactToUpdate.dni, $scope.newContact).then(function() {
+            console.log("Updating researcher " + $scope.researcherToUpdate.name);
+            $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher).then(function() {
                 refresh();
             });
         }
     };
 
-    $scope.addContact = function() {
-        console.log("Adding researcher " + $scope.newContact.name);
-        $http.post("/api/v1/researchers", $scope.newContact).then(function() {
+    $scope.addResearcher = function() {
+        console.log("Adding researcher " + $scope.newResearcher.name);
+        $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
             refresh();
         });
 
     };
 
-    $scope.deleteContact = function(idx) {
-        console.log("Deleting researcher " + $scope.contacts[idx].name);
-        $http.delete("/api/v1/researchers/" + $scope.contacts[idx].dni).then(function() {
+    $scope.deleteResearcher = function(idx) {
+        console.log("Deleting researcher " + $scope.researchers[idx].name);
+        $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
             refresh();
         });
 
     };
 
-    $scope.preUpdateContact = function(idx) {
-        console.log("Pre-updating researcher " + $scope.contacts[idx].name);
+    $scope.preUpdateResearcher = function(idx) {
+        console.log("Pre-updating researcher " + $scope.researchers[idx].name);
         $scope.actionTitle = "Update researcher";
         $scope.action = "Update";
         $scope.buttonClass = "btn btn-warning";
-        $scope.contactToUpdate = $scope.contacts[idx];
-        $scope.newContact.dni = $scope.contactToUpdate.dni;
-        $scope.newContact.name = $scope.contactToUpdate.name;
-        $scope.newContact.phone = $scope.contactToUpdate.phone;
-        $scope.newContact.email = $scope.contactToUpdate.email;
-        $scope.newContact.address = $scope.contactToUpdate.address;
-        $scope.newContact.gender = $scope.contactToUpdate.gender;
+        $scope.researcherToUpdate = $scope.researchers[idx];
+        $scope.newResearcher.dni = $scope.researcherToUpdate.dni;
+        $scope.newResearcher.name = $scope.researcherToUpdate.name;
+        $scope.newResearcher.phone = $scope.researcherToUpdate.phone;
+        $scope.newResearcher.email = $scope.researcherToUpdate.email;
+        $scope.newResearcher.address = $scope.researcherToUpdate.address;
+        $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
 
     };
 
-    $scope.searchContact = function() {
+    $scope.searchResearcher = function() {
         console.log("Get researcher " + $scope.dniFilter);
         $http.get("/api/v1/researchers/" + $scope.dniFilter).then(function(response) {
-            $scope.contacts = response.data;
-            $scope.addContactForm.$setPristine();
-            $scope.newContact = {};
+            $scope.researchers = response.data;
+            $scope.addResearcherForm.$setPristine();
+            $scope.newResearcher = {};
         });
     };
 

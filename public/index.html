@@ -36,37 +36,37 @@
                             <span class="input-group-addon">DNI</span>
                             <input type="text" id="dniFilter" ng-model="dniFilter" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
-                            <button type="button" class="btn btn-success" ng-click="searchContact()">Search</button>
+                            <button type="button" class="btn btn-success" ng-click="searchResearcher()">Search</button>
                             <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div ng-repeat="contact in contacts">
+                <div ng-repeat="researcher in researchers">
                     <div class="panel">
                         <div class="panel-body p-t-10">
                             <div class="media-main">
                                 <div class="pull-left">
-                                    <img class="thumb-lg img-circle bx-s" ng-src="./img/user_{{contact.gender}}.png" alt="User pic">
+                                    <img class="thumb-lg img-circle bx-s" ng-src="./img/user_{{researcher.gender}}.png" alt="User pic">
                                 </div>
                                 <div class="pull-right btn-group-sm">
                                     <div class="btn btn-warning tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
-                                        <i class="fa fa-pencil" ng-click="preUpdateContact($index)"></i>
+                                        <i class="fa fa-pencil" ng-click="preUpdateResearcher($index)"></i>
                                     </div>
                                     <div class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
-                                        <i class="fa fa-close" ng-click="deleteContact($index)"></i>
+                                        <i class="fa fa-close" ng-click="deleteResearcher($index)"></i>
                                     </div>
                                 </div>
                                 <div class="info">
-                                    <h4>{{contact.name}}</h4>
-                                    <p class="text-muted">{{contact.dni}}</p>
+                                    <h4>{{researcher.name}}</h4>
+                                    <p class="text-muted">{{researcher.dni}}</p>
                                 </div>
                             </div>
                             <hr>
                             <ul class="list-inline">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>{{contact.phone}}</li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>{{contact.email}}</li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{contact.address}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>{{researcher.phone}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>{{researcher.email}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{researcher.address}}</li>
                             </ul>
                         </div>
                     </div>
@@ -77,60 +77,60 @@
                     <div class="panel-body p-t-0">
                         <h2>{{actionTitle}}</h2>
                         <hr>
-                        <form name="addContactForm" ng-submit="submitForm()" novalidate>
-                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.dni.$invalid && !addContactForm.dni.$pristine }">
+                        <form name="addResearcherForm" ng-submit="submitForm()" novalidate>
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.dni.$invalid && !addResearcherForm.dni.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">DNI</span>
-                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="newContact.dni" required>
+                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="newResearcher.dni" required>
                                 </div>
-                                <p ng-show="addContactForm.dni.$invalid && !addContactForm.dni.$pristine" class="help-block">DNI is required.</p>
+                                <p ng-show="addResearcherForm.dni.$invalid && !addResearcherForm.dni.$pristine" class="help-block">DNI is required.</p>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.name.$invalid && !addContactForm.name.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.name.$invalid && !addResearcherForm.name.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">Name</span>
-                                    <input type="text" name="name" class="form-control" placeholder="Julius Silver" ng-model="newContact.name" required>
+                                    <input type="text" name="name" class="form-control" placeholder="Julius Silver" ng-model="newResearcher.name" required>
                                 </div>
-                                <p ng-show="addContactForm.name.$invalid && !addContactForm.name.$pristine" class="help-block">Name is required.</p>
+                                <p ng-show="addResearcherForm.name.$invalid && !addResearcherForm.name.$pristine" class="help-block">Name is required.</p>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.phone.$invalid && !addContactForm.phone.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.phone.$invalid && !addResearcherForm.phone.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">Phone</span>
-                                    <input type="number" name="phone" class="form-control" placeholder="677455122" ng-model="newContact.phone" ng-minlength="9" ng-maxlength="9" required>
+                                    <input type="number" name="phone" class="form-control" placeholder="677455122" ng-model="newResearcher.phone" ng-minlength="9" ng-maxlength="9" required>
                                 </div>
-                                <p ng-show="addContactForm.phone.$error.minlength" class="help-block">Phone is too short.</p>
-                                <p ng-show="addContactForm.phone.$error.maxlength" class="help-block">Phone is too long.</p>
+                                <p ng-show="addResearcherForm.phone.$error.minlength" class="help-block">Phone is too short.</p>
+                                <p ng-show="addResearcherForm.phone.$error.maxlength" class="help-block">Phone is too long.</p>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.email.$invalid && !addContactForm.email.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.email.$invalid && !addResearcherForm.email.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">Email</span>
-                                    <input type="email" name="email" class="form-control" placeholder="name@domain.com" ng-model="newContact.email" ng-pattern="/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/" required>
+                                    <input type="email" name="email" class="form-control" placeholder="name@domain.com" ng-model="newResearcher.email" ng-pattern="/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/" required>
                                 </div>
-                                <p ng-show="addContactForm.email.$invalid && !addContactForm.email.$pristine" class="help-block">Email type is required.</p>
+                                <p ng-show="addResearcherForm.email.$invalid && !addResearcherForm.email.$pristine" class="help-block">Email type is required.</p>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.address.$invalid && !addContactForm.address.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.address.$invalid && !addResearcherForm.address.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">Address</span>
-                                    <input type="text" name="address" class="form-control" placeholder="123 Fake St." ng-model="newContact.address" required>
+                                    <input type="text" name="address" class="form-control" placeholder="123 Fake St." ng-model="newResearcher.address" required>
                                 </div>
-                                <p ng-show="addContactForm.address.$invalid && !addContactForm.address.$pristine" class="help-block">Address is required.</p>
+                                <p ng-show="addResearcherForm.address.$invalid && !addResearcherForm.address.$pristine" class="help-block">Address is required.</p>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : addContactForm.gender.$invalid && !addContactForm.gender.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine }">
                                 <h4 for="gender">Gender</h4>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="gender" value="male" ng-model="newContact.gender">
+                                        <input type="radio" name="gender" value="male" ng-model="newResearcher.gender">
                                         Male
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="gender" value="female" ng-model="newContact.gender">
+                                        <input type="radio" name="gender" value="female" ng-model="newResearcher.gender">
                                         Female
                                     </label>
                                 </div>
-                                <p ng-show="addContactForm.gender.$invalid && !addContactForm.gender.$pristine" class="help-block">Gender is required.</p>
+                                <p ng-show="addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine" class="help-block">Gender is required.</p>
                             </div>
-                            <button type="submit" ng-disabled="addContactForm.$invalid" ng-class="buttonClass">{{action}}</button>
+                            <button type="submit" ng-disabled="addResearcherForm.$invalid" ng-class="buttonClass">{{action}}</button>
                         </form>
                     </div>
                 </div>
