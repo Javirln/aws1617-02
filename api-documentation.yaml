@@ -1,24 +1,12 @@
 paths:
   /researchers:
     get:
-      summary: Product Types
+      summary: Researchers Types
       description: |
-        The Products endpoint returns information about the *Uber* products
-        offered at a given location. The response includes the display name
-        and other details about each product, and lists the products in the
-        proper display order.
-      parameters:
-        - name: latitude
-          in: query
-          description: Latitude component of location.
-          required: true
-          type: number
-          format: double
-        - name: longitude
-          in: query
-          description: Longitude component of location.
-          required: true
-          type: number
-          format: double
+        The Researchers endpoint returns information about all researchers on
+        the database
+      responses:
+        200:
+          description: An array of researchers
       tags:
         - Researchers

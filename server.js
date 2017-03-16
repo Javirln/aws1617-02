@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Configuration of API documentation
-// Options for the swagger docs
+// Options for swagger docs
 const options = {
   // Import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
@@ -31,11 +31,11 @@ const options = {
 
 const optionsSwaggerUi = {
     validatorUrl : null
-};
+}
 
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, optionsSwaggerUi));
 
 // Configuration of statics
 app.use('/', express.static(path.join(__dirname + '/public')));
