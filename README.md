@@ -3,6 +3,9 @@
 Este respositorio contiene el código para la primera entrega de la asignatura "Aplicaciones Web Basadas en Servicios" del master universitario en
 Ingeniería y Tecnología Software de la Universidad de Sevilla.
 
+![Main Interface](https://image.ibb.co/bNBgQa/Screen_Shot_2017_03_16_at_16_39_34.png)
+
+
 ## Tecnologías y dependencias
 
 La API está desarrollada con [express](https://expressjs.com) y los siguientes modulos:
