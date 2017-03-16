@@ -7,7 +7,7 @@ const researchers = require('./researchers-service');
 
 router.get('/', function (req, res) {
     
-    researchers.allresearchers((err, researchers) => {
+    researchers.allResearchers((err, researchers) => {
         if (err) {
             res.status(404).send({msg: err});
         } else {
