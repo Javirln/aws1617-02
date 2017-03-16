@@ -1,12 +1,104 @@
 paths:
   /researchers:
     get:
-      summary: Researchers Types
-      description: |
-        The Researchers endpoint returns information about all researchers on
-        the database
+      summary: Returns information about all researchers on the database
       responses:
         200:
           description: An array of researchers
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Researcher'
       tags:
         - Researchers
+    post:
+      summary: Saves a researcher into the database
+      parameters:
+        - name: researcher
+          in: body
+          description: Researcher to add to the database.
+          required: true
+          schema:
+            $ref: '#/definitions/Researcher'
+      responses:
+        200:
+          description: A single researcher
+          schema:
+            $ref: '#/definitions/Researcher'
+      tags:
+        - Researchers
+    delete:
+      summary: Deletes all researcher from the database
+      responses:
+        200:
+          description: Return the numbers of items that have been removed
+      tags:
+        - Researchers
+        
+  /researchers/{dni}:
+    get:
+      summary: Returns information about a specific researcher
+      parameters:
+        - name: dni
+          in: path
+          description: DNI of the researcher.
+          required: true
+          type: string
+          format: string
+      responses:
+        200:
+          description: A single researcher
+          schema:
+            $ref: '#/definitions/Researcher'
+      tags:
+        - Researchers
+    put:
+      summary: Updates a specific reasercher
+      parameters:
+        - name: dni
+          in: path
+          description: DNI of the researcher.
+          required: true
+          type: string
+        
+      responses:
+        200:
+          description: A single researcher
+          schema:
+            $ref: '#/definitions/Researcher'
+      tags:
+        - Researchers
+    delete:
+      summary: Deletes all researcher from the database
+      parameters:
+        - name: dni
+          in: path
+          description: DNI of the researcher.
+          required: true
+          type: string
+          format: string
+      responses:
+        200:
+          description: Return the numbers of items that have been removed
+      tags:
+        - Researchers
+        
+definitions:
+  Researcher:
+    type: object
+    properties:
+      dni:
+        type: string
+        description: ID of the researcher.
+      name:
+        type: string
+        description: Name of the researcher.
+      phone:
+        type: number
+        description: Phone number of the researcher.
+      email:
+        type: string
+        description: Email of the researcher.
+      address:
+        type: string
+        description: Address of the reasercher.
