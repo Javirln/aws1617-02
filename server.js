@@ -37,8 +37,6 @@ const optionsSwaggerUi = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-// ENV MONGODB_URL mongodb://127.0.0.1:27017/aws
-
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, optionsSwaggerUi));
 
 // Configuration of statics
