@@ -13,3 +13,5 @@ deploy:
   app: researcher-api
   on:
     repo: Javirln/researcher-api
+env: 
+  - "MONGODB_URL=mongodb://127.0.0.1:27017/aws"

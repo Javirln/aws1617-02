@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = ( process.env.PORT || 3000);
+const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
 const researchers = require("./routes/researchers");
@@ -18,19 +18,21 @@ app.use(logger('dev'));
 
 // Configuration of body parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 // Configuration of API documentation
 // Options for swagger docs
 const options = {
-  // Import swaggerDefinitions
-  swaggerDefinition: swaggerDefinition,
-  // Path to the API docs
-  apis: ['./api-documentation.yml'],
+    // Import swaggerDefinitions
+    swaggerDefinition: swaggerDefinition,
+    // Path to the API docs
+    apis: ['./api-documentation.yml'],
 };
 
 const optionsSwaggerUi = {
-    validatorUrl : null
+    validatorUrl: null
 };
 
 const swaggerSpec = swaggerJSDoc(options);
@@ -40,8 +42,82 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, o
 // Configuration of statics
 app.use('/', express.static(path.join(__dirname + '/public')));
 
-app.use(baseApi + '/researchers', researchers);
+//app.use(baseApi + '/researchers', researchers);
 
-app.listen(port, () => {
-    console.log('Server up and running');
+app.get(baseApi + "/researchers", (request, response) => {
+    console.log("New GET /researcher");
+    researchers.allResearchers((err, researchers) => {
+        response.send(researchers);
+    });
+});
+
+app.get(baseApi + "/researchers/:dni", (request, response) => {
+    var dni = request.params.dni;
+    console.log("GET /researcher/" + dni);
+
+    researchers.get(dni, (err, researcher) => {
+        if (researcher.length === 0) {
+            response.sendStatus(404);
+        }
+        else {
+            response.send(researcher);
+        }
+    });
+});
+
+app.post(baseApi + "/researchers", (request, response) => {
+    console.log("POST /researchers");
+    var researcher = request.body;
+    researchers.add(researcher);
+    response.sendStatus(201);
+});
+
+app.put(baseApi + "/researchers/:name", (request, response) => {
+    var name = request.params.name;
+    var updatedResearcher = request.body;
+
+    researchers.update(name, updatedResearcher, (err, numUpdates) => {
+        console.log("Researcher updated:" + numUpdates);
+        if (numUpdates === 0) {
+            response.sendStatus(404);
+        }
+        else {
+            response.sendStatus(200);
+        }
+
+    });
+
+    console.log("UPDATE /researchers/" + name);
+});
+
+app.delete(baseApi + "/researchers", (request, response) => {
+    console.log("DELETE /researchers");
+
+    researchers.removeAll((err, numRemoved) => {
+        console.log("Researchers removed:" + numRemoved);
+        response.sendStatus(200);
+    });
+
+});
+
+app.delete(baseApi + "/researchers/:dni", (request, response) => {
+    var dni = request.params.dni;
+
+    researchers.remove(dni, (err, numRemoved) => {
+        console.log("Researchers removed:" + numRemoved);
+        response.sendStatus(200);
+    });
+
+    console.log("DELETE /researchers/" + dni);
+});
+
+researchers.connectDb((err) => {
+    if (err) {
+        console.log("Could not connect with MongoDB");
+        process.exit(1);
+    }
+
+    app.listen(port, () => {
+        console.log("Server with GUI up and running!");
+    });
 });
