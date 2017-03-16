@@ -1,0 +1,41 @@
+{
+  "name": "researcher-api",
+  "version": "1.0.0",
+  "description": "API of researchers",
+  "main": "server.js",
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon -L --debug server.js",
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Javirln/researcher-api.git",
+    "github": "https://github.com/Javirln/researcher-api"
+  },
+  "contributors": [
+    "Javier Rodriguez",
+    "David Corral Plaza",
+    "Jesus Pardo Carrera"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Javirln/researcher-api/issues"
+  },
+  "homepage": "https://github.com/Javirln/researcher-api#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.24",
+    "morgan": "^1.8.1",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-things": "^0.2.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "mocha": "^3.2.0"
+  }
+}
