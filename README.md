@@ -49,3 +49,9 @@ Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 3. `npm install`
 4. `npm run test`
 5. `npm start`
+
+## Testing
+
+Para ejecutar los tests hay dos opciones:
+1. `npm run test`
+2. `grunt test`
