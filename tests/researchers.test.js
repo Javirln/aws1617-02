@@ -9,7 +9,8 @@ describe('Fist test', () => {
         const sum = 1 + 3;
         
         expect(sum).to.be.equal(4);
-        expect(sum).to.be.not.equal(4);
+        expect(sum).to.be.not.equal(3);
         done();
     });
+    
 });
