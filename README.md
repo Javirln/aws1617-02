@@ -45,6 +45,7 @@ y una vez pasadas, desplegará automáticamente la aplicación en [heroku](https
 
 Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 1. Clona el respositorio
-2. `npm install`
-3. `npm run test`
-4. `npm start`
+2. Exporta una variable de entorno que se llame `MONGODB_URL` que apunte a la dirección de la base de datos de Mongo
+3. `npm install`
+4. `npm run test`
+5. `npm start`
