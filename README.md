@@ -34,9 +34,9 @@ Para poder consumir la API directamente desde la interfaz de usuario, hay que cr
 con el nombre `SWAGGER_HOST` **sin el protocolo** apuntando a la URL desde donde vayamos a arrancar el servidor. 
 
 Ejemplo:
-
-    export SWAGGER_HOST=localhost:3000
-
+```
+export SWAGGER_HOST=localhost:3000
+```
 ## Integración continua
 
 Todos los commits que se suban a la rama principal `master` arrancarán pruebas automáticas en [travis-ci](https://travis-ci.org)
@@ -54,12 +54,12 @@ Si por el contrario si se quiere ejecutar en un contenedor de Docker, lo único 
 
 Primero, en el directorio raíz, creamos la imagen y pasamos el puerto por parámetros con el flag `--build-arg PORT_NUMBER=`:
 ```
-    docker build --build-arg PORT_NUMBER=3000 .
+docker build --build-arg PORT_NUMBER=3000 .
 ```
 Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
-
-    docker run --name researcher-api -p 3000:3000 ID_IMAGEN
-
+```
+docker run --name researcher-api -p 3000:3000 ID_IMAGEN
+```
 ## Testing
 
 Para ejecutar los tests hay dos opciones:
