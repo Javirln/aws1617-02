@@ -53,9 +53,9 @@ Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 Si por el contrario si se quiere ejecutar en un contenedor de Docker, lo único que hay que hacer es pasar por parámetros el puerto donde queramos que corra, ejemplo:
 
 Primero, en el directorio raíz, creamos la imagen y pasamos el puerto por parámetros con el flag `--build-arg PORT_NUMBER=`:
-
+```
     docker build --build-arg PORT_NUMBER=3000 .
-
+```
 Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
 
     docker run --name researcher-api -p 3000:3000 ID_IMAGEN
