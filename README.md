@@ -50,7 +50,7 @@ Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 4. `npm run test`
 5. `npm start`
 
-Si por el contrario si se quiere ejecutar en un contenedor de Docker, lo único que hay que hacer es pasar por parámetros el puerto donde queramos que corra, ejemplo:
+Si por el contrario si se quiere ejecutar en un contenedor de Docker, en local, el puerto expuesto es el 3000. Si por el contrario vamos a crear la imagen en un entorno remoto para desplegarlo más tarde, algunos servicios no dejan seleccionar el puerto que queramos. Para su solución lo único que hay que hacer es pasar por parámetros el puerto donde queramos que corra, que puede estar en una variable de entorno. 
 
 Primero, en el directorio raíz, creamos la imagen y pasamos el puerto por parámetros con el flag `--build-arg PORT_NUMBER=`:
 ```
