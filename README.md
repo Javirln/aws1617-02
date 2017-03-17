@@ -37,10 +37,31 @@ Ejemplo:
 ```
 export SWAGGER_HOST=localhost:3000
 ```
-## Integración continua
+## Integración continua y despliegue con Docker
 
 Todos los commits que se suban a la rama principal `master` arrancarán pruebas automáticas en [travis-ci](https://travis-ci.org)
 y una vez pasadas, desplegará automáticamente la aplicación en [heroku](https://researcher-api.herokuapp.com/)
+
+### Docker
+
+Para poder desplegar la API usando un contendor de Docker hay que tener en cuenta algunos aspectos. El proyecto depende de variables de entorno para que se pueda ejecutar en cualquier sitio y sea facilmente configurable. Las variables que tienen son las siguientes:
+1. `PORT_NUMBER`: donde podemos indicar en qué puerto queremos que escuche nuestros servidor. Si no se le pasan paramáetros, por defecto escuchará en el 3000.
+2. `SWAGGER_HOST`: aunque la documentación se podrá consultar, para poder consumir la API desde la misma, hace falta configurar un host. Por defecto es `localhost`.
+3. `MONGODB_URL`: la dirección donde estará escuchando la base de datos MongoDB.
+
+Lo anterior resulta últil si vamos a desplegar el servidor en entornos remotos, donde por ejemplo no tengamos control sobre el puerto donde estará corriendo nuestro servicio y solo lo tengamos accesible a través de una variable de entorno que nos faciliten. 
+
+Para el caso anterior lo único que tenemos que hacer es pasar por parámetros las variables de entorno que necesitemos usando el flag `--build-arg <varname>=<value>`. Ejemplo:
+
+Primero, en el directorio raíz, creamos la imagen y pasamos el puerto por parámetros:
+```
+docker build --build-arg PORT_NUMBER=3000 .
+```
+Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
+```
+docker run --name researcher-api -p 3000:3000 ID_IMAGEN
+```
+
 ## Desarrollo
 
 Para poder empezar a desarrollar hay que seguir los siguientes pasos:
@@ -50,16 +71,6 @@ Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 4. `npm run test`
 5. `npm start`
 
-Si por el contrario si se quiere ejecutar en un contenedor de Docker, en local, el puerto expuesto es el 3000. Si por el contrario vamos a crear la imagen en un entorno remoto para desplegarlo más tarde, algunos servicios no dejan seleccionar el puerto que queramos. Para su solución lo único que hay que hacer es pasar por parámetros el puerto donde queramos que corra, que puede estar en una variable de entorno. 
-
-Primero, en el directorio raíz, creamos la imagen y pasamos el puerto por parámetros con el flag `--build-arg PORT_NUMBER=`:
-```
-docker build --build-arg PORT_NUMBER=3000 .
-```
-Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
-```
-docker run --name researcher-api -p 3000:3000 ID_IMAGEN
-```
 ## Testing
 
 Para ejecutar los tests hay dos opciones:
