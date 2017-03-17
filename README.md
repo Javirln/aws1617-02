@@ -35,7 +35,7 @@ con el nombre `SWAGGER_HOST` **sin el protocolo** apuntando a la URL desde donde
 
 Ejemplo:
 
-    SWAGGER_HOST=localhost:3000
+    export SWAGGER_HOST=localhost:3000
 
 ## Integración continua
 
@@ -49,6 +49,16 @@ Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 3. `npm install`
 4. `npm run test`
 5. `npm start`
+
+Si por el contrario si se quiere ejecutar en un contenedor de Docker, lo único que hay que hacer es pasar por parámetros el puerto donde queramos que corra, ejemplo:
+
+Primero, en el directorio raíz, creamos la imagen y pasamos el puerto por parámetros con el flag `--build-arg PORT_NUMBER=`:
+
+    docker build --build-arg PORT_NUMBER=3000 .
+
+Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
+
+    docker run --name researcher-api -p 3000:3000 ID_IMAGEN
 
 ## Testing
 
