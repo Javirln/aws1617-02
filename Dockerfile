@@ -12,7 +12,7 @@ RUN npm install
 COPY . /usr/src/app
 
 # Set the port number as external variable
-ARG PORT_NUMBER
+ARG PORT_NUMBER=3000
 EXPOSE $PORT_NUMBER
 
 CMD [ "npm", "start" ]
