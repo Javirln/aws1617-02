@@ -1,8 +1,8 @@
 'use strict';
 
-const chai = require('chai');
+var chai = require('chai');
 chai.use(require('chai-things'));
-const expect = chai.expect;
+var expect = chai.expect;
 
 describe('Fist test', () => {
     it('should pass the addition of two numbers', (done) => {
