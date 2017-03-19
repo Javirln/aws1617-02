@@ -5,18 +5,7 @@ chai.use(require('chai-things'));
 var expect = chai.expect;
 var researchers = require('../routes/researchers-service.js');
 
-describe('First test', () => {
-    it('should pass the addition of two numbers', (done) => {
-        const sum = 1 + 3;
-
-        expect(sum).to.be.equal(4);
-        expect(sum).to.be.not.equal(3);
-        done();
-    });
-
-});
-
-describe('Testing Researchers API', function() {
+describe('Testing Researchers API functionalities', function() {
     beforeEach(function(done) {
         researchers.connectDb((err) => {
             if (err) {
