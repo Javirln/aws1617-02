@@ -60,6 +60,12 @@ paths:
           description: DNI of the researcher.
           required: true
           type: string
+        - name: researcher
+          in: body
+          description: Researcher to add to the database.
+          required: true
+          schema:
+            $ref: '#/definitions/Researcher'
         
       responses:
         200:
@@ -90,15 +96,28 @@ definitions:
       dni:
         type: string
         description: ID of the researcher.
+        pattern: '/(\d{8})([aA-zZ]{1})/'
       name:
         type: string
         description: Name of the researcher.
       phone:
-        type: number
+        type: integer
+        format: int32
         description: Phone number of the researcher.
+        minLength: 9
+        maxLength: 9
       email:
         type: string
         description: Email of the researcher.
+        pattern: '/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/'
       address:
         type: string
         description: Address of the reasercher.
+    required:
+      - dni
+      - name
+      - phone
+      - email
+      - address
+    uniqueItems:
+      - dni
