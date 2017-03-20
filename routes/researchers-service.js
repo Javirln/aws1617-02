@@ -1,4 +1,5 @@
 'use strict';
+const _ = require('lodash');
 
 var MongoClient = require('mongodb').MongoClient;
 var db;
@@ -39,6 +40,26 @@ Researchers.prototype.remove = function(dni, callback) {
 
 Researchers.prototype.update = function(dni, updatedContact, callback) {
     return db.update({dni:dni},updatedContact,{}, callback);
+};
+
+Researchers.prototype.isValid = function (researcher, dni){
+    let res = true;
+    if (dni === (undefined || null)) {
+        if (!_.isEqual(["dni", "name", "email", "phone", "address"].sort(), Object.keys(researcher).sort())) {
+            res = false;
+        } else if (researcher.email.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/) == (null || ''))  {
+            res = false;
+        } else if (researcher.dni.match(/(\d{8})([aA-zZ]{1})/)  == (null || '')) {
+            res = false; 
+        } else if (researcher.phone.toString().length != 9) {
+            res = false;
+        } else if ((researcher.name || researcher.email || researcher.phone || researcher.address) == ('' || null)) {
+            res = false;
+        }
+    } else {
+       res = dni.match(/(\d{8})([aA-zZ]{1})/)  == null || '' ? false : true;
+    }
+    return res;
 };
 
 module.exports = new Researchers();
