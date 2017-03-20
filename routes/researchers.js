@@ -36,8 +36,8 @@ router.post('/', function (req, res) {
         if (err){
             res.status(500).send({msg: 'Internal server error'});
         }
-        if (Object.keys(contact).length != 0){
-            res.status(200).send({msg: 'Ya existe un investigador con ese DNI'})
+        if (Object.keys(contact).length !== 0){
+            res.status(200).send({msg: 'Ya existe un investigador con ese DNI'});
         } else if (researchers.isValid(req.body, null) && Object.keys(contact).length === 0 ) {
             researchers.add(req.body, (err, newDoc) => {
                 if (err || newDoc === undefined) {
@@ -47,7 +47,7 @@ router.post('/', function (req, res) {
                 }
             });  
         } else {
-            res.status(200).send({msg: 'Los datos están mal introducidos'})
+            res.status(200).send({msg: 'Los datos están mal introducidos'});
         }
     });
 });
@@ -61,8 +61,8 @@ router.put('/:dni', function (req, res) {
             res.status(500).send({msg: 'Internal server error'});
         }
         if (Object.keys(contact).length === 0){
-            res.status(200).send({msg: 'No existe ningún investigador con ese DNI'})
-        } else if (researchers.isValid(null, dni) && Object.keys(contact).length != 0 ) {
+            res.status(200).send({msg: 'No existe ningún investigador con ese DNI'});
+        } else if (researchers.isValid(null, dni) && Object.keys(contact).length !== 0 ) {
             researchers.update(dni, updatedContact, (err, numUpdates) => {
                 if (err || numUpdates === 0) {
                     res.statusCode = 404;
@@ -73,7 +73,7 @@ router.put('/:dni', function (req, res) {
                 }
             });
         } else {
-            res.status(200).send({msg: 'El DNI no es válido'})
+            res.status(200).send({msg: 'El DNI no es válido'});
         }
     });
 });
@@ -86,8 +86,8 @@ router.delete('/:dni', function (req, res) {
             res.status(500).send({msg: 'Internal server error'});
         }
         if (Object.keys(contact).length === 0 ){
-            res.status(200).send({msg: 'No existe ningún investigador con ese DNI'})
-        } else if (researchers.isValid(null, req.params.dni) && Object.keys(contact).length != 0 ) {
+            res.status(200).send({msg: 'No existe ningún investigador con ese DNI'});
+        } else if (researchers.isValid(null, req.params.dni) && Object.keys(contact).length !== 0 ) {
             researchers.remove(req.params.dni, (err, numRemoved) => {
             if (err) {
                 res.status(404).send({msg: err});
@@ -97,7 +97,7 @@ router.delete('/:dni', function (req, res) {
             }
         });
         } else {
-            res.status(200).send({msg: 'El DNI no es válido'})
+            res.status(200).send({msg: 'El DNI no es válido'});
         }
     });
 });
