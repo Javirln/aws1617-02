@@ -38,7 +38,7 @@ router.get('/:dni', function(req, res) {
 
 router.post('/', function(req, res) {
 
-    /*researchers.get(req.body.dni, (err, contact) => {
+    researchers.get(req.body.dni, (err, contact) => {
         if (err){
             res.status(500).send({msg: 'Internal server error'});
         }
@@ -54,16 +54,6 @@ router.post('/', function(req, res) {
             });  
         } else {
             res.status(200).send({msg: 'Los datos están mal introducidos'});
-        }
-    });*/
-    researchers.add(req.body, (err, newDoc) => {
-        if (err || newDoc === undefined) {
-            res.status(404).send({
-                msg: err
-            });
-        }
-        else {
-            res.status(201).send(req.body);
         }
     });
 });
