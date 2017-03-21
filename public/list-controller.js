@@ -52,7 +52,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.researcherToUpdate = $scope.researchers[idx];
         $scope.newResearcher.dni = $scope.researcherToUpdate.dni;
         $scope.newResearcher.name = $scope.researcherToUpdate.name;
-        $scope.newResearcher.phone = $scope.researcherToUpdate.phone;
+        $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
