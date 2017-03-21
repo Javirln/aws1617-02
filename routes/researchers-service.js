@@ -44,8 +44,9 @@ Researchers.prototype.update = function(dni, updatedContact, callback) {
 
 Researchers.prototype.isValid = function (researcher, dni){
     let res = true;
+    const model = ["dni", "name", "email", "phone", "address", "gender"];
     if (dni === (undefined || null)) {
-        if (!_.isEqual(["dni", "name", "email", "phone", "address"].sort(), Object.keys(researcher).sort())) {
+        if (!_.isEqual(model.sort(), Object.keys(researcher).sort())) {
             res = false;
         } else if (researcher.email.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/) == (null || ''))  {
             res = false;
@@ -53,7 +54,9 @@ Researchers.prototype.isValid = function (researcher, dni){
             res = false; 
         } else if (researcher.phone.toString().length != 9) {
             res = false;
-        } else if ((researcher.name || researcher.email || researcher.phone || researcher.address) == ('' || null)) {
+        } else if ((researcher.name || researcher.email || researcher.phone || researcher.address || researcher.gender) == ('' || null)) {
+            res = false;
+        } else if (researcher.gender !== 'male' && researcher.gender !== 'female') {
             res = false;
         }
     } else {

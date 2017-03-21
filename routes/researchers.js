@@ -37,7 +37,7 @@ router.post('/', function (req, res) {
             res.status(500).send({msg: 'Internal server error'});
         }
         if (Object.keys(contact).length !== 0){
-            res.status(200).send({msg: 'Ya existe un investigador con ese DNI'});
+            res.status(404).send({msg: 'Ya existe un investigador con ese DNI'});
         } else if (researchers.isValid(req.body, null) && Object.keys(contact).length === 0 ) {
             researchers.add(req.body, (err, newDoc) => {
                 if (err || newDoc === undefined) {

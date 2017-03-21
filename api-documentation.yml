@@ -113,6 +113,14 @@ definitions:
       address:
         type: string
         description: Address of the reasercher.
+      gender:
+        type: string
+        description: Gender of the researcher.
+        maxLength: 1
+        enum:
+          - male
+          - female
+
     required:
       - dni
       - name
