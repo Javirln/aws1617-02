@@ -18,7 +18,9 @@ La API está desarrollada con [express](https://expressjs.com) y los siguientes 
 - [travis-ci](https://travis-ci.org): para la integración continua
 - [heroku](https://heroku.com): para el despliegue de la aplicación
 - Durante el desarrollo también se usan: [chai](http://chaijs.com/), 
-  [chai-things](https://github.com/chaijs/chai-things), [grunt](https://gruntjs.com/), 
+  [chai-things](https://github.com/chaijs/chai-things),
+  [chai-http](https://github.com/chaijs/chai-http),
+  [grunt](https://gruntjs.com/),
   [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint), 
   [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch),
   [grunt-mocha-test](https://github.com/pghalliday/grunt-mocha-test),
