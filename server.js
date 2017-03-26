@@ -58,3 +58,5 @@ researchersService.connectDb((err) => {
         console.log("Server with GUI up and running!");
     });
 });
+
+module.exports = app;

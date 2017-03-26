@@ -2,8 +2,10 @@
 
 var chai = require('chai');
 chai.use(require('chai-things'));
+chai.use(require('chai-http'));
 var expect = chai.expect;
-var researchers = require('../routes/researchers-service.js');
+var researchers = require('../routes/researchers-service');
+var app = require('../server');
 
 describe('Testing Researchers API functionalities', function() {
     beforeEach(function(done) {
@@ -163,7 +165,67 @@ describe('Testing Researchers API functionalities', function() {
             });
         });
     });
+});
 
+describe('Testing API Code status responses', function() {
+    beforeEach(function(done) {
+        researchers.connectDb((err) => {
+            if (err) {
+                return done(err);
+            }
 
+            researchers.removeAll(function(err) {
+                if (err) {
+                    return done(err);
+                }
+
+                researchers.add([{
+                    dni: "11224477Q",
+                    name: "Pepe",
+                    phone: "654657748",
+                    email: "pepe@us.com",
+                    address: "Sevilla",
+                    gender: "male"
+                }, {
+                    dni: "22558877V",
+                    name: "Anne",
+                    phone: "722548896",
+                    email: "anne@london.com",
+                    address: "London",
+                    gender: "female"
+                }], done);
+            });
+        });
+    });
+    
+    describe('HTTP - GET all', function() {
+        it('should return 200 OK', function(done) {
+            chai.request(app)
+                .get('/api/v1/researchers')
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res.body).to.have.lengthOf(2);
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+    });
+    
+    describe('HTTP - GET one', function() {
+        it('should return 200 OK', function(done) {
+            chai.request(app)
+                .get('/api/v1/researchers/11224477Q')
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res.body).to.have.lengthOf(1);
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+    });
 
 });
