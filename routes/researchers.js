@@ -60,8 +60,8 @@ router.post('/', function(req, res) {
                 else {
                     io.sockets.on('connection', (socket) => {
                         socket.emit('newResearcher', 'nr');
+                        res.status(201).send(req.body);
                     });
-                    res.status(201).send(req.body);
                 }
             });
         }
