@@ -57,7 +57,7 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    app.listen(port, function() {
+    researchers.socket.server.listen(port, function() {
         console.log("Server with GUI up and running!");
     });
 });

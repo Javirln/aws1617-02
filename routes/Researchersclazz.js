@@ -167,4 +167,5 @@ router.delete('/', function(req, res) {
 });
 
 Researchersclazz.prototype.router = router;
+Researchersclazz.prototype.socket = io;
 module.exports = Researchersclazz;
