@@ -49,7 +49,8 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 app.use(baseApi + '/researchers', researchers);
 
-const SocketServer = require("./SocketServer")(app);
+const SocketServer = require("./SocketServer");
+var any = new SocketServer(app);
 
 researchersService.connectDb((err) => {
     if (err) {
@@ -57,7 +58,7 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    SocketServer.server.listen(port, function() {
+    any.server.listen(port, function() {
         console.log("Server with GUI up and running!");
     });
 });

@@ -9,4 +9,7 @@ io.sockets.on('connection', (socket) => {
     console.log("User connected");
 });
 
+SocketServer.prototype.server = server;
+SocketServer.prototype.io = io;
+
 module.exports = SocketServer;
