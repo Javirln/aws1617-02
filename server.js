@@ -67,5 +67,4 @@ researchersService.connectDb((err) => {
     });
 });
 
-module.exports = app;
-module.exports.io = io;
+module.exports = io;

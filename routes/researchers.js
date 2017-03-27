@@ -4,8 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const researchers = require('./researchers-service');
-const server = require('../server');
-var io = server.io;
+const io = require('../server');
 
 router.get('/', function(req, res) {
 
