@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const researchers = require('./researchers-service');
-const socketVar = undefined;
+var socketVar = undefined;
 const ResearcherRouter = function (io) {
     socketVar = io;
     return router;
