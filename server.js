@@ -49,6 +49,8 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 var researchers = new Researchersclazz(app);
 app.use(baseApi + '/researchers', researchers.router);
+const SocketServer = require("../SocketServer");
+var io = new SocketServer(app);
 
 
 researchersService.connectDb((err) => {
@@ -57,7 +59,7 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    researchers.socket.server.listen(port, function() {
+    io.server.listen(port, function() {
         console.log("Server with GUI up and running!");
     });
 });
