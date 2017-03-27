@@ -54,6 +54,7 @@ var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', (socket) => {
     console.log("User connected");
+    socket.broadcast.emit('testing', 'hello!');
 });
 
 researchersService.connectDb((err) => {
