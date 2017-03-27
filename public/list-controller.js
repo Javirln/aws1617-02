@@ -17,7 +17,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-                refresh();
+                socket.broadcast.emit('newResearchers', {"nr": "ok"});
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
@@ -31,7 +31,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-            socket.broadcast.emit('newResearchers', {"ok": "ok"});
+            socket.broadcast.emit('newResearchers', {"nr": "ok"});
         });
 
     };
@@ -83,7 +83,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     }
 
     socket.on('newResearchers', function(data) {
-        if (data.ok === "ok") {
+        if (data.nr === "ok") {
             refresh();
         }
     });
