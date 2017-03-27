@@ -1,5 +1,17 @@
 angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
 
+    var socket = io();
+
+    socket.on('connect', function() {
+        console.log("Connected to socket: " + socket.id);
+    });
+    
+    function updateResearchList(){
+        $http.get("/api/v1/researchers").then(function(response) {
+            $scope.researchers = response.data;
+        });
+    }
+
     function refresh() {
         console.log("Refreshing");
         $scope.actionTitle = "Add researcher";
@@ -17,12 +29,14 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
+                socket.emit('nr', 'ok');
                 refresh();
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher).then(function() {
+                socket.emit('nr', 'ok');
                 refresh();
             });
         }
@@ -31,6 +45,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
+            socket.emit('nr', 'ok');
             refresh();
         });
 
@@ -39,6 +54,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.deleteResearcher = function(idx) {
         console.log("Deleting researcher " + $scope.researchers[idx].name);
         $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
+            socket.emit('nr', 'ok');
             refresh();
         });
 
@@ -75,13 +91,16 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 refresh();
             });
         }
-        
+
     };
 
     $scope.refresh = function() {
         refresh();
-    }
+    };
+
+    socket.on('newResearcher', function(data) {
+        updateResearchList();
+    });
 
     refresh();
-
 });

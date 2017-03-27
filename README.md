@@ -15,6 +15,7 @@ La API está desarrollada con [express](https://expressjs.com) y los siguientes 
 - [nodemon](https://github.com/remy/nodemon): para durante el desarrollo poder reiniciar el servidor automáticamente cuando se produzca un cambio en los ficheros.
 - [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc): para documentar los endpoints de la API.
 - [swagger-iu-express](https://github.com/scottie1984/swagger-ui-express): para poder consultar la documentación de la API.
+- [socket.io](https://github.com/socketio/socket.io): para refrescar automáticamente los campos de la página mediante el uso de sockets.
 - [travis-ci](https://travis-ci.org): para la integración continua.
 - [heroku](https://heroku.com): para el despliegue de la aplicación.
 - Durante el desarrollo también se usan: [chai](http://chaijs.com/), 

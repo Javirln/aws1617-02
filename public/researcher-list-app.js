@@ -1,1 +1,1 @@
-angular.module("ResearcherListApp",[]);
+angular.module("ResearcherListApp", []);
