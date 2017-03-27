@@ -56,6 +56,7 @@ io.sockets.on('connection', (socket) => {
     console.log("User connected");
 });
 
+module.exports = io;
 researchersService.connectDb((err) => {
     if (err) {
         console.log("Could not connect with MongoDB");
@@ -67,4 +68,3 @@ researchersService.connectDb((err) => {
     });
 });
 
-module.exports = io;
