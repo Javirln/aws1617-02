@@ -1,5 +1,5 @@
 angular.module("ResearcherListApp", []).factory('socket', function($rootScope) {
-    var socket = io.connect('https://researcher-api-test.herokuapp.com:3000');
+    var socket = io.connect('https://researcher-api-test.herokuapp.com');
     return {
         on: function(eventName, callback) {
             socket.on(eventName, function() {
