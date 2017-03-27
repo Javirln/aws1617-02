@@ -56,7 +56,7 @@ app.use(baseApi + '/researchers', researchers);
 io.sockets.on('connection', (socket) => {
     console.log("User connected");
 
-    socket.on('nr', function(msg) {
+    socket.on('nr', function() {
         io.emit('newResearcher', 'nr');
     });
 });

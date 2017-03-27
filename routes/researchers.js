@@ -1,6 +1,5 @@
 'use strict';
 
-/*global io*/
 const express = require('express');
 const router = express.Router();
 
