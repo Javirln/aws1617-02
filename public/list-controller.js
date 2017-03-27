@@ -82,9 +82,10 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     $scope.refresh = function() {
         refresh();
-    }
+    };
 
     socket.on('newResearchers', function(data) {
+        console.log(data);
         if (data.nr === "ok") {
             refresh();
         }
