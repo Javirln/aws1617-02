@@ -8,7 +8,7 @@ const router = express.Router();
 const researchers = require('./researchers-service');
 
 
-const SocketServer = require("./SocketServer");
+const SocketServer = require("../SocketServer");
 var io = new SocketServer(app);
 
 router.get('/', function(req, res) {
