@@ -31,7 +31,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-            socket.broadcast.emit('newResearchers', {"ok": true});
+            socket.broadcast.emit('newResearchers', {"ok": "ok"});
         });
 
     };
@@ -83,9 +83,10 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     }
 
     socket.on('newResearchers', function(data) {
-        if (data.ok === true) {
+        if (data.ok === "ok") {
             refresh();
         }
     });
 
+    refresh();
 });

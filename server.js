@@ -53,9 +53,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', (socket) => {
-    socket.emit('newResearchers', {
-        "ok": true
-    });
+    console.log("User connected");
 });
 
 researchersService.connectDb((err) => {
