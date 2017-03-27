@@ -19,7 +19,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-                socket.broadcast.emit('newResearchers', {"nr": "ok"});
+                socket.emit('newResearchers', {"nr": "ok"});
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
