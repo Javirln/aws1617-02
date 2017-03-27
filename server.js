@@ -49,7 +49,7 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 var researchers = new Researchersclazz(app);
 app.use(baseApi + '/researchers', researchers.router);
-const SocketServer = require("../SocketServer");
+const SocketServer = require("./SocketServer");
 var io = new SocketServer(app);
 
 
