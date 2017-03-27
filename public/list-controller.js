@@ -1,6 +1,6 @@
 angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
 
-    var socket = io.connect("https://researcher-api-test.herokuapp.com");
+    var socket = io();
 
     function refresh() {
         console.log("Refreshing");
@@ -19,7 +19,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-                socket.emit('newResearchers', {"nr": "ok"});
+                socket.emit('newResearchers', {"nr": "nr"});
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
@@ -33,7 +33,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-            socket.broadcast.emit('newResearchers', {"nr": "ok"});
+            socket.broadcast.emit('newResearchers', {"nr": "nr"});
         });
 
     };
@@ -86,7 +86,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     socket.on('newResearchers', function(data) {
         console.log(data);
-        if (data.nr === "ok") {
+        if (data.nr === "nr") {
             refresh();
         }
     });
