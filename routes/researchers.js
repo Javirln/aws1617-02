@@ -65,7 +65,7 @@ router.post('/', function(req, res) {
                 else {
                     if (io != undefined) {
                         console.log("Entra io");
-                        io.emit('newResearcher', 'nr');
+                        io.broadcast.emit('newResearcher', 'nr');
                         res.status(201).send(req.body);
 
                     }
