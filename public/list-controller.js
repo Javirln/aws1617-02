@@ -36,6 +36,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         else if ($scope.actionTitle == "Update researcher") {
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher).then(function() {
+                socket.emit('nr', 'ok');
                 refresh();
             });
         }
@@ -44,6 +45,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
+            socket.emit('nr', 'ok');
             refresh();
         });
 
@@ -52,6 +54,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.deleteResearcher = function(idx) {
         console.log("Deleting researcher " + $scope.researchers[idx].name);
         $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
+            socket.emit('nr', 'ok');
             refresh();
         });
 
