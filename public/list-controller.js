@@ -1,4 +1,4 @@
-angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
+angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http, socket) {
 
     function refresh() {
         console.log("Refreshing");
@@ -31,7 +31,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-            refresh();
+            socket.emit('newResearchers', {"ok": true});
         });
 
     };
@@ -75,13 +75,17 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 refresh();
             });
         }
-        
+
     };
 
     $scope.refresh = function() {
         refresh();
     }
 
-    refresh();
+    socket.on('newResearchers', function(data) {
+        if (data.ok === true) {
+            refresh();
+        }
+    });
 
 });

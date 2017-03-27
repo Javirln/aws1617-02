@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+var http = require('http');
 const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
@@ -48,13 +49,22 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 app.use(baseApi + '/researchers', researchers);
 
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', (socket) => {
+    socket.emit('newResearchers', {
+        "ok": true
+    });
+});
+
 researchersService.connectDb((err) => {
     if (err) {
         console.log("Could not connect with MongoDB");
         process.exit(1);
     }
 
-    app.listen(port, () => {
+    server.listen(port, function() {
         console.log("Server with GUI up and running!");
     });
 });
