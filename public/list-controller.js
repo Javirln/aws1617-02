@@ -1,6 +1,6 @@
 angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
 
-    var socket = io.connect("https://researcher-api-test.herokuapp.com");
+    $scope.socket = io.connect("https://researcher-api-test.herokuapp.com");
 
     function refresh() {
         console.log("Refreshing");
@@ -88,19 +88,19 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         refresh();
     };
 
-    socket.on('newResearchers', function(data) {
+    $scope.socket.on('newResearchers', function(data) {
         console.log(data);
 
         refresh();
 
     });
     
-    socket.on('testing', function(data) {
+    $scope.socket.on('testing', function(data) {
         alert(data);
-        socket.emit('testing2', 'hello2!');
+        $scope.socket.emit('testing2', 'hello2!');
     });
     
-    socket.on('testing2', function(data) {
+    $scope.socket.on('testing2', function(data) {
         alert(data);
     });
 
