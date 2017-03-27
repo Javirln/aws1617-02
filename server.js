@@ -3,7 +3,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-var http = require('http');
+const http = require('http');
+const socketIO = require('socket.io')
 const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
@@ -49,8 +50,7 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 app.use(baseApi + '/researchers', researchers);
 
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+const io = socketIO(app);
 
 io.sockets.on('connection', (socket) => {
     socket.emit('newResearchers', {
@@ -64,7 +64,7 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    server.listen(port, function() {
+    app.listen(port, () => {
         console.log("Server with GUI up and running!");
     });
 });
