@@ -49,11 +49,15 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-const researchers = require('./routes/researchers');//(io);
+const researchers = require('./routes/researchers'); //(io);
 app.use(baseApi + '/researchers', researchers);
 
 io.sockets.on('connection', (socket) => {
     console.log("User connected");
+
+    socket.on('nr', function(msg) {
+        io.emit('newResearcher', 'nr');
+    });
 });
 
 researchersService.connectDb((err) => {

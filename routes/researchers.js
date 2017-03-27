@@ -2,12 +2,12 @@
 
 /*global io*/
 const express = require('express');
-const http = require('http');
-var app = express();
+//const http = require('http');
+//var app = express();
 const router = express.Router();
 
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+//var server = http.createServer(app);
+//var io = require('socket.io').listen(server);
 
 const researchers = require('./researchers-service');
 
@@ -63,16 +63,16 @@ router.post('/', function(req, res) {
                     });
                 }
                 else {
-                    if (io != undefined) {
-                        console.log("Entra io");
-                        io.emit('newResearcher', 'nr');
+                   // if (io != undefined) {
+                     //   console.log("Entra io");
+                       // io.emit('newResearcher', 'nr');
                         res.status(201).send(req.body);
 
-                    }
-                    else {
-                        console.log("No entra io");
-                        res.status(201).send(req.body);
-                    }
+                    //}
+                    //else {
+                    //    console.log("No entra io");
+                    //    res.status(201).send(req.body);
+                    //}
                 }
             });
         }

@@ -1,6 +1,6 @@
 angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
 
-    var socket = io.connect("https://researcher-api-test.herokuapp.com");
+    var socket = io();
 
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id); 
@@ -23,6 +23,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
+                socket.emit('nr', 'ok');
                 refresh();
             });
         }
