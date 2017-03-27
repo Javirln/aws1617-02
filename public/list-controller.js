@@ -5,6 +5,12 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id);
     });
+    
+    function updateResearchList(){
+        $http.get("/api/v1/researchers").then(function(response) {
+            $scope.researchers = response.data;
+        });
+    }
 
     function refresh() {
         console.log("Refreshing");
@@ -90,7 +96,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     };
 
     socket.on('newResearcher', function(data) {
-        refresh();
+        updateResearchList();
     });
 
     refresh();
