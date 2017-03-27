@@ -63,14 +63,13 @@ router.post('/', function(req, res) {
                     });
                 }
                 else {
-                    if(io != undefined){
+                    if (io != undefined) {
                         console.log("Entra io");
-                        io.sockets.on('connection', (socket) => {
-                            console.log("Entra io en socket");
-                            socket.emit('newResearcher', 'nr');
-                            res.status(201).send(req.body);
-                        });
-                    }else{
+                        io.emit('newResearcher', 'nr');
+                        res.status(201).send(req.body);
+
+                    }
+                    else {
                         console.log("No entra io");
                         res.status(201).send(req.body);
                     }
