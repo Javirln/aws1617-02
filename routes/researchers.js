@@ -66,6 +66,7 @@ router.post('/', function(req, res) {
                     if(io != undefined){
                         console.log("Entra io");
                         io.sockets.on('connection', (socket) => {
+                            console.log("Entra io en socket");
                             socket.emit('newResearcher', 'nr');
                             res.status(201).send(req.body);
                         });
