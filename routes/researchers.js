@@ -7,7 +7,6 @@ const researchers = require('./researchers-service');
 var socketVar = undefined;
 const ResearcherRouter = function (io) {
     socketVar = io;
-    return router;
 };
 
 router.get('/', function(req, res) {
@@ -165,4 +164,4 @@ router.delete('/', function(req, res) {
 
 });
 
-module.exports = new ResearcherRouter(socketVar);
+module.exports = {router: router};
