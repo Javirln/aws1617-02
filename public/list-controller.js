@@ -1,4 +1,6 @@
-angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http, socket) {
+angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
+
+    var socket = io.connect("https://researcher-api-test.herokuapp.com");
 
     function refresh() {
         console.log("Refreshing");
