@@ -8,7 +8,7 @@ const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
-const ResearchersClass = require('./routes/ResearchersClass');
+const Researchersclazz = require('./routes/Researchersclazz');
 const baseApi = '/api/v1';
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -47,7 +47,7 @@ app.use('/tests', express.static(path.join(__dirname + '/public/tests.html')));
 
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
-var researchers = new ResearchersClass(app);
+var researchers = new Researchersclazz(app);
 app.use(baseApi + '/researchers', researchers.router);
 
 
