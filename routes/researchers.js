@@ -2,9 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
-const io = require('socket.io');
 
 const researchers = require('./researchers-service');
+const socketVar = undefined;
+const ResearcherRouter = function (io) {
+    socketVar = io;
+    return router;
+};
 
 router.get('/', function(req, res) {
 
@@ -58,7 +62,7 @@ router.post('/', function(req, res) {
                     });
                 }
                 else {
-                    io.sockets.on('connection', (socket) => {
+                    socketVar.sockets.on('connection', (socket) => {
                         socket.emit('newResearcher', 'nr');
                         res.status(201).send(req.body);
                     });
@@ -161,4 +165,4 @@ router.delete('/', function(req, res) {
 
 });
 
-module.exports = router;
+module.exports = new ResearcherRouter(socketVar);
