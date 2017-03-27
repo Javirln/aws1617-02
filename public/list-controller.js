@@ -31,7 +31,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
-            socket.broadcast.emit('newResearchers', {"ok": true});
+            socket.emit('newResearchers', {"ok": true});
         });
 
     };
