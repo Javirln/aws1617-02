@@ -3,7 +3,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     var socket = io();
 
     socket.on('connect', function() {
-        console.log("Connected to socket: " + socket.id); 
+        console.log("Connected to socket: " + socket.id);
     });
 
     function refresh() {
@@ -90,10 +90,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     };
 
     socket.on('newResearcher', function(data) {
-        console.log(data);
-
         refresh();
-
     });
 
     refresh();
