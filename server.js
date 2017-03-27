@@ -8,7 +8,7 @@ const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
-const researchers = require('./routes/researchers');
+const ResearchersClass = require('./routes/ResearchersClass');
 const baseApi = '/api/v1';
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -47,10 +47,9 @@ app.use('/tests', express.static(path.join(__dirname + '/public/tests.html')));
 
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
-app.use(baseApi + '/researchers', researchers);
+var researchers = new ResearchersClass(app);
+app.use(baseApi + '/researchers', researchers.router);
 
-const SocketServer = require("./SocketServer");
-var any = new SocketServer(app);
 
 researchersService.connectDb((err) => {
     if (err) {
@@ -58,7 +57,7 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    any.server.listen(port, function() {
+    app.listen(port, function() {
         console.log("Server with GUI up and running!");
     });
 });
