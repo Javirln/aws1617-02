@@ -1,3 +1,5 @@
+'use strict';
+
 var app = undefined;
 var SocketServer = function(app){this.app = app};
 const http = require('http');
