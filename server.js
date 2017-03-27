@@ -53,7 +53,7 @@ io.sockets.on('connection', (socket) => {
     console.log("User connected");
 });
 const ResearcherRouter = require('./routes/researchers')(io);
-app.use(baseApi + '/researchers', ResearcherRouter.router);
+app.use(baseApi + '/researchers', ResearcherRouter.routerVar);
 
 
 researchersService.connectDb((err) => {

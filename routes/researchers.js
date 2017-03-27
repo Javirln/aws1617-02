@@ -164,4 +164,4 @@ router.delete('/', function(req, res) {
 
 });
 
-module.exports = {router: router};
+module.exports = function(){routerVar: router};
