@@ -97,7 +97,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     
     socket.on('testing', function(data) {
         alert(data);
-        socket.broadcast.emit('testing2', 'hello2!');
+        socket.emit('testing2', 'hello2!');
     });
     
     socket.on('testing2', function(data) {
