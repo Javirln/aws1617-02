@@ -1,15 +1,10 @@
 'use strict';
 
-var app = undefined;
-var Researchersclazz = function(app){this.app = app};
+/*global io*/
 const express = require('express');
 const router = express.Router();
 
 const researchers = require('./researchers-service');
-
-
-const SocketServer = require("../SocketServer");
-var io = new SocketServer(app);
 
 router.get('/', function(req, res) {
 
@@ -63,7 +58,7 @@ router.post('/', function(req, res) {
                     });
                 }
                 else {
-                    io.io.sockets.on('connection', (socket) => {
+                    io.sockets.on('connection', (socket) => {
                         socket.emit('newResearcher', 'nr');
                         res.status(201).send(req.body);
                     });
@@ -166,6 +161,4 @@ router.delete('/', function(req, res) {
 
 });
 
-Researchersclazz.prototype.router = router;
-Researchersclazz.prototype.socket = io;
-module.exports = Researchersclazz;
+module.exports = router;
