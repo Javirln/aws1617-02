@@ -88,21 +88,12 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         refresh();
     };
 
-    $scope.socket.on('newResearchers', function(data) {
+    $scope.socket.on('newResearcher', function(data) {
         console.log(data);
 
         refresh();
 
     });
     
-    $scope.socket.on('testing', function(data) {
-        alert(data);
-        $scope.socket.emit('testing2', 'hello2!');
-    });
-    
-    $scope.socket.on('testing2', function(data) {
-        alert(data);
-    });
-
     refresh();
 });
