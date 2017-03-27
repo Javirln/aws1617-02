@@ -8,6 +8,7 @@ const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
+const researchers = require('./routes/researchers');
 const baseApi = '/api/v1';
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -46,15 +47,16 @@ app.use('/tests', express.static(path.join(__dirname + '/public/tests.html')));
 
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
+app.use(baseApi + '/researchers', researchers);
+
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', (socket) => {
     console.log("User connected");
 });
-const ResearcherRouter = require('./routes/researchers')(io);
-app.use(baseApi + '/researchers', ResearcherRouter.routerVar);
 
+exports.io = io;
 
 researchersService.connectDb((err) => {
     if (err) {

@@ -4,10 +4,8 @@ const express = require('express');
 const router = express.Router();
 
 const researchers = require('./researchers-service');
-var socketVar = undefined;
-const ResearcherRouter = function (io) {
-    socketVar = io;
-};
+const server = require('../server');
+var io = server.io;
 
 router.get('/', function(req, res) {
 
@@ -61,7 +59,7 @@ router.post('/', function(req, res) {
                     });
                 }
                 else {
-                    socketVar.sockets.on('connection', (socket) => {
+                    io.sockets.on('connection', (socket) => {
                         socket.emit('newResearcher', 'nr');
                         res.status(201).send(req.body);
                     });
