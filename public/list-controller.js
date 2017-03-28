@@ -61,15 +61,16 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     };
 
     $scope.deleteResearcher = function(idx) {
-        console.log("Deleting researcher " + $scope.researchers[idx].name);
-        $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
-            socket.emit('nr', 'ok');
-            refresh();
-        }, function(response) {
-            refresh();
-            $scope.updateCreateError = response.data.msg;
-        });
-
+        if (confirm("Are you sure!?")) {
+            console.log("Deleting researcher " + $scope.researchers[idx].name);
+            $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
+                socket.emit('nr', 'ok');
+                refresh();
+            }, function(response) {
+                refresh();
+                $scope.updateCreateError = response.data.msg;
+            });
+        }
     };
 
     $scope.preUpdateResearcher = function(idx) {
