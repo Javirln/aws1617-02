@@ -29,6 +29,11 @@ router.get('/:dni', function(req, res) {
                 msg: err
             });
         }
+        else if (researcher.length === 0) {
+            res.status(404).send({
+                msg: 'No existe investigador con ese DNI'
+            });
+        }
         else {
             res.status(200).send(researcher);
         }

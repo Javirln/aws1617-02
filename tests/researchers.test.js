@@ -227,5 +227,19 @@ describe('Testing API Code status responses', function() {
                 });
         });
     });
+    
+    describe('HTTP - GET non-existing one', function() {
+        it('should return 404', function(done) {
+            chai.request(app)
+                .get('/api/v1/researchers/55578945B')
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res).to.have.status(404);
+                    done();
+                });
+        });
+    });
 
 });
