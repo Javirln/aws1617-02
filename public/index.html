@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="./css/styles.css" rel="stylesheet">
-    
+
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
@@ -48,14 +48,15 @@
                     <div class="panel-body p-t-0">
                         <h2>Filter</h2>
                         <hr>
-                        <div class="input-group">
+                        <div data-ng-form class="input-group" name="searchForm">
                             <span class="input-group-addon">DNI</span>
-                            <input type="text" id="dniFilter" ng-change="dniFilter = (dniFilter | uppercase)" ng-model="dniFilter" class="form-control" placeholder="Search">
+                            <input type="text" id="dniFilter" ng-change="dniFilter = (dniFilter | uppercase)" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="dniFilter" class="form-control" placeholder="Search" required>
                             <span class="input-group-btn">
-                            <button type="button" class="btn btn-success" ng-click="searchResearcher()">Search</button>
+                            <button type="button" class="btn btn-success" ng-click="searchResearcher()" ng-disabled="searchForm.$invalid">Search</button>
                             <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
                             </span>
                         </div>
+                        <div class="text-danger text-center">{{searchError}}</div>
                     </div>
                 </div>
                 <div ng-repeat="researcher in researchers">
@@ -130,24 +131,32 @@
                                 </div>
                                 <p ng-show="addResearcherForm.address.$invalid && !addResearcherForm.address.$pristine" class="help-block">Address is required.</p>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine }">
-                                <h4 for="gender">Gender</h4>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="male" ng-model="newResearcher.gender" required>
-                                        Male
-                                    </label>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine }">
+                                            <div class="col-lg-3">
+                                                <h4 for="gender">Gender</h4>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="radio">
+                                                    <label><input type="radio" name="gender" value="male" ng-model="newResearcher.gender" required>Male</label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label><input type="radio" name="gender" value="female" ng-model="newResearcher.gender" required>Female</label>
+                                                </div>
+                                                <p ng-show="addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine" class="help-block">Gender is required.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="female" ng-model="newResearcher.gender" required>
-                                        Female
-                                    </label>
+                                <div class="col-lg-4">
+                                    <br/>
+                                    <button type="submit" ng-disabled="addResearcherForm.$invalid" ng-class="buttonClass">{{action}}</button>
                                 </div>
-                                <p ng-show="addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine" class="help-block">Gender is required.</p>
                             </div>
-                            <button type="submit" ng-disabled="addResearcherForm.$invalid" ng-class="buttonClass">{{action}}</button>
                         </form>
+                        <div class="text-danger text-center">{{updateCreateError}}</div>
                     </div>
                 </div>
                 <div class="panel panel-default">

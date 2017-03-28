@@ -5,8 +5,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id);
     });
-    
-    function updateResearchList(){
+
+    function updateResearchList() {
         $http.get("/api/v1/researchers").then(function(response) {
             $scope.researchers = response.data;
         });
@@ -17,8 +17,11 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
+        $scope.searchError = null;
+        $scope.updateCreateError = null;
         $http.get("/api/v1/researchers").then(function(response) {
             $scope.researchers = response.data;
+            $scope.disabledSearch = true;
             $scope.addResearcherForm.$setPristine();
             $scope.newResearcher = {};
             $scope.dniFilter = null;
@@ -31,6 +34,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
                 socket.emit('nr', 'ok');
                 refresh();
+            }, function(response) {
+                refresh();
+                $scope.updateCreateError = response.data.msg;
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
@@ -38,6 +44,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher).then(function() {
                 socket.emit('nr', 'ok');
                 refresh();
+            }, function(response) {
+                refresh();
+                $scope.updateCreateError = response.data.msg;
             });
         }
     };
@@ -56,6 +65,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
             socket.emit('nr', 'ok');
             refresh();
+        }, function(response) {
+            refresh();
+            $scope.updateCreateError = response.data.msg;
         });
 
     };
@@ -81,6 +93,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $scope.researchers = response.data;
             $scope.addResearcherForm.$setPristine();
             $scope.newResearcher = {};
+        }, function(response) {
+            $scope.searchError = response.data.msg;
         });
     };
 
