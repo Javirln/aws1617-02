@@ -38,7 +38,7 @@
                         <hr>
                         <div class="input-group">
                             <span class="input-group-addon">DNI</span>
-                            <input type="text" id="dniFilter" ng-model="dniFilter" class="form-control" placeholder="Search">
+                            <input type="text" id="dniFilter" ng-change="dniFilter = (dniFilter | uppercase)" ng-model="dniFilter" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-success" ng-click="searchResearcher()">Search</button>
                             <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
@@ -85,7 +85,7 @@
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.dni.$invalid && !addResearcherForm.dni.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">DNI</span>
-                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="newResearcher.dni" required>
+                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-change="newResearcher.dni = (newResearcher.dni | uppercase)" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="newResearcher.dni" required>
                                 </div>
                                 <p ng-show="addResearcherForm.dni.$invalid && !addResearcherForm.dni.$pristine" class="help-block">DNI is required.</p>
                             </div>
