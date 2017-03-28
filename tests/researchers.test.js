@@ -199,7 +199,7 @@ describe('Testing API Code status responses', function() {
     });
 
     describe('HTTP - GET all', function() {
-        it('should return 200 OK', function(done) {
+        it('should return 200', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers')
                 .end(function(err, res) {
@@ -214,7 +214,7 @@ describe('Testing API Code status responses', function() {
     });
 
     describe('HTTP - GET one', function() {
-        it('should return 200 OK', function(done) {
+        it('should return 200', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers/11224477Q')
                 .end(function(err, res) {
@@ -265,7 +265,7 @@ describe('Testing API Code status responses', function() {
     });
     
     describe('HTTP - POST over existing researcher', function() {
-        it('should return 404', function(done) {
+        it('should return 409', function(done) {
             chai.request(app)
                 .post('/api/v1/researchers/')
                 .send({
@@ -287,7 +287,7 @@ describe('Testing API Code status responses', function() {
     });
     
     describe('HTTP - PUT existing researcher', function() {
-        it('should return 201', function(done) {
+        it('should return 200', function(done) {
             chai.request(app)
                 .put('/api/v1/researchers/22558877V')
                 .send({
