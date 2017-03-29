@@ -62,43 +62,43 @@
                         <hr>
                         <h4>Here is the sequence!</h4>
                         <ol>
-                            <li><b>Get all researchers - <span class="text-success">OK</span></b></li>
+                            <li><b>Get all researchers - <span class="text-success">OK 200</span></b></li>
                             <ol>
                                 This test tries to get all registered researchers in the system, having a successful result.
                             </ol>
-                            <li><b>Get a specific researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Get a specific researcher - <span class="text-success">OK 200</span></b></li>
                             <ol>
                                 This test tries to get one registered researcher in the system only, having a successful result.
                             </ol>
-                            <li><b>Get a specific researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Get a specific researcher - <span class="text-danger">FAIL 404</span></b></li>
                             <ol>
                                 This test tries to get an existing researcher in the system, having a failed result because there is not any researcher with specified ID Card.
                             </ol>
-                            <li><b>Create a new researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Create a new researcher - <span class="text-success">OK 201</span></b></li>
                             <ol>
                                 This test tries to create a new researcher in the system, having a successful result.
                             </ol>
-                            <li><b>Create an existing researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Create an existing researcher - <span class="text-danger">FAIL 409</span></b></li>
                             <ol>
                                 This test tries to create a new researcher in the system, having a failed result because there is an existing researcher with the same ID Card.
                             </ol>
-                            <li><b>Create a wrong researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Create a wrong researcher - <span class="text-danger">FAIL 400</span></b></li>
                             <ol>
                                 This test tries to create a new researcher in the system, having a failed result because the researcher on the request body is wrong.
                             </ol>
-                            <li><b>Update a specific researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Update a specific researcher - <span class="text-success">OK 200</span></b></li>
                             <ol>
                                 This test tries to update an existing researcher in the system, having a successful result.
                             </ol>
-                            <li><b>Update a not-existing researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Update a not-existing researcher - <span class="text-danger">FAIL 404</span></b></li>
                             <ol>
                                 This test tries to update an existing researcher in the system, having a failed result because there is not an existing researcher with the same ID Card.
                             </ol>
-                            <li><b>Delete a specific researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Delete a specific researcher - <span class="text-success">OK 200</span></b></li>
                             <ol>
                                 This test tries to remove an existing researcher in the system, having a successful result.
                             </ol>
-                            <li><b>Delete a not-existing researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Delete a not-existing researcher - <span class="text-danger">FAIL 404</span></b></li>
                             <ol>
                                 This test tries to remove an existing researcher in the system, having a failed result because there is not an existing researcher with the same ID Card.
                             </ol>
