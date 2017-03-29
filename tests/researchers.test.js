@@ -237,7 +237,7 @@ describe('Testing API Code status responses', function() {
                         expect(res).to.have.status(404);
                         done();
                     } else {
-                        return done();
+                        return done(err);
                     }
                 });
         });
@@ -282,7 +282,7 @@ describe('Testing API Code status responses', function() {
                         expect(res).to.have.status(409);
                         done();
                     } else {
-                        return done();
+                        return done(err);
                     }
                 });
         });
@@ -327,7 +327,7 @@ describe('Testing API Code status responses', function() {
                         expect(res).to.have.status(404);
                         done();
                     } else {
-                        return done();
+                        return done(err);
                     }
                 });
         });
