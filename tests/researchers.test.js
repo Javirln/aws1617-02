@@ -227,21 +227,22 @@ describe('Testing API Code status responses', function() {
                 });
         });
     });
-/*
+
     describe('HTTP - GET non-existing one', function() {
         it('should return 404', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers/55578945B')
                 .end(function(err, res) {
-                    if (err) {
+                    if (err && res.status === 404) {
+                        expect(res).to.have.status(404);
+                        done();
+                    } else {
                         return done(err);
                     }
-                    expect(res).to.have.status(404);
-                    done();
                 });
         });
     });
-*/
+
     describe('HTTP - POST new researcher', function() {
         it('should return 201', function(done) {
             chai.request(app)
@@ -263,7 +264,7 @@ describe('Testing API Code status responses', function() {
                 });
         });
     });
-/*    
+
     describe('HTTP - POST over existing researcher', function() {
         it('should return 409', function(done) {
             chai.request(app)
@@ -277,15 +278,16 @@ describe('Testing API Code status responses', function() {
                     gender: "female"
                 })
                 .end(function(err, res) {
-                    if (err) {
+                    if (err && res.status === 409) {
+                        expect(res).to.have.status(409);
+                        done();
+                    } else {
                         return done(err);
                     }
-                    expect(res).to.have.status(409);
-                    done();
                 });
         });
     });
-*/    
+
     describe('HTTP - PUT existing researcher', function() {
         it('should return 200', function(done) {
             chai.request(app)
@@ -307,7 +309,7 @@ describe('Testing API Code status responses', function() {
                 });
         });
     });
-/*    
+
     describe('HTTP - PUT non-existing researcher', function() {
         it('should return 404', function(done) {
             chai.request(app)
@@ -321,13 +323,14 @@ describe('Testing API Code status responses', function() {
                     gender: "female"
                 })
                 .end(function(err, res) {
-                    if (err) {
+                    if (err && res.status === 404) {
+                        expect(res).to.have.status(404);
+                        done();
+                    } else {
                         return done(err);
                     }
-                    expect(res).to.have.status(404);
-                    done();
                 });
         });
     });
-*/
+
 });
