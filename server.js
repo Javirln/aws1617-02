@@ -43,7 +43,7 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, o
 
 // Configuration of statics
 app.use('/', express.static(path.join(__dirname + '/public')));
-app.use('/tests', express.static(path.join(__dirname + '/public/tests.html')));
+app.use(baseApi + '/tests', express.static(path.join(__dirname + '/public/tests.html')));
 
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
