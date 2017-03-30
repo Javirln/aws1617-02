@@ -23,4 +23,4 @@ ENV MONGODB_URL=$MONGODB_URL
 
 EXPOSE $PORT_NUMBER
 
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]

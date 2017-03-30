@@ -48,19 +48,19 @@ Researchers.prototype.isValid = function (researcher, dni){
     if (dni === (undefined || null)) {
         if (!_.isEqual(model.sort(), Object.keys(researcher).sort())) {
             res = false;
-        } else if (researcher.email.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/) == (null || ''))  {
+        } else if (researcher.email.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/) === (null || ''))  {
             res = false;
-        } else if (researcher.dni.match(/(\d{8})([aA-zZ]{1})/)  == (null || '')) {
+        } else if (researcher.dni.match(/(\d{8})([aA-zZ]{1})/)  === (null || '')) {
             res = false; 
-        } else if (researcher.phone.toString().length != 9) {
+        } else if (researcher.phone.toString().length !== 9) {
             res = false;
-        } else if ((researcher.name || researcher.email || researcher.phone || researcher.address || researcher.gender) == ('' || null)) {
+        } else if ((researcher.name || researcher.email || researcher.phone || researcher.address || researcher.gender) === ('' || null)) {
             res = false;
         } else if (researcher.gender !== 'male' && researcher.gender !== 'female') {
             res = false;
         }
     } else {
-       res = dni.match(/(\d{8})([aA-zZ]{1})/)  == null || '' ? false : true;
+       res = !(dni.match(/(\d{8})([aA-zZ]{1})/) === null || '');
     }
     return res;
 };

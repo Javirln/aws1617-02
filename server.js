@@ -3,11 +3,12 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const http = require('http');
 const port = (process.env.PORT || 3000);
 
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
-const researchers = require('./routes/researchers');
+const researchers = require('./routes/researchers'); 
 const baseApi = '/api/v1';
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -42,11 +43,23 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, o
 
 // Configuration of statics
 app.use('/', express.static(path.join(__dirname + '/public')));
-app.use('/tests', express.static(path.join(__dirname + '/public/tests.html')));
+app.use(baseApi + '/tests', express.static(path.join(__dirname + '/public/tests.html')));
 
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
 app.use(baseApi + '/researchers', researchers);
+
+// Socket configuration
+io.sockets.on('connection', (socket) => {
+    console.log("User connected");
+
+    socket.on('nr', function() {
+        io.emit('newResearcher', 'nr');
+    });
+});
 
 researchersService.connectDb((err) => {
     if (err) {
@@ -54,7 +67,7 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    app.listen(port, () => {
+    server.listen(port, function() {
         console.log("Server with GUI up and running!");
     });
 });

@@ -9,6 +9,10 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Researcher'
+        404:
+          description: An unexpected error occured
+        500:
+          description: Internal server error
       tags:
         - Researchers
     post:
@@ -22,9 +26,15 @@ paths:
             $ref: '#/definitions/Researcher'
       responses:
         200:
-          description: A single researcher
+          description: Researcher created
           schema:
             $ref: '#/definitions/Researcher'
+        500:
+          description: Internal server error
+        404:
+          description: An unexpected error occured or Request body malformed
+        409:
+          description: There is a researcher with that DNI
       tags:
         - Researchers
     delete:
@@ -32,6 +42,10 @@ paths:
       responses:
         200:
           description: Return the numbers of items that have been removed
+        404:
+          description: An unexpected error occured
+        500:
+          description: Internal server error
       tags:
         - Researchers
         
@@ -50,6 +64,8 @@ paths:
           description: A single researcher
           schema:
             $ref: '#/definitions/Researcher'
+        404:
+          description: There are not any researcher with that DNI
       tags:
         - Researchers
     put:
@@ -72,6 +88,10 @@ paths:
           description: A single researcher
           schema:
             $ref: '#/definitions/Researcher'
+        500:
+          description: Internal server error
+        404:
+          description: There is no researcher with that DNI
       tags:
         - Researchers
     delete:
@@ -86,6 +106,10 @@ paths:
       responses:
         200:
           description: Return the numbers of items that have been removed
+        500:
+          description: Internal server error
+        404:
+          description: There are not any researcher with that DNI
       tags:
         - Researchers
         

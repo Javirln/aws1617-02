@@ -5,23 +5,35 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href="./css/styles.css" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="./index.html">Researchers</a>
             </div>
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li class="active"><a href="#">Tests</a></li>
-                <li><a href="/documentation">Docs</a></li>
-                <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
-            </ul>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="#">Tests</a></li>
+                    <li><a href="/documentation">Docs</a></li>
+                    <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="container bootstrap snippet">
@@ -39,62 +51,70 @@
                             </div>
                             <div class="col-lg-4"></div>
                         </div>
+                        <br>
+                        <h4>You can also run our chai's tests. Steps:</h4>
+                        <ol>
+                            <li>Clone the repo.</li>
+                            <li>Export the env. var. <code>export MONGODB_URL=yourMongoDBURL</code></li>
+                            <li><code>npm install</code></li>
+                            <li><code>npm run test</code></li>
+                        </ol>
                     </div>
                 </div>
             </div>
-        
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-body p-t-0">
-                    <h2>Which tests do we run?</h2>
-                    <hr>
-                    <h4>Here is the sequence!</h4>
-                    <ol>
-                        <li><b>Get all researchers - <span class="text-success">OK</span></b></li>
+
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body p-t-0">
+                        <h2>Which tests do we run?</h2>
+                        <hr>
+                        <h4>Here is the sequence!</h4>
+                        <ol>
+                            <li><b>Get all researchers - <span class="text-success">OK 200</span></b></li>
                             <ol>
-                                This test tries to get all registered researchers in the system, having a successful result. 
+                                This test tries to get all registered researchers in the system, having a successful result.
                             </ol>
-                        <li><b>Get a specific researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Get a specific researcher - <span class="text-success">OK 200</span></b></li>
                             <ol>
-                                This test tries to get one registered researcher in the system only, having a successful result. 
+                                This test tries to get one registered researcher in the system only, having a successful result.
                             </ol>
-                        <li><b>Get a specific researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Get a specific researcher - <span class="text-danger">FAIL 404</span></b></li>
                             <ol>
-                                This test tries to get an existing researcher in the system, having a failed result because there is not any researcher with specified ID Card. 
+                                This test tries to get an existing researcher in the system, having a failed result because there is not any researcher with specified ID Card.
                             </ol>
-                        <li><b>Create a new researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Create a new researcher - <span class="text-success">OK 201</span></b></li>
                             <ol>
-                                This test tries to create a new researcher in the system, having a successful result. 
+                                This test tries to create a new researcher in the system, having a successful result.
                             </ol>
-                        <li><b>Create an existing researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Create an existing researcher - <span class="text-danger">FAIL 409</span></b></li>
                             <ol>
-                                This test tries to create a new researcher in the system, having a failed result because there is an existing researcher with the same ID Card. 
+                                This test tries to create a new researcher in the system, having a failed result because there is an existing researcher with the same ID Card.
                             </ol>
-                        <li><b>Create a wrong researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Create a wrong researcher - <span class="text-danger">FAIL 400</span></b></li>
                             <ol>
-                                This test tries to create a new researcher in the system, having a failed result because the researcher on the request body is wrong. 
+                                This test tries to create a new researcher in the system, having a failed result because the researcher on the request body is wrong.
                             </ol>
-                        <li><b>Update a specific researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Update a specific researcher - <span class="text-success">OK 200</span></b></li>
                             <ol>
-                                This test tries to update an existing researcher in the system, having a successful result. 
+                                This test tries to update an existing researcher in the system, having a successful result.
                             </ol>
-                        <li><b>Update a not-existing researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Update a not-existing researcher - <span class="text-danger">FAIL 404</span></b></li>
                             <ol>
-                                This test tries to update an existing researcher in the system, having a failed result because there is not an existing researcher with the same ID Card. 
+                                This test tries to update an existing researcher in the system, having a failed result because there is not an existing researcher with the same ID Card.
                             </ol>
-                        <li><b>Delete a specific researcher - <span class="text-success">OK</span></b></li>
+                            <li><b>Delete a specific researcher - <span class="text-success">OK 200</span></b></li>
                             <ol>
-                                This test tries to remove an existing researcher in the system, having a successful result. 
+                                This test tries to remove an existing researcher in the system, having a successful result.
                             </ol>
-                        <li><b>Delete a not-existing researcher - <span class="text-danger">FAIL</span></b></li>
+                            <li><b>Delete a not-existing researcher - <span class="text-danger">FAIL 404</span></b></li>
                             <ol>
-                                This test tries to remove an existing researcher in the system, having a failed result because there is not an existing researcher with the same ID Card. 
+                                This test tries to remove an existing researcher in the system, having a failed result because there is not an existing researcher with the same ID Card.
                             </ol>
-                    </ol>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </div>
     <script type="text/javascript">
