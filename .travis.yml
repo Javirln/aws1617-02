@@ -12,8 +12,8 @@ deploy:
   provider: heroku
   api_key:
     secure: UTjYu87PMd0F1Golqgr09AxcM4x7V2GZsOvh2eYYbY5DSihmHP3FQEHPhYi5UO7M+NhbrJuTqpFMK0yvpamH0vhyCRGflrZjPMmIBlWkAQM1Yq+FK5qOJJUr6HPKk+qmwZ/RFugEKORZfp/6gTcG5ntOoQjdUjzjRkICD1bXO7EESes6HvbtmF/Vm7WwHCUAn26Vc0qCdyEnKiZBbsbmDNSRoqJ3ruertdajno2PVIQB2GRFDrThbW4oV9S6s6NVRTL6k2nCJgDMRYlPqorJcl2ZQDUuoGHaAYBpTg0IfqG/xsgyN/IIL6BMRSkZVZm4Jy/R3RukZqOwrV1usUS/yLIaX2zFrqC6jLidzZT44pYCgx0OwsnhlBDAq45dsdbXFEhw9N9f1Kmi25VB8ij0AiwFa8KUWTd4YzA3Xa2l3A9qmh1oIR5JzypOf87KFe/nmeqsFi7UqyIHr/ivHjluqL/sO9UvEXX1zq12T95r4uFgHKnGcnINcACazBZfr7cweOrl0SHgZpoGywpvOlInf/p/7a2wwhm8QZYKLTW9nmrzEMVZ8r5MZYV4OGjuN4rD4HQ5vNzEPN3xbW/UWzPUIXAHWX+1ZURtXQOcX7DOVNkpD4AMTe35mo6IgKrnbb0X42ZKxt1UgSzO2qCQQIMShr89NOOTmrAjuHV+1iD5ZlI=
-  app: researcher-api
+  app: aws1617-02
   on:
-    repo: Javirln/researcher-api
+    repo: Javirln/aws1617-02
 env: 
   - "MONGODB_URL=mongodb://127.0.0.1:27017/aws"
