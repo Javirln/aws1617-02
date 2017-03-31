@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const tokens = require('./tokens-service');
-const middleware = require('./middleware');
 
 router.delete('/:dni', function(req, res) {
 
@@ -82,16 +81,6 @@ router.post('/authenticate', function(req, res) {
                 msg: 'No existe ningún token asociado a ese DNI'
             });
         }
-    });
-});
-
-
-
-
-router.get('/private', middleware.ensureAuthenticated, function(req, res) {
-    var token = req.headers.authorization.split(" ")[1];
-    res.json({
-        message: 'Estás autenticado correctamente y tu _id es:' + req.user
     });
 });
 

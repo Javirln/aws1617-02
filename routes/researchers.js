@@ -5,7 +5,7 @@ const router = express.Router();
 const researchers = require('./researchers-service');
 const middleware = require('./middleware');
 
-router.get('/', function(req, res) {
+router.get('/', middleware.ensureAuthenticated, function(req, res) {
 
     researchers.allResearchers((err, researchers) => {
         if (err) {

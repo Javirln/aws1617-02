@@ -30,6 +30,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }).then(function(response) {
             //Success
             $scope.token = response.data.token;
+            console.log("Token: " + response.data.token);
         }, function(response) {
             console.log("Error getting the default token: " + response.data.msg);
         });

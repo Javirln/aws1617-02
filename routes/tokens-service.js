@@ -1,5 +1,4 @@
 'use strict';
-const _ = require('lodash');
 
 var MongoClient = require('mongodb').MongoClient;
 var db;
