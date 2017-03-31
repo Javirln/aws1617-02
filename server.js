@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 const http = require('http');
 const port = (process.env.PORT || 3000);
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
