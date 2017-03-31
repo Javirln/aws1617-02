@@ -20,10 +20,17 @@ angular.module("ResearcherTokenApp").controller("TokenCtrl", function($scope, $h
                 console.log("Error: " + response.data.msg);
             });
         }, function(response) {
-            $scope.tokenResult = "alert alert-danger";
-            $scope.result = "Ups!";
-            $scope.tokenGenerated = "It looks like that DNI is already used. Please try again.";
-            console.log("Error: " + response.data.msg);
+            $http.post("/api/v1/tokens/authenticate", $scope.newToken).then(function(response) {
+                $scope.tokenResult = "alert alert-danger";
+                $scope.result = "Ups!";
+                $scope.tokenGenerated = "It looks like that DNI is already used. Please try again or use this token: " + response.data.token;
+                console.log("Error: " + response.data.msg);
+            }, function(response) {
+                $scope.tokenResult = "alert alert-danger";
+                $scope.result = "Ups!";
+                $scope.tokenGenerated = "It looks like we have some problems, please try again.";
+                console.log("Error: " + response.data.msg);
+            });
         });
     };
 

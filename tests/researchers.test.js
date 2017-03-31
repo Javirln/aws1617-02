@@ -343,4 +343,79 @@ describe('Testing API Code status responses', function() {
         });
     });
 
+    /* WITHOUT TOKEN */
+
+    describe('HTTP - GET all unauthorized', function() {
+        it('should return 403', function(done) {
+            chai.request(app)
+                .get('/api/v1/researchers')
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res).to.have.status(403);
+                    done();
+                });
+        });
+    });
+
+    describe('HTTP - GET one unauthorized', function() {
+        it('should return 403', function(done) {
+            chai.request(app)
+                .get('/api/v1/researchers/11224477Q')
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res).to.have.status(403);
+                    done();
+                });
+        });
+    });
+
+    describe('HTTP - POST new researcher unauthorized', function() {
+        it('should return 403', function(done) {
+            chai.request(app)
+                .post('/api/v1/researchers/')
+                .send({
+                    dni: "33554477B",
+                    name: "Manuel",
+                    phone: "987654321",
+                    email: "manuel@us.com",
+                    address: "Sevilla",
+                    gender: "male"
+                })
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res).to.have.status(403);
+                    done();
+                });
+        });
+    });
+
+    describe('HTTP - PUT existing researcher unauthorized', function() {
+        it('should return 403', function(done) {
+            chai.request(app)
+                .put('/api/v1/researchers/22558877V')
+                .send({
+                    dni: "22558877V",
+                    name: "NewAnne",
+                    phone: "987654322",
+                    email: "newanne@us.com",
+                    address: "London",
+                    gender: "female"
+                })
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    expect(res).to.have.status(403);
+                    done();
+                });
+        });
+    });
+
+
 });

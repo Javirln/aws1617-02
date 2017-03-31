@@ -30,21 +30,22 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }).then(function(response) {
             //Success
             $scope.token = response.data.token;
-            console.log("Token: " + response.data.token);
+            //console.log("Token: " + response.data.token);
+            $http.get("/api/v1/researchers", {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function(response) {
+                $scope.researchers = response.data;
+                $scope.disabledSearch = true;
+                $scope.addResearcherForm.$setPristine();
+                $scope.newResearcher = {};
+                $scope.dniFilter = null;
+            });
         }, function(response) {
             console.log("Error getting the default token: " + response.data.msg);
         });
-        $http.get("/api/v1/researchers", {
-            headers: {
-                'Authorization': 'Bearer ' + $scope.token
-            }
-        }).then(function(response) {
-            $scope.researchers = response.data;
-            $scope.disabledSearch = true;
-            $scope.addResearcherForm.$setPristine();
-            $scope.newResearcher = {};
-            $scope.dniFilter = null;
-        });
+
     }
 
     $scope.submitForm = function() {
