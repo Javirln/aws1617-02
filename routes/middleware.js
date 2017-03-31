@@ -2,6 +2,7 @@
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
+var config = require('./config');
 
 exports.ensureAuthenticated = function(req, res, next) {
   if (!req.headers.authorization) {
@@ -13,7 +14,7 @@ exports.ensureAuthenticated = function(req, res, next) {
   }
 
   var token = req.headers.authorization.split(" ")[1];
-  var payload = jwt.decode(token, process.env.TOKEN_SECRET);
+  var payload = jwt.decode(token, config.TOKEN_SECRET);
 
 
   if (payload.exp <= moment().unix()) {

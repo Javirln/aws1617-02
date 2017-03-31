@@ -4,6 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var db;
 var jwt = require('jwt-simple');  
 var moment = require('moment');
+var config = require('./config');
 
 const Tokens = function () {};
 
@@ -37,7 +38,7 @@ Tokens.prototype.createToken = function(user) {
     iat: moment().unix(),
     exp: moment().add(14, "days").unix(),
   };
-  return jwt.encode(payload, process.env.TOKEN_SECRET);
+  return jwt.encode(payload, config.TOKEN_SECRET);
 };
 
 module.exports = new Tokens();
