@@ -9,7 +9,9 @@ require('dotenv').config();
 
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
-const researchers = require('./routes/researchers'); 
+const researchers = require('./routes/researchers');
+const tokensService = require("./routes/tokens-service");
+const tokens = require('./routes/tokens');
 const baseApi = '/api/v1';
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -45,13 +47,15 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, o
 // Configuration of statics
 app.use('/', express.static(path.join(__dirname + '/public')));
 app.use(baseApi + '/tests', express.static(path.join(__dirname + '/public/tests.html')));
-
+app.use(baseApi + '/tokens', express.static(path.join(__dirname + '/public/tokens.html')));
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 app.use(baseApi + '/researchers', researchers);
+app.use(baseApi + '/tokens', tokens);
+
 
 // Socket configuration
 io.sockets.on('connection', (socket) => {
@@ -63,6 +67,17 @@ io.sockets.on('connection', (socket) => {
 });
 
 researchersService.connectDb((err) => {
+    if (err) {
+        console.log("Could not connect with MongoDB");
+        process.exit(1);
+    }
+
+    server.listen(port, function() {
+        console.log("Server with GUI up and running!");
+    });
+});
+
+tokensService.connectDb((err) => {
     if (err) {
         console.log("Could not connect with MongoDB");
         process.exit(1);
