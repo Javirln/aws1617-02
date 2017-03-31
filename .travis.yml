@@ -17,3 +17,4 @@ deploy:
     repo: Javirln/aws1617-02
 env: 
   - "MONGODB_URL=mongodb://127.0.0.1:27017/aws"
+  - "TOKEN_SECRET=tokenprogramacioncompy"
