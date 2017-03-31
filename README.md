@@ -1,4 +1,4 @@
-# researcher-api [![Build Status](https://travis-ci.org/Javirln/aws1617-02.svg?branch=master)](https://travis-ci.org/Javirln/researcher-api)
+# researcher-api [![Build Status](https://travis-ci.org/Javirln/aws1617-02.svg?branch=master)](https://travis-ci.org/Javirln/aws1617-02)
 
 Este repositorio contiene el código para la primera entrega de la asignatura "Aplicaciones Web Basadas en Servicios" del Máster Universitario en
 Ingeniería y Tecnología del Software de la Universidad de Sevilla.
