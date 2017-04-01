@@ -68,23 +68,23 @@ io.sockets.on('connection', (socket) => {
 
 researchersService.connectDb((err) => {
     if (err) {
-        console.log("Could not connect with MongoDB");
+        console.log("Could not connect with MongoDB researchers");
         process.exit(1);
     }
 
     server.listen(port, function() {
-        console.log("Server with GUI up and running!");
+        console.log("Server with GUI up and running! (researchers)");
     });
 });
 
 tokensService.connectDb((err) => {
     if (err) {
-        console.log("Could not connect with MongoDB");
+        console.log("Could not connect with MongoDB tokens");
         process.exit(1);
     }
 
     server.listen(port, function() {
-        console.log("Server with GUI up and running!");
+        console.log("Server with GUI up and running! (tokens)");
     });
 });
 
