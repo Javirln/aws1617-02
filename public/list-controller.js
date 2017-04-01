@@ -7,7 +7,11 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     });
 
     function updateResearchList() {
-        $http.get("/api/v1/researchers").then(function(response) {
+        $http.get("/api/v1/researchers", {
+            headers: {
+                'Authorization': 'Bearer ' + $scope.token
+            }
+        }).then(function(response) {
             $scope.researchers = response.data;
         });
     }
@@ -17,35 +21,61 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
+        $scope.searchResult = null;
         $scope.searchError = null;
+        $scope.updateCreateResult = null;
         $scope.updateCreateError = null;
-        $http.get("/api/v1/researchers").then(function(response) {
-            $scope.researchers = response.data;
-            $scope.disabledSearch = true;
-            $scope.addResearcherForm.$setPristine();
-            $scope.newResearcher = {};
-            $scope.dniFilter = null;
+
+        $http.post("/api/v1/tokens/authenticate", {
+            dni: "49561474Q"
+        }).then(function(response) {
+            //Success
+            $scope.token = response.data.token;
+            $http.get("/api/v1/researchers", {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function(response) {
+                $scope.researchers = response.data;
+                $scope.disabledSearch = true;
+                $scope.addResearcherForm.$setPristine();
+                $scope.newResearcher = {};
+                $scope.dniFilter = null;
+            });
+        }, function(response) {
+            console.log("Error getting the default token: " + response.data.msg);
         });
+
     }
 
     $scope.submitForm = function() {
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
-            $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
+            $http.post("/api/v1/researchers", $scope.newResearcher, {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function() {
                 socket.emit('nr', 'ok');
                 refresh();
             }, function(response) {
                 refresh();
+                $scope.updateCreateResult = "alert alert-danger";
                 $scope.updateCreateError = response.data.msg;
             });
         }
         else if ($scope.actionTitle == "Update researcher") {
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
-            $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher).then(function() {
+            $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher, {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function() {
                 socket.emit('nr', 'ok');
                 refresh();
             }, function(response) {
                 refresh();
+                $scope.updateCreateResult = "alert alert-danger";
                 $scope.updateCreateError = response.data.msg;
             });
         }
@@ -53,7 +83,11 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     $scope.addResearcher = function() {
         console.log("Adding researcher " + $scope.newResearcher.name);
-        $http.post("/api/v1/researchers", $scope.newResearcher).then(function() {
+        $http.post("/api/v1/researchers", $scope.newResearcher, {
+            headers: {
+                'Authorization': 'Bearer ' + $scope.token
+            }
+        }).then(function() {
             socket.emit('nr', 'ok');
             refresh();
         });
@@ -63,11 +97,16 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.deleteResearcher = function(idx) {
         if (confirm("Are you sure!?")) {
             console.log("Deleting researcher " + $scope.researchers[idx].name);
-            $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni).then(function() {
+            $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni, {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function() {
                 socket.emit('nr', 'ok');
                 refresh();
             }, function(response) {
                 refresh();
+                $scope.updateCreateResult = "alert alert-danger";
                 $scope.updateCreateError = response.data.msg;
             });
         }
@@ -78,6 +117,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Update researcher";
         $scope.action = "Update";
         $scope.buttonClass = "btn btn-warning";
+        $scope.updateCreateResult = null;
+        $scope.updateCreateError = null;
         $scope.researcherToUpdate = $scope.researchers[idx];
         $scope.newResearcher.dni = $scope.researcherToUpdate.dni;
         $scope.newResearcher.name = $scope.researcherToUpdate.name;
@@ -90,19 +131,29 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     $scope.searchResearcher = function() {
         console.log("Get researcher " + $scope.dniFilter);
-        $http.get("/api/v1/researchers/" + $scope.dniFilter).then(function(response) {
+        $http.get("/api/v1/researchers/" + $scope.dniFilter, {
+            headers: {
+                'Authorization': 'Bearer ' + $scope.token
+            }
+        }).then(function(response) {
             $scope.researchers = response.data;
             $scope.addResearcherForm.$setPristine();
             $scope.newResearcher = {};
         }, function(response) {
+            $scope.searchResult = "alert alert-danger";
             $scope.searchError = response.data.msg;
+            console.log("Unauthorized!");
         });
     };
 
     $scope.deleteAll = function() {
         if (confirm("Are you sure!?")) {
             console.log("Deleting all");
-            $http.delete("/api/v1/researchers/").then(function() {
+            $http.delete("/api/v1/researchers/", {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function() {
                 refresh();
             });
         }

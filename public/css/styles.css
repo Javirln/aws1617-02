@@ -49,3 +49,7 @@ input::-webkit-inner-spin-button {
 .navbar-inverse .navbar-toggle .icon-bar{
     background-color: white !important;
 }
+
+div{
+    word-break: break-all;
+}

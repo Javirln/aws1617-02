@@ -2,10 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
-
 const researchers = require('./researchers-service');
+const middleware = require('./middleware');
 
-router.get('/', function(req, res) {
+router.get('/', middleware.ensureAuthenticated, function(req, res) {
 
     researchers.allResearchers((err, researchers) => {
         if (err) {
@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
 
 });
 
-router.get('/:dni', function(req, res) {
+router.get('/:dni', middleware.ensureAuthenticated, function(req, res) {
     const dni = req.params.dni;
 
     researchers.get(dni, (err, researcher) => {
@@ -41,7 +41,7 @@ router.get('/:dni', function(req, res) {
 
 });
 
-router.post('/', function(req, res) {
+router.post('/', middleware.ensureAuthenticated, function(req, res) {
 
     researchers.get(req.body.dni, (err, researcher) => {
         if (err) {
@@ -74,7 +74,7 @@ router.post('/', function(req, res) {
     });
 });
 
-router.put('/:dni', function(req, res) {
+router.put('/:dni', middleware.ensureAuthenticated, function(req, res) {
     const dni = req.params.dni;
     const updatedResearcher = req.body;
 
@@ -112,7 +112,7 @@ router.put('/:dni', function(req, res) {
 });
 
 
-router.delete('/:dni', function(req, res) {
+router.delete('/:dni', middleware.ensureAuthenticated, function(req, res) {
 
     researchers.get(req.params.dni, (err, researcher) => {
         if (err) {
@@ -146,7 +146,7 @@ router.delete('/:dni', function(req, res) {
     });
 });
 
-router.delete('/', function(req, res) {
+router.delete('/', middleware.ensureAuthenticated, function(req, res) {
 
     researchers.removeAll((err, numRemoved) => {
         if (err) {

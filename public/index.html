@@ -29,15 +29,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./index.html">Researchers</a>
+                <a class="navbar-brand" href="/">Researchers</a>
             </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="/api/v1/tests">Tests</a></li>
-              <li><a href="/documentation">Docs</a></li>
-              <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
-          </ul>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="/api/v1/tests">Tests</a></li>
+                    <li><a href="/api/v1/tokens">Tokens</a></li>
+                    <li><a href="/documentation">Docs</a></li>
+                    <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="container bootstrap snippet">
@@ -55,7 +57,7 @@
                             <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
                             </span>
                         </div>
-                        <div class="text-danger text-center">{{searchError}}</div>
+                        <div ng-class="searchResult">{{searchError}}</div>
                     </div>
                 </div>
                 <div ng-repeat="researcher in researchers">
@@ -155,15 +157,19 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="text-danger text-center">{{updateCreateError}}</div>
+                        <div ng-class="updateCreateResult">{{updateCreateError}}</div>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-body p-t-0">
                         <h2>Purge</h2>
                         <hr>
-                        <h5>Click the button if you want to delete all the researchers.</h5>
-                        <button class="btn btn-danger" ng-click="deleteAll()">Delete</button>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h5>Click the button if you want to delete all the researchers.</h5>
+                            </div>
+                            <div class="col-lg-3"><button class="btn btn-danger" ng-click="deleteAll()">Delete</button></div>
+                        </div>
                     </div>
                 </div>
             </div>
