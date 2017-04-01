@@ -70,7 +70,7 @@ router.post('/authenticate', function(req, res) {
             });
         }
         if (Object.keys(token).length !== 0) {
-            res.json({
+            res.status(201).send({
                 success: true,
                 message: 'Enjoy your token!',
                 token: tokens.createToken(req.body.dni)

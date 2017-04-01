@@ -11,7 +11,7 @@ angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $ht
                 $scope.tokenGenerated = response.data.token;
                 $scope.tokenResult = "alert alert-success";
                 $scope.result = "Nice!";
-                $scope.tokenGenerated = "Your token is: " + response.data.token;
+                $scope.tokenGenerated = "Add the following header to your calls: Authorization: Bearer " + response.data.token;
                 console.log("Your token is: " + response.data.token);
             }, function(response) {
                 $scope.tokenResult = "alert alert-danger";
