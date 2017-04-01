@@ -9,19 +9,29 @@ exports.ensureAuthenticated = function(req, res, next) {
     return res
       .status(403)
       .send({
-        message: "Error"
+        msg: "Error, your request has no authentication info"
       });
   }
 
   var token = req.headers.authorization.split(" ")[1];
-  var payload = jwt.decode(token, config.TOKEN_SECRET);
+  var payload;
+  try {
+    payload = jwt.decode(token, config.TOKEN_SECRET);
+  }
+  catch (err) {
+    return res
+      .status(401)
+      .send({
+        msg: "Your token is not valid"
+      });
+  }
 
 
   if (payload.exp <= moment().unix()) {
     return res
       .status(401)
       .send({
-        message: "The token expires"
+        msg: "The token expires"
       });
   }
 
