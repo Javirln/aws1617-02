@@ -13,6 +13,8 @@ paths:
           description: An unexpected error occured
         500:
           description: Internal server error
+      security:
+        - Bearer: []
       tags:
         - Researchers
     post:
@@ -35,6 +37,8 @@ paths:
           description: An unexpected error occured or Request body malformed
         409:
           description: There is a researcher with that DNI
+      security:
+        - Bearer: []
       tags:
         - Researchers
     delete:
@@ -46,6 +50,8 @@ paths:
           description: An unexpected error occured
         500:
           description: Internal server error
+      security:
+        - Bearer: []
       tags:
         - Researchers
         
@@ -66,6 +72,8 @@ paths:
             $ref: '#/definitions/Researcher'
         404:
           description: There are not any researcher with that DNI
+      security:
+        - Bearer: []
       tags:
         - Researchers
     put:
@@ -82,7 +90,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Researcher'
-        
       responses:
         200:
           description: A single researcher
@@ -92,6 +99,8 @@ paths:
           description: Internal server error
         404:
           description: There is no researcher with that DNI
+      security:
+        - Bearer: []
       tags:
         - Researchers
     delete:
@@ -110,9 +119,62 @@ paths:
           description: Internal server error
         404:
           description: There are not any researcher with that DNI
+      security:
+        - Bearer: []
       tags:
         - Researchers
         
+  /tokens:
+    post:
+      summary: Registers a DNI in order to receive a token to use the API
+      parameters:
+        - name: dni
+          in: body
+          description: DNI to register on the database
+          required: true
+          type: string
+          format: string
+      responses:
+        201:
+          description: SS
+        500:
+          description: Internal server error
+        409:
+          description: There is a token associated to that DNI
+        404:
+          description: An error occured
+      tags:
+        - Tokens
+          
+  /tokens/authenticate:
+    post:
+      summary: Authenticates a DNI and receives a token
+      parameters:
+        - name: dni
+          in: body
+          description: DNI to register on the database
+          required: true
+          type: string
+          format: string
+          pattern: '/(\d{8})([aA-zZ]{1})/'
+      responses:
+        200:
+          description: Successfully call, returns the token
+        500:
+          description: Internal server error
+        409:
+          description: There is a token associated to that DNI
+        404:
+          description: An error occured
+      tags:
+        - Tokens
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    in: header
+    name: authorization
+  
 definitions:
   Researcher:
     type: object

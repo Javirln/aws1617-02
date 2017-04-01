@@ -9,7 +9,7 @@ exports.ensureAuthenticated = function(req, res, next) {
     return res
       .status(403)
       .send({
-        msg: "Error, your request has no authentication info"
+        msg: "Error, your request has no Authentication header"
       });
   }
 
