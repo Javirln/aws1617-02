@@ -358,7 +358,7 @@ describe('Testing API Code status responses', function() {
                     done();
                 });
         });
-    });*/
+    });
     
     describe('HTTP - GET all token invalid', function() {
         it('should return 401', function(done) {
@@ -374,7 +374,7 @@ describe('Testing API Code status responses', function() {
                 });
         });
     });
-/*
+
     describe('HTTP - GET one unauthorized', function() {
         it('should return 403', function(done) {
             chai.request(app)
