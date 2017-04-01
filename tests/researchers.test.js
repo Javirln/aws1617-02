@@ -344,18 +344,19 @@ describe('Testing API Code status responses', function() {
     });
 
     /* WITHOUT TOKEN */
-    // Works in local, not in Travis (at the moment...)
 
-   /* describe('HTTP - GET all unauthorized', function() {
+    describe('HTTP - GET all unauthorized', function() {
         it('should return 403', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers')
                 .end(function(err, res) {
-                    if (err) {
+                    if (err && res.status === 403) {
+                        expect(res).to.have.status(403);
+                        done();
+                    }
+                    else {
                         return done(err);
                     }
-                    expect(res).to.have.status(403);
-                    done();
                 });
         });
     });
@@ -366,11 +367,13 @@ describe('Testing API Code status responses', function() {
                 .get('/api/v1/researchers')
                 .set('Authorization', 'Bearer ThisIsABadToken')
                 .end(function(err, res) {
-                    if (err) {
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
+                        done();
+                    }
+                    else {
                         return done(err);
                     }
-                    expect(res).to.have.status(401);
-                    done();
                 });
         });
     });
@@ -380,11 +383,13 @@ describe('Testing API Code status responses', function() {
             chai.request(app)
                 .get('/api/v1/researchers/11224477Q')
                 .end(function(err, res) {
-                    if (err) {
+                    if (err && res.status === 403) {
+                        expect(res).to.have.status(403);
+                        done();
+                    }
+                    else {
                         return done(err);
                     }
-                    expect(res).to.have.status(403);
-                    done();
                 });
         });
     });
@@ -402,11 +407,13 @@ describe('Testing API Code status responses', function() {
                     gender: "male"
                 })
                 .end(function(err, res) {
-                    if (err) {
+                   if (err && res.status === 403) {
+                        expect(res).to.have.status(403);
+                        done();
+                    }
+                    else {
                         return done(err);
                     }
-                    expect(res).to.have.status(403);
-                    done();
                 });
         });
     });
@@ -424,14 +431,16 @@ describe('Testing API Code status responses', function() {
                     gender: "female"
                 })
                 .end(function(err, res) {
-                    if (err) {
+                   if (err && res.status === 403) {
+                        expect(res).to.have.status(403);
+                        done();
+                    }
+                    else {
                         return done(err);
                     }
-                    expect(res).to.have.status(403);
-                    done();
                 });
         });
     });
 
-*/
+
 });

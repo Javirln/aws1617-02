@@ -1,4 +1,4 @@
-angular.module("ResearcherTokenApp").controller("TokenCtrl", function($scope, $http) {
+angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $http) {
 
 
     $scope.createToken = function() {

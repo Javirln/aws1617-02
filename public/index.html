@@ -57,7 +57,7 @@
                             <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
                             </span>
                         </div>
-                        <div class="text-danger text-center">{{searchError}}</div>
+                        <div ng-class="searchResult">{{searchError}}</div>
                     </div>
                 </div>
                 <div ng-repeat="researcher in researchers">
@@ -157,15 +157,19 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="text-danger text-center">{{updateCreateError}}</div>
+                        <div ng-class="updateCreateResult">{{updateCreateError}}</div>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-body p-t-0">
                         <h2>Purge</h2>
                         <hr>
-                        <h5>Click the button if you want to delete all the researchers.</h5>
-                        <button class="btn btn-danger" ng-click="deleteAll()">Delete</button>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h5>Click the button if you want to delete all the researchers.</h5>
+                            </div>
+                            <div class="col-lg-3"><button class="btn btn-danger" ng-click="deleteAll()">Delete</button></div>
+                        </div>
                     </div>
                 </div>
             </div>

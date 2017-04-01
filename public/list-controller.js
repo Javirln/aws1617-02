@@ -1,7 +1,6 @@
 angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
 
     var socket = io();
-    var token;
 
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id);
@@ -22,7 +21,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
+        $scope.searchResult = null;
         $scope.searchError = null;
+        $scope.updateCreateResult = null;
         $scope.updateCreateError = null;
 
         $http.post("/api/v1/tokens/authenticate", {
@@ -30,7 +31,6 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }).then(function(response) {
             //Success
             $scope.token = response.data.token;
-            //console.log("Token: " + response.data.token);
             $http.get("/api/v1/researchers", {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
@@ -60,6 +60,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 refresh();
             }, function(response) {
                 refresh();
+                $scope.updateCreateResult = "alert alert-danger";
                 $scope.updateCreateError = response.data.msg;
             });
         }
@@ -74,6 +75,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 refresh();
             }, function(response) {
                 refresh();
+                $scope.updateCreateResult = "alert alert-danger";
                 $scope.updateCreateError = response.data.msg;
             });
         }
@@ -104,6 +106,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 refresh();
             }, function(response) {
                 refresh();
+                $scope.updateCreateResult = "alert alert-danger";
                 $scope.updateCreateError = response.data.msg;
             });
         }
@@ -114,6 +117,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Update researcher";
         $scope.action = "Update";
         $scope.buttonClass = "btn btn-warning";
+        $scope.updateCreateResult = null;
+        $scope.updateCreateError = null;
         $scope.researcherToUpdate = $scope.researchers[idx];
         $scope.newResearcher.dni = $scope.researcherToUpdate.dni;
         $scope.newResearcher.name = $scope.researcherToUpdate.name;
@@ -135,6 +140,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $scope.addResearcherForm.$setPristine();
             $scope.newResearcher = {};
         }, function(response) {
+            $scope.searchResult = "alert alert-danger";
             $scope.searchError = response.data.msg;
             console.log("Unauthorized!");
         });

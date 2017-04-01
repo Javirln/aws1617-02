@@ -72,19 +72,15 @@ researchersService.connectDb((err) => {
         process.exit(1);
     }
 
-    server.listen(port, function() {
-        console.log("Server with GUI up and running! (researchers)");
-    });
-});
+    tokensService.connectDb((err) => {
+        if (err) {
+            console.log("Could not connect with MongoDB tokens");
+            process.exit(1);
+        }
 
-tokensService.connectDb((err) => {
-    if (err) {
-        console.log("Could not connect with MongoDB tokens");
-        process.exit(1);
-    }
-
-    server.listen(port, function() {
-        console.log("Server with GUI up and running! (tokens)");
+        server.listen(port, function() {
+            console.log("Server with GUI up and running!");
+        });
     });
 });
 
