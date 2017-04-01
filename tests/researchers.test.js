@@ -360,7 +360,7 @@ describe('Testing API Code status responses', function() {
                 });
         });
     });
-    
+
     describe('HTTP - GET all token invalid', function() {
         it('should return 401', function(done) {
             chai.request(app)
@@ -394,6 +394,23 @@ describe('Testing API Code status responses', function() {
         });
     });
 
+    describe('HTTP - GET one token invalid', function() {
+        it('should return 401', function(done) {
+            chai.request(app)
+                .get('/api/v1/researchers/11224477Q')
+                .set('Authorization', 'Bearer ThisIsABadToken')
+                .end(function(err, res) {
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
+                        done();
+                    }
+                    else {
+                        return done(err);
+                    }
+                });
+        });
+    });
+
     describe('HTTP - POST new researcher unauthorized', function() {
         it('should return 403', function(done) {
             chai.request(app)
@@ -407,8 +424,33 @@ describe('Testing API Code status responses', function() {
                     gender: "male"
                 })
                 .end(function(err, res) {
-                   if (err && res.status === 403) {
+                    if (err && res.status === 403) {
                         expect(res).to.have.status(403);
+                        done();
+                    }
+                    else {
+                        return done(err);
+                    }
+                });
+        });
+    });
+
+    describe('HTTP - POST new researcher token invalid', function() {
+        it('should return 401', function(done) {
+            chai.request(app)
+                .post('/api/v1/researchers/')
+                .set('Authorization', 'Bearer ThisIsABadToken')
+                .send({
+                    dni: "33554477B",
+                    name: "Manuel",
+                    phone: "987654321",
+                    email: "manuel@us.com",
+                    address: "Sevilla",
+                    gender: "male"
+                })
+                .end(function(err, res) {
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
                         done();
                     }
                     else {
@@ -431,8 +473,33 @@ describe('Testing API Code status responses', function() {
                     gender: "female"
                 })
                 .end(function(err, res) {
-                   if (err && res.status === 403) {
+                    if (err && res.status === 403) {
                         expect(res).to.have.status(403);
+                        done();
+                    }
+                    else {
+                        return done(err);
+                    }
+                });
+        });
+    });
+
+    describe('HTTP - PUT existing researcher token invalid', function() {
+        it('should return 401', function(done) {
+            chai.request(app)
+                .put('/api/v1/researchers/22558877V')
+                .set('Authorization', 'Bearer ThisIsABadToken')
+                .send({
+                    dni: "22558877V",
+                    name: "NewAnne",
+                    phone: "987654322",
+                    email: "newanne@us.com",
+                    address: "London",
+                    gender: "female"
+                })
+                .end(function(err, res) {
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
                         done();
                     }
                     else {
