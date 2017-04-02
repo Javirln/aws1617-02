@@ -134,15 +134,40 @@ paths:
           required: true
           type: string
           format: string
+          schema:
+            $ref: '#/definitions/TokenPayload'
       responses:
         201:
-          description: SS
+          description: DNI saved correctly
         500:
           description: Internal server error
         409:
           description: There is a token associated to that DNI
         404:
           description: An error occured
+      tags:
+        - Tokens
+ 
+  /tokens/{dni}:
+    delete:
+      summary: Removes a token based on a DNI
+      parameters:
+        - name: dni
+          in: path
+          description: DNI
+          required: true
+          type: string
+          format: string
+          pattern: '/(\d{8})([aA-zZ]{1})/'
+      responses:
+        500:
+          description: Internal server error
+        400:
+          description: There is a token associated to that DNI
+        404:
+          description: Token not found
+        200:
+          description: Token successfully removed
       tags:
         - Tokens
           
@@ -156,7 +181,9 @@ paths:
           required: true
           type: string
           format: string
-          pattern: '/(\d{8})([aA-zZ]{1})/'
+          schema:
+            $ref: '#/definitions/TokenPayload'
+            
       responses:
         200:
           description: Successfully call, returns the token
@@ -176,6 +203,16 @@ securityDefinitions:
     name: authorization
   
 definitions:
+  TokenPayload:
+    type: object
+    properties:
+      dni:
+        type: string
+        description: ID of the researcher.
+        pattern: '/(\d{8})([aA-zZ]{1})/'
+    required:
+      - dni
+      
   Researcher:
     type: object
     properties:
