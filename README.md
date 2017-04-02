@@ -1,14 +1,15 @@
 # researcher-api [![Build Status](https://travis-ci.org/Javirln/aws1617-02.svg?branch=master)](https://travis-ci.org/Javirln/aws1617-02)
 
-Este repositorio contiene el código para la primera entrega de la asignatura "Aplicaciones Web Basadas en Servicios" del Máster Universitario en
-Ingeniería y Tecnología del Software de la Universidad de Sevilla.
+Este repositorio contiene el código para la primera entrega de la asignatura "Aplicaciones Web basadas en Servicios" del Máster Universitario en
+Ingeniería y Tecnología del Software de la Universidad de Sevilla. El grupo está compuesto por David José Corral Plaza, Francisco Javier Rodríguez 
+León y Jesus Pardo Carrera.
 
 ![Main Interface](https://image.ibb.co/bNBgQa/Screen_Shot_2017_03_16_at_16_39_34.png)
 
 
 ## Tecnologías y dependencias
 
-La API está desarrollada con [express](https://expressjs.com) y los siguientes modulos:
+La API está desarrollada con [express](https://expressjs.com) y usa, entre otros, los siguientes modulos:
 
 - [mongodb](https://www.mongodb.com/): para hacer persistentes todas las llamadas a la API.
 - [morgan](https://github.com/expressjs/morgan): middleware para hacer logging de las llamadas HTTP.
@@ -25,6 +26,7 @@ La API está desarrollada con [express](https://expressjs.com) y los siguientes 
   [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint), 
   [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch),
   [grunt-mocha-test](https://github.com/pghalliday/grunt-mocha-test),
+  [jwt-simple](https://github.com/hokaccha/node-jwt-simple),
   [mocha](https://mochajs.org/)
 
 ## Documentación
@@ -64,6 +66,13 @@ Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
 ```
 docker run --name researcher-api -p 3000:3000 ID_IMAGEN
 ```
+## Autentificación
+El mecanismo para generar tokens es muy sencillo. Se basa en almacenar DNI's en una colección "tokens" de la base de datos MongoDB, estos
+DNI's que estén presentes en dicha colección podrán obtener tokens de autentificación que serán válidos durante 14 días.
+
+Para almacenar un DNI en dicha colección, haz uso del recurso `POST raíz (/)` enviando en el cuerpo del mensaje el DNI a registrar. Una vez
+que el DNI esté en la colección, haz uso del recurso `POST /authenticate` enviando en el cuerpo del mensaje el DNI que está registrado
+en la colección de la base de datos. Como respuesta recibirás un token válido.
 
 ## Desarrollo
 
