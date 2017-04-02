@@ -14,8 +14,6 @@ module.exports = {
     "basePath": "/api/v1",
     "produces": [
         "application/json"
-    ],
-    "security": [{
-        "Bearer": []   
-    }]
+    ]
 };
+
