@@ -45,7 +45,7 @@ export SWAGGER_HOST=localhost:3000
 ## Integración continua y despliegue con Docker
 
 Todos los commits que se suban a la rama principal `master` arrancarán pruebas automáticas en [travis-ci](https://travis-ci.org)
-y una vez pasadas, desplegará automáticamente la aplicación en [heroku](https://researcher-api.herokuapp.com/)
+y una vez pasadas, desplegará automáticamente la aplicación en [heroku](https://aws1617-02.herokuapp.com).
 
 ### Docker
 
