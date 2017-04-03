@@ -67,7 +67,7 @@ Seguidamente ya creamos el contendor basandonos en la imagen recien creada:
 docker run --name researcher-api -p 3000:3000 ID_IMAGEN
 ```
 
-Por motivos puramente de implementación, no incluimos también un contendor con MogoDB, ya que cambiarian bastantes aspectos.
+Por motivos puramente de implementación, no incluimos también un contendor con MongoDB, ya que cambiarian bastantes aspectos.
 ## Autentificación
 El mecanismo para generar tokens es muy sencillo. Se basa en almacenar DNI's en una colección "tokens" de la base de datos MongoDB, estos
 DNI's que estén presentes en dicha colección podrán obtener tokens de autentificación que serán válidos durante 14 días.
