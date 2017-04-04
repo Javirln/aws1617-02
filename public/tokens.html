@@ -53,7 +53,7 @@
                             <div class="form-group" ng-class="{ 'has-error' : addTokenForm.dni.$invalid && !addTokenForm.dni.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">DNI</span>
-                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-change="newToken.dni = (newToken.dni | uppercase)" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="newToken.dni" required>
+                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-change="newToken.dni = (newToken.dni | uppercase)" ng-pattern="/(\d{8})([aA-zZ]{1})/" maxlength="9" ng-model="newToken.dni" required>
                                 </div>
                                 <p ng-show="addTokenForm.dni.$invalid && !addTokenForm.dni.$pristine" class="help-block">DNI is required.</p>
                             </div>
