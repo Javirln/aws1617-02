@@ -1,11 +1,11 @@
 'use strict';
 
-var chai = require('chai');
+const chai = require('chai');
 chai.use(require('chai-things'));
 chai.use(require('chai-http'));
-var expect = chai.expect;
-var researchers = require('../routes/researchers-service');
-var app = require('../server');
+const expect = chai.expect;
+const researchers = require('../routes/researchers-service');
+const app = require('../server');
 
 describe('Testing Researchers API functionalities', function() {
     beforeEach(function(done) {

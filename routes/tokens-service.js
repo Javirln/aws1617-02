@@ -1,10 +1,10 @@
 'use strict';
 
-var MongoClient = require('mongodb').MongoClient;
-var db;
-var jwt = require('jwt-simple');  
-var moment = require('moment');
-var config = require('./config');
+const MongoClient = require('mongodb').MongoClient;
+let db;
+const jwt = require('jwt-simple');
+const moment = require('moment');
+const config = require('./config');
 
 const Tokens = function () {};
 
@@ -33,7 +33,7 @@ Tokens.prototype.remove = function(dni, callback) {
 };
 
 Tokens.prototype.createToken = function(user) {  
-  var payload = {
+  let payload = {
     sub: user._id,
     iat: moment().unix(),
     exp: moment().add(14, "days").unix(),

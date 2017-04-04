@@ -1,8 +1,8 @@
 'use strict';
 const _ = require('lodash');
 
-var MongoClient = require('mongodb').MongoClient;
-var db;
+const MongoClient = require('mongodb').MongoClient;
+let db;
 
 const Researchers = function () {};
 

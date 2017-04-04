@@ -54,8 +54,8 @@ app.use(function (req, res) {
   res.status(404).send("Sorry we can't find that :(");
 });
 **/
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+const server = http.createServer(app);
+const io = require('socket.io').listen(server);
 
 app.use(baseApi + '/researchers', researchers);
 app.use(baseApi + '/tokens', tokens);
