@@ -51,7 +51,7 @@ app.use(baseApi + '/tokens', express.static(path.join(__dirname + '/public/token
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
 app.use(function (req, res, next) {
-  res.status(404).send("Sorry we can't find that :(")
+  res.status(404).send("Sorry we can't find that :(");
 });
 
 var server = http.createServer(app);
