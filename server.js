@@ -17,6 +17,35 @@ const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = require('./swaggerDef');
+const passport = require('passport'),
+    BearerStrategy = require('passport-http-bearer').Strategy;
+
+passport.use(new BearerStrategy(
+    function(token, done) {
+        tokensService.compareToken({
+            token: token
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            tokensService.update(token, {
+                dni: user.dni,
+                token: user.token,
+                apicalls: (user.apicalls + 1)
+            }, (err, numUpdates) => {
+                if (err || numUpdates === 0) {
+                    console.log("Error updating API Calls of token " + token);
+                }
+            });
+            return done(null, user, {
+                scope: 'read'
+            });
+        });
+    }
+));
 
 // Used to logs all API calls
 app.use(logger('dev'));
@@ -26,6 +55,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
+// Initialize passport
+app.use(passport.initialize());
 
 // Configuration of API documentation
 // Options for swagger docs
@@ -70,6 +102,7 @@ io.sockets.on('connection', (socket) => {
     });
 });
 
+// Starting up the service
 researchersService.connectDb((err) => {
     if (err) {
         console.log("Could not connect with MongoDB researchers");

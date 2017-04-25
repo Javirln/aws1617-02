@@ -9,7 +9,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     function updateResearchList() {
         $http.get("/api/v1/researchers", {
             headers: {
-                'Authorization': 'Bearer ' + $scope.token
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -26,26 +26,25 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.updateCreateResult = null;
         $scope.updateCreateError = null;
 
-        $http.post("/api/v1/tokens/authenticate", {
+        /*$http.post("/api/v1/tokens/authenticate", {
             dni: "49561474Q"
         }).then(function(response) {
             //Success
-            $scope.token = response.data.token;
-            $http.get("/api/v1/researchers", {
-                headers: {
-                    'Authorization': 'Bearer ' + $scope.token
-                }
-            }).then(function(response) {
-                $scope.researchers = response.data;
-                $scope.disabledSearch = true;
-                $scope.addResearcherForm.$setPristine();
-                $scope.newResearcher = {};
-                $scope.dniFilter = null;
-            });
+            
         }, function(response) {
             console.log("Error getting the default token: " + response.data.msg);
+        });*/
+        $http.get("/api/v1/researchers", {
+            headers: {
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+            }
+        }).then(function(response) {
+            $scope.researchers = response.data;
+            $scope.disabledSearch = true;
+            $scope.addResearcherForm.$setPristine();
+            $scope.newResearcher = {};
+            $scope.dniFilter = null;
         });
-
     }
 
     $scope.submitForm = function() {
@@ -53,7 +52,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher, {
                 headers: {
-                    'Authorization': 'Bearer ' + $scope.token
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
                 }
             }).then(function() {
                 socket.emit('nr', 'ok');
@@ -68,7 +67,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher, {
                 headers: {
-                    'Authorization': 'Bearer ' + $scope.token
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
                 }
             }).then(function() {
                 socket.emit('nr', 'ok');
@@ -85,7 +84,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher, {
             headers: {
-                'Authorization': 'Bearer ' + $scope.token
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
             }
         }).then(function() {
             socket.emit('nr', 'ok');
@@ -99,7 +98,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Deleting researcher " + $scope.researchers[idx].name);
             $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni, {
                 headers: {
-                    'Authorization': 'Bearer ' + $scope.token
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
                 }
             }).then(function() {
                 socket.emit('nr', 'ok');
@@ -133,7 +132,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Get researcher " + $scope.dniFilter);
         $http.get("/api/v1/researchers/" + $scope.dniFilter, {
             headers: {
-                'Authorization': 'Bearer ' + $scope.token
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -151,7 +150,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Deleting all");
             $http.delete("/api/v1/researchers/", {
                 headers: {
-                    'Authorization': 'Bearer ' + $scope.token
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
                 }
             }).then(function() {
                 refresh();

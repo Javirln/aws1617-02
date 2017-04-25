@@ -6,6 +6,8 @@ chai.use(require('chai-http'));
 const expect = chai.expect;
 const researchers = require('../routes/researchers-service');
 const app = require('../server');
+const config = require('../routes/config');
+
 
 describe('Testing Researchers API functionalities', function() {
     beforeEach(function(done) {
@@ -202,7 +204,7 @@ describe('Testing API Code status responses', function() {
         it('should return 200', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .end(function(err, res) {
                     if (err) {
                         return done(err);
@@ -218,7 +220,7 @@ describe('Testing API Code status responses', function() {
         it('should return 200', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers/11224477Q')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .end(function(err, res) {
                     if (err) {
                         return done(err);
@@ -234,7 +236,7 @@ describe('Testing API Code status responses', function() {
         it('should return 404', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers/55578945B')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .end(function(err, res) {
                     if (err && res.status === 404) {
                         expect(res).to.have.status(404);
@@ -251,7 +253,7 @@ describe('Testing API Code status responses', function() {
         it('should return 201', function(done) {
             chai.request(app)
                 .post('/api/v1/researchers/')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .send({
                     dni: "33554477B",
                     name: "Manuel",
@@ -274,7 +276,7 @@ describe('Testing API Code status responses', function() {
         it('should return 409', function(done) {
             chai.request(app)
                 .post('/api/v1/researchers/')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .send({
                     dni: "22558877V",
                     name: "Anne",
@@ -299,7 +301,7 @@ describe('Testing API Code status responses', function() {
         it('should return 200', function(done) {
             chai.request(app)
                 .put('/api/v1/researchers/22558877V')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .send({
                     dni: "22558877V",
                     name: "NewAnne",
@@ -322,7 +324,7 @@ describe('Testing API Code status responses', function() {
         it('should return 404', function(done) {
             chai.request(app)
                 .put('/api/v1/researchers/11224455V')
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTA5ODkzNjIsImV4cCI6MTQ5MjE5ODk2Mn0.rBennXyrjXecKZknptqOM1ShXb2S9KPLlpV-JWuBwZk')
+                .set('Authorization', 'Bearer ' + config.DEFAULT_TOKEN)
                 .send({
                     dni: "22558877V",
                     name: "NewAnne",
@@ -346,12 +348,12 @@ describe('Testing API Code status responses', function() {
     /* WITHOUT TOKEN */
 
     describe('HTTP - GET all unauthorized', function() {
-        it('should return 403', function(done) {
+        it('should return 401', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers')
                 .end(function(err, res) {
-                    if (err && res.status === 403) {
-                        expect(res).to.have.status(403);
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
                         done();
                     }
                     else {
@@ -379,12 +381,12 @@ describe('Testing API Code status responses', function() {
     });
 
     describe('HTTP - GET one unauthorized', function() {
-        it('should return 403', function(done) {
+        it('should return 401', function(done) {
             chai.request(app)
                 .get('/api/v1/researchers/11224477Q')
                 .end(function(err, res) {
-                    if (err && res.status === 403) {
-                        expect(res).to.have.status(403);
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
                         done();
                     }
                     else {
@@ -412,7 +414,7 @@ describe('Testing API Code status responses', function() {
     });
 
     describe('HTTP - POST new researcher unauthorized', function() {
-        it('should return 403', function(done) {
+        it('should return 401', function(done) {
             chai.request(app)
                 .post('/api/v1/researchers/')
                 .send({
@@ -424,8 +426,8 @@ describe('Testing API Code status responses', function() {
                     gender: "male"
                 })
                 .end(function(err, res) {
-                    if (err && res.status === 403) {
-                        expect(res).to.have.status(403);
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
                         done();
                     }
                     else {
@@ -461,7 +463,7 @@ describe('Testing API Code status responses', function() {
     });
 
     describe('HTTP - PUT existing researcher unauthorized', function() {
-        it('should return 403', function(done) {
+        it('should return 401', function(done) {
             chai.request(app)
                 .put('/api/v1/researchers/22558877V')
                 .send({
@@ -473,8 +475,8 @@ describe('Testing API Code status responses', function() {
                     gender: "female"
                 })
                 .end(function(err, res) {
-                    if (err && res.status === 403) {
-                        expect(res).to.have.status(403);
+                    if (err && res.status === 401) {
+                        expect(res).to.have.status(401);
                         done();
                     }
                     else {
