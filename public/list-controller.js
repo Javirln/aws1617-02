@@ -24,7 +24,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }
         else {
             console.log("Using non-default token");
-            $scope.messageLogin = "Right now you are using a token provided by Facebook or Twitter.";
+            $scope.messageLogin = "Right now you are using a token provided by Google or Facebook.";
             $scope.token = $location.search().access_token;
         }
         console.log("Refreshing");

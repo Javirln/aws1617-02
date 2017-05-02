@@ -50,7 +50,7 @@ input::-webkit-inner-spin-button {
     background-color: white !important;
 }
 
-div{
+.divToken{
     word-break: break-all;
 }
 

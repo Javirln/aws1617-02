@@ -19,7 +19,52 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = require('./swaggerDef');
 const passport = require('passport'),
     BearerStrategy = require('passport-http-bearer').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy;
+    FacebookStrategy = require('passport-facebook').Strategy,
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+passport.use(new GoogleStrategy({
+        clientID: config.GOOGLE_CLIENT_ID,
+        clientSecret: config.GOOGLE_CLIENT_SECRET,
+        callbackURL: config.GOOGLE_APP_CALLBACK
+    },
+    function(accessToken, refreshToken, profile, done) {
+        /*User.findOrCreate({ googleId: profile.id }, function (err, user) {
+          return done(err, user);
+        });*/
+        tokensService.compareToken({
+            dni: profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                var userAux = {
+                    dni: profile.id,
+                    token: accessToken,
+                    apicalls: 0
+                };
+                tokensService.addWithToken(userAux,
+                    function(err, result) {
+                        if (err) {
+                            return done(err);
+                        }
+                        if (result) {
+                            return done(null, user);
+                        }
+                        else {
+                            return done(err);
+                        }
+                    }
+                );
+            }
+            else {
+                return done(null, user, {
+                    scope: 'read'
+                });
+            }
+        });
+    }
+));
 
 passport.use(new FacebookStrategy({
         clientID: config.FACEBOOK_APP_ID,
@@ -110,22 +155,37 @@ app.use(bodyParser.urlencoded({
 // Initialize passport
 app.use(passport.initialize());
 
-app.get(
-    '/auth/facebook',
+app.get('/auth/facebook',
     passport.authenticate('facebook', {
         session: false,
         scope: []
     })
 );
 
-app.get('/login/facebook/return',
+app.get('/auth/facebook/return',
     passport.authenticate('facebook', {
-        failureRedirect: '/login'
+        failureRedirect: '/auth/facebook'
     }),
     function(req, res) {
-        // Faltaria controlar el token ahora desde el front-end
         res.redirect("/?access_token=" + req.user.token);
-    });
+    }
+);
+
+app.get('/auth/google',
+    passport.authenticate('google', {
+        session: false,
+        scope: ['https://www.googleapis.com/auth/plus.login']
+    })
+);
+
+app.get('/auth/google/return',
+    passport.authenticate('google', {
+        failureRedirect: '/auth/google'
+    }),
+    function(req, res) {
+        res.redirect("/?access_token=" + req.user.token);
+    }
+);
 
 // Configuration of API documentation
 // Options for swagger docs
