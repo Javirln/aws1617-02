@@ -1,4 +1,4 @@
-angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
+angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http, $location) {
 
     var socket = io();
 
@@ -9,7 +9,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     function updateResearchList() {
         $http.get("/api/v1/researchers", {
             headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                'Authorization': 'Bearer ' + $scope.token
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -17,6 +17,16 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     }
 
     function refresh() {
+        if ($location.search().access_token == undefined) {
+            console.log("Using default token");
+            $scope.messageLogin = "Right now you are using the default token. Click on some of this providers to log in with them.";
+            $scope.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ";
+        }
+        else {
+            console.log("Using non-default token");
+            $scope.messageLogin = "Right now you are using a token provided by Facebook or Twitter.";
+            $scope.token = $location.search().access_token;
+        }
         console.log("Refreshing");
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
@@ -36,7 +46,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         });*/
         $http.get("/api/v1/researchers", {
             headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                'Authorization': 'Bearer ' + $scope.token
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -52,7 +62,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher, {
                 headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                    'Authorization': 'Bearer ' + $scope.token
                 }
             }).then(function() {
                 socket.emit('nr', 'ok');
@@ -67,7 +77,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher, {
                 headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                    'Authorization': 'Bearer ' + $scope.token
                 }
             }).then(function() {
                 socket.emit('nr', 'ok');
@@ -84,7 +94,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Adding researcher " + $scope.newResearcher.name);
         $http.post("/api/v1/researchers", $scope.newResearcher, {
             headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                'Authorization': 'Bearer ' + $scope.token
             }
         }).then(function() {
             socket.emit('nr', 'ok');
@@ -98,7 +108,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Deleting researcher " + $scope.researchers[idx].name);
             $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni, {
                 headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                    'Authorization': 'Bearer ' + $scope.token
                 }
             }).then(function() {
                 socket.emit('nr', 'ok');
@@ -132,7 +142,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Get researcher " + $scope.dniFilter);
         $http.get("/api/v1/researchers/" + $scope.dniFilter, {
             headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                'Authorization': 'Bearer ' + $scope.token
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -150,7 +160,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Deleting all");
             $http.delete("/api/v1/researchers/", {
                 headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ' // + $scope.token
+                    'Authorization': 'Bearer ' + $scope.token
                 }
             }).then(function() {
                 refresh();

@@ -29,6 +29,10 @@ Tokens.prototype.add = function(user, callback) {
     return db.insert({dni:user.dni, token:this.createToken(user), apicalls:0}, callback);
 };
 
+Tokens.prototype.addWithToken = function(user, callback) {
+    return db.insert({dni:user.dni, token:user.token, apicalls:0}, callback);
+};
+
 Tokens.prototype.get = function(dni, callback) {
     return db.find({dni:dni}).toArray(callback);
 };

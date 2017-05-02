@@ -53,3 +53,8 @@ input::-webkit-inner-spin-button {
 div{
     word-break: break-all;
 }
+
+.login{
+    width: 250px;
+    height: auto;
+}

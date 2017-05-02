@@ -5,8 +5,9 @@ const app = express();
 const path = require('path');
 const http = require('http');
 const port = (process.env.PORT || 3000);
+const util = require('util')
 require('dotenv').config();
-
+const config = require("./routes/config");
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
 const researchers = require('./routes/researchers');
@@ -18,7 +19,57 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = require('./swaggerDef');
 const passport = require('passport'),
-    BearerStrategy = require('passport-http-bearer').Strategy;
+    BearerStrategy = require('passport-http-bearer').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+        clientID: config.FACEBOOK_APP_ID,
+        clientSecret: config.FACEBOOK_APP_SECRET,
+        callbackURL: config.FACEBOOK_APP_CALLBACK
+    },
+    function(accessToken, refreshToken, profile, done) {
+        tokensService.compareToken({
+            dni: profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                var userAux = {
+                    dni: profile.id,
+                    token: accessToken,
+                    apicalls: 0
+                };
+                tokensService.addWithToken(userAux,
+                    function(err, result) {
+                        if (err) {
+                            return done(err);
+                        }
+                        if (result) {
+                            return done(null, user);
+                        }
+                        else {
+                            return done(err);
+                        }
+                    }
+                );
+            }
+            else {
+                return done(null, user, {
+                    scope: 'read'
+                });
+            }
+        });
+    }
+));
+
+passport.serializeUser(function(user, cb) {
+    cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+    cb(null, obj);
+});
 
 passport.use(new BearerStrategy(
     function(token, done) {
@@ -47,6 +98,7 @@ passport.use(new BearerStrategy(
     }
 ));
 
+
 // Used to logs all API calls
 app.use(logger('dev'));
 
@@ -58,6 +110,23 @@ app.use(bodyParser.urlencoded({
 
 // Initialize passport
 app.use(passport.initialize());
+
+app.get(
+    '/auth/facebook',
+    passport.authenticate('facebook', {
+        session: false,
+        scope: []
+    })
+);
+
+app.get('/login/facebook/return',
+    passport.authenticate('facebook', {
+        failureRedirect: '/login'
+    }),
+    function(req, res) {
+        // Faltaria controlar el token ahora desde el front-end
+        res.redirect("/?access_token=" + req.user.token);
+    });
 
 // Configuration of API documentation
 // Options for swagger docs
