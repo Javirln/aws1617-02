@@ -55,6 +55,10 @@ Tokens.prototype.remove = function(dni, callback) {
     return db.remove({dni:dni},{ multi: true}, callback);
 };
 
+Tokens.prototype.removeAll = function(callback) {
+    return db.remove({},{ multi: true},callback);
+};
+
 Tokens.prototype.update = function(token, updatedUserInfo, callback) {
     return db.update({token:token},updatedUserInfo,{}, callback);
 };

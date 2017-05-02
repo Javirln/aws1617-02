@@ -5,6 +5,7 @@ chai.use(require('chai-things'));
 chai.use(require('chai-http'));
 const expect = chai.expect;
 const researchers = require('../routes/researchers-service');
+const tokens = require('../routes/tokens-service');
 const app = require('../server');
 
 describe('Testing Researchers API functionalities', function() {
@@ -193,6 +194,23 @@ describe('Testing API Code status responses', function() {
                     email: "anne@london.com",
                     address: "London",
                     gender: "female"
+                }], done);
+            });
+        });
+        tokens.connectDb((err) => {
+            if (err) {
+                return done(err);
+            }
+
+            tokens.removeAll(function(err) {
+                if (err) {
+                    return done(err);
+                }
+
+                tokens.addWithToken([{
+                    dni: "12121212X",
+                    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E",
+                    apicalls: 0
                 }], done);
             });
         });

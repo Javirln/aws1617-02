@@ -27,9 +27,6 @@ passport.use(new GoogleStrategy({
         callbackURL: process.env.GOOGLE_APP_CALLBACK
     },
     function(accessToken, refreshToken, profile, done) {
-        /*User.findOrCreate({ googleId: profile.id }, function (err, user) {
-          return done(err, user);
-        });*/
         tokensService.compareToken({
             dni: profile.id
         }, function(err, user) {
