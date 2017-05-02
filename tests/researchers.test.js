@@ -194,7 +194,7 @@ describe('Testing API Code status responses', function() {
                     email: "anne@london.com",
                     address: "London",
                     gender: "female"
-                }], done);
+                }]);
             });
         });
         tokens.connectDb((err) => {
@@ -207,11 +207,11 @@ describe('Testing API Code status responses', function() {
                     return done(err);
                 }
 
-                tokens.addWithToken([{
+                tokens.addWithToken({
                     dni: "12121212X",
                     token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E",
                     apicalls: 0
-                }], done);
+                }, done);
             });
         });
     });
