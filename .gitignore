@@ -3,4 +3,3 @@ data/
 mongod
 npm-debug.log
 .env
-config.js

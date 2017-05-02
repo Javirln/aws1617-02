@@ -6,7 +6,6 @@ const path = require('path');
 const http = require('http');
 const port = (process.env.PORT || 3000);
 require('dotenv').config();
-const config = require("./routes/config");
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
 const researchers = require('./routes/researchers');
@@ -23,9 +22,9 @@ const passport = require('passport'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 passport.use(new GoogleStrategy({
-        clientID: config.GOOGLE_CLIENT_ID,
-        clientSecret: config.GOOGLE_CLIENT_SECRET,
-        callbackURL: config.GOOGLE_APP_CALLBACK
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_APP_CALLBACK
     },
     function(accessToken, refreshToken, profile, done) {
         /*User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -67,9 +66,9 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.use(new FacebookStrategy({
-        clientID: config.FACEBOOK_APP_ID,
-        clientSecret: config.FACEBOOK_APP_SECRET,
-        callbackURL: config.FACEBOOK_APP_CALLBACK
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: process.env.FACEBOOK_APP_CALLBACK
     },
     function(accessToken, refreshToken, profile, done) {
         tokensService.compareToken({
