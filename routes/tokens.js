@@ -14,7 +14,7 @@ router.delete('/:dni', function(req, res) {
         }
         if (Object.keys(token).length === 0) {
             res.status(404).send({
-                msg: 'No existe ningún token con ese DNI'
+                msg: 'That DNI is not correct, please register it'
             });
         }
         else {
@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
         }
         if (Object.keys(token).length !== 0) {
             res.status(409).send({
-                msg: 'Ya existe un token asociado a ese DNI'
+                msg: 'We already have that DNI in use'
             });
         }
         else {
@@ -78,7 +78,7 @@ router.post('/authenticate', function(req, res) {
         }
         else {
             res.status(404).send({
-                msg: 'No existe ningún token asociado a ese DNI'
+                msg: 'That DNI is not correct, please register it'
             });
         }
     });

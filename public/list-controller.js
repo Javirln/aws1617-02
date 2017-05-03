@@ -1,4 +1,4 @@
-angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http) {
+angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $http, $location) {
 
     var socket = io();
 
@@ -17,6 +17,18 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     }
 
     function refresh() {
+        if ($location.search().access_token == undefined) {
+            console.log("Using default token");
+            $scope.titleLogin = "Log in"
+            $scope.messageLogin = "Right now you are using the default token. Click on some of this providers to log in with them.";
+            $scope.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ";
+        }
+        else {
+            console.log("Using non-default token");
+            $scope.titleLogin = "Logged!"
+            $scope.messageLogin = "Right now you are using a token provided by Google or Facebook.";
+            $scope.token = $location.search().access_token;
+        }
         console.log("Refreshing");
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
@@ -26,26 +38,25 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.updateCreateResult = null;
         $scope.updateCreateError = null;
 
-        $http.post("/api/v1/tokens/authenticate", {
+        /*$http.post("/api/v1/tokens/authenticate", {
             dni: "49561474Q"
         }).then(function(response) {
             //Success
-            $scope.token = response.data.token;
-            $http.get("/api/v1/researchers", {
-                headers: {
-                    'Authorization': 'Bearer ' + $scope.token
-                }
-            }).then(function(response) {
-                $scope.researchers = response.data;
-                $scope.disabledSearch = true;
-                $scope.addResearcherForm.$setPristine();
-                $scope.newResearcher = {};
-                $scope.dniFilter = null;
-            });
+            
         }, function(response) {
             console.log("Error getting the default token: " + response.data.msg);
+        });*/
+        $http.get("/api/v1/researchers", {
+            headers: {
+                'Authorization': 'Bearer ' + $scope.token
+            }
+        }).then(function(response) {
+            $scope.researchers = response.data;
+            $scope.disabledSearch = true;
+            $scope.addResearcherForm.$setPristine();
+            $scope.newResearcher = {};
+            $scope.dniFilter = null;
         });
-
     }
 
     $scope.submitForm = function() {

@@ -3,9 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const researchers = require('./researchers-service');
-const middleware = require('./middleware');
+const passport = require("passport");
 
-router.get('/', middleware.ensureAuthenticated, function(req, res) {
+router.get('/', passport.authenticate('bearer', {
+    session: false
+}), function(req, res) {
 
     researchers.allResearchers((err, researchers) => {
         if (err) {
@@ -20,7 +22,9 @@ router.get('/', middleware.ensureAuthenticated, function(req, res) {
 
 });
 
-router.get('/:dni', middleware.ensureAuthenticated, function(req, res) {
+router.get('/:dni', passport.authenticate('bearer', {
+    session: false
+}), function(req, res) {
     const dni = req.params.dni;
 
     researchers.get(dni, (err, researcher) => {
@@ -41,7 +45,9 @@ router.get('/:dni', middleware.ensureAuthenticated, function(req, res) {
 
 });
 
-router.post('/', middleware.ensureAuthenticated, function(req, res) {
+router.post('/', passport.authenticate('bearer', {
+    session: false
+}), function(req, res) {
 
     researchers.get(req.body.dni, (err, researcher) => {
         if (err) {
@@ -74,7 +80,9 @@ router.post('/', middleware.ensureAuthenticated, function(req, res) {
     });
 });
 
-router.put('/:dni', middleware.ensureAuthenticated, function(req, res) {
+router.put('/:dni', passport.authenticate('bearer', {
+    session: false
+}), function(req, res) {
     const dni = req.params.dni;
     const updatedResearcher = req.body;
 
@@ -112,7 +120,9 @@ router.put('/:dni', middleware.ensureAuthenticated, function(req, res) {
 });
 
 
-router.delete('/:dni', middleware.ensureAuthenticated, function(req, res) {
+router.delete('/:dni', passport.authenticate('bearer', {
+    session: false
+}), function(req, res) {
 
     researchers.get(req.params.dni, (err, researcher) => {
         if (err) {
@@ -146,7 +156,9 @@ router.delete('/:dni', middleware.ensureAuthenticated, function(req, res) {
     });
 });
 
-router.delete('/', middleware.ensureAuthenticated, function(req, res) {
+router.delete('/', passport.authenticate('bearer', {
+    session: false
+}), function(req, res) {
 
     researchers.removeAll((err, numRemoved) => {
         if (err) {

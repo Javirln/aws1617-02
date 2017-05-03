@@ -57,7 +57,7 @@
                                 </div>
                                 <p ng-show="addTokenForm.dni.$invalid && !addTokenForm.dni.$pristine" class="help-block">DNI is required.</p>
                             </div>
-                            <div ng-class="tokenResult">
+                            <div ng-class="tokenResult" class="divToken">
                                 <strong>{{result}}</strong> {{tokenGenerated}}
                             </div>
                             <button type="submit" ng-disabled="addTokenForm.$invalid" class="btn btn-primary">Create!</button>
@@ -79,7 +79,7 @@
                                 </div>
                                 <p ng-show="deleteTokenForm.dni.$invalid && !deleteTokenForm.dni.$pristine" class="help-block">DNI is required.</p>
                             </div>
-                            <div ng-class="tokendeleteResult">
+                            <div ng-class="tokendeleteResult" class="divToken">
                                 <strong>{{resultdelete}}</strong> {{tokendeleteGenerated}}
                             </div>
                             <button type="submit" ng-disabled="deleteTokenForm.$invalid" class="btn btn-danger">Destroy!</button>

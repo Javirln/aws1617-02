@@ -6,7 +6,6 @@ const path = require('path');
 const http = require('http');
 const port = (process.env.PORT || 3000);
 require('dotenv').config();
-
 const bodyParser = require('body-parser');
 const researchersService = require("./routes/researchers-service");
 const researchers = require('./routes/researchers');
@@ -17,6 +16,128 @@ const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = require('./swaggerDef');
+const passport = require('passport'),
+    BearerStrategy = require('passport-http-bearer').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_APP_CALLBACK
+    },
+    function(accessToken, refreshToken, profile, done) {
+        tokensService.compareToken({
+            dni: profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                var userAux = {
+                    dni: profile.id,
+                    token: accessToken,
+                    apicalls: 0
+                };
+                tokensService.addWithToken(userAux,
+                    function(err, result) {
+                        if (err) {
+                            return done(err);
+                        }
+                        if (result) {
+                            return done(null, user);
+                        }
+                        else {
+                            return done(err);
+                        }
+                    }
+                );
+            }
+            else {
+                return done(null, user, {
+                    scope: 'read'
+                });
+            }
+        });
+    }
+));
+
+passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: process.env.FACEBOOK_APP_CALLBACK
+    },
+    function(accessToken, refreshToken, profile, done) {
+        tokensService.compareToken({
+            dni: profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                var userAux = {
+                    dni: profile.id,
+                    token: accessToken,
+                    apicalls: 0
+                };
+                tokensService.addWithToken(userAux,
+                    function(err, result) {
+                        if (err) {
+                            return done(err);
+                        }
+                        if (result) {
+                            return done(null, user);
+                        }
+                        else {
+                            return done(err);
+                        }
+                    }
+                );
+            }
+            else {
+                return done(null, user, {
+                    scope: 'read'
+                });
+            }
+        });
+    }
+));
+
+passport.serializeUser(function(user, cb) {
+    cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+    cb(null, obj);
+});
+
+passport.use(new BearerStrategy(
+    function(token, done) {
+        tokensService.compareToken({
+            token: token
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            tokensService.update(token, {
+                dni: user.dni,
+                token: user.token,
+                apicalls: (user.apicalls + 1)
+            }, (err, numUpdates) => {
+                if (err || numUpdates === 0) {
+                    console.log("Error updating API Calls of token " + token);
+                }
+            });
+            return done(null, user, {
+                scope: 'read'
+            });
+        });
+    }
+));
+
 
 // Used to logs all API calls
 app.use(logger('dev'));
@@ -26,6 +147,41 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
+// Initialize passport
+app.use(passport.initialize());
+
+app.get('/auth/facebook',
+    passport.authenticate('facebook', {
+        session: false,
+        scope: []
+    })
+);
+
+app.get('/auth/facebook/return',
+    passport.authenticate('facebook', {
+        failureRedirect: '/auth/facebook'
+    }),
+    function(req, res) {
+        res.redirect("/?access_token=" + req.user.token);
+    }
+);
+
+app.get('/auth/google',
+    passport.authenticate('google', {
+        session: false,
+        scope: ['https://www.googleapis.com/auth/plus.login']
+    })
+);
+
+app.get('/auth/google/return',
+    passport.authenticate('google', {
+        failureRedirect: '/auth/google'
+    }),
+    function(req, res) {
+        res.redirect("/?access_token=" + req.user.token);
+    }
+);
 
 // Configuration of API documentation
 // Options for swagger docs
@@ -70,6 +226,7 @@ io.sockets.on('connection', (socket) => {
     });
 });
 
+// Starting up the service
 researchersService.connectDb((err) => {
     if (err) {
         console.log("Could not connect with MongoDB researchers");
