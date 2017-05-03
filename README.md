@@ -92,13 +92,13 @@ el cuerpo del mensaje el DNI que está registrado en la colección de la base de
 Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 1. Clonar el repositorio
 2. Exportar las siguientes variables de entorno:
-  1. `MONGODB_URL` que apunte a la dirección de la base de datos de Mongo
-  2. `FACEBOOK_APP_ID` ID de la aplicación de FB para logueo mediante OAuth2.0
-  3. `FACEBOOK_APP_SECRET` Clave secreta de la aplicación de FB para logueo mediante OAuth2.0
-  4. `FACEBOOK_APP_CALLBACK` URL de callback de la aplicación de FB para logueo mediante OAuth2.0
-  5. `GOOGLE_CLIENT_ID` ID de la aplicación de Google para logueo mediante OAuth2.0
-  6. `GOOGLE_CLIENT_SECRET` Clave secreta de la aplicación de Google para logueo mediante OAuth2.0
-  7. `GOOGLE_APP_CALLBACK` URL de callback de la aplicación de Google para logueo mediante OAuth2.0
+    * `MONGODB_URL` que apunte a la dirección de la base de datos de Mongo
+    * `FACEBOOK_APP_ID` ID de la aplicación de FB para logueo mediante OAuth2.0
+    * `FACEBOOK_APP_SECRET` Clave secreta de la aplicación de FB para logueo mediante OAuth2.0
+    * `FACEBOOK_APP_CALLBACK` URL de callback de la aplicación de FB para logueo mediante OAuth2.0
+    * `GOOGLE_CLIENT_ID` ID de la aplicación de Google para logueo mediante OAuth2.0
+    * `GOOGLE_CLIENT_SECRET` Clave secreta de la aplicación de Google para logueo mediante OAuth2.0
+    * `GOOGLE_APP_CALLBACK` URL de callback de la aplicación de Google para logueo mediante OAuth2.0
 3. `npm install`
 4. `npm run test`
 5. `npm start`
