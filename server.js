@@ -12,6 +12,7 @@ const researchers = require('./routes/researchers');
 const tokensService = require("./routes/tokens-service");
 const tokens = require('./routes/tokens');
 const baseApi = '/api/v1';
+const cors = require('cors');
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
@@ -150,6 +151,9 @@ app.use(bodyParser.urlencoded({
 
 // Initialize passport
 app.use(passport.initialize());
+
+// Enable cors
+app.use(cors());
 
 app.get('/auth/facebook',
     passport.authenticate('facebook', {
