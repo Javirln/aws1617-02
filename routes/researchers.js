@@ -5,9 +5,7 @@ const router = express.Router();
 const researchers = require('./researchers-service');
 const passport = require("passport");
 
-router.get('/', passport.authenticate('bearer', {
-    session: false
-}), function(req, res) {
+router.get('/', function(req, res) {
 
     researchers.allResearchers((err, researchers) => {
         if (err) {
@@ -22,9 +20,7 @@ router.get('/', passport.authenticate('bearer', {
 
 });
 
-router.get('/:orcid', passport.authenticate('bearer', {
-    session: false
-}), function(req, res) {
+router.get('/:orcid', function(req, res) {
     const orcid = req.params.orcid;
 
     researchers.get(orcid, (err, researcher) => {
