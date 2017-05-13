@@ -30,38 +30,38 @@ Researchers.prototype.removeAll = function(callback) {
     return db.remove({},{ multi: true},callback);
 };
 
-Researchers.prototype.get = function(dni, callback) {
-    return db.find({dni:dni}).toArray(callback);
+Researchers.prototype.get = function(orcid, callback) {
+    return db.find({orcid:orcid}).toArray(callback);
 };
 
-Researchers.prototype.remove = function(dni, callback) {
-    return db.remove({dni:dni},{ multi: true}, callback);
+Researchers.prototype.remove = function(orcid, callback) {
+    return db.remove({orcid:orcid},{ multi: true}, callback);
 };
 
-Researchers.prototype.update = function(dni, updatedContact, callback) {
-    return db.update({dni:dni},updatedContact,{}, callback);
+Researchers.prototype.update = function(orcid, updatedContact, callback) {
+    return db.update({orcid:orcid},updatedContact,{}, callback);
 };
 
-Researchers.prototype.isValid = function (researcher, dni){
+Researchers.prototype.isValid = function (researcher, orcid){
     let res = true;
-    const model = ["dni", "name", "email", "phone", "address", "gender"];
-    if (dni === (undefined || null)) {
+    const model = ["orcid", "name", "email", "phone", "address", "gender"];
+    if (orcid === (undefined || null)) {
         if (!_.isEqual(model.sort(), Object.keys(researcher).sort())) {
             res = false;
         } else if (researcher.email.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/) === (null || ''))  {
             res = false;
-        } else if (researcher.dni.match(/(\d{8})([aA-zZ]{1})/)  === (null || '')) {
+        } /*else if (researcher.orcid.match(/(\d{8})([aA-zZ]{1})/)  === (null || '')) {
             res = false; 
-        } else if (researcher.phone.toString().length !== 9) {
+        } */else if (researcher.phone.toString().length !== 9) {
             res = false;
         } else if ((researcher.name || researcher.email || researcher.phone || researcher.address || researcher.gender) === ('' || null)) {
             res = false;
         } else if (researcher.gender !== 'male' && researcher.gender !== 'female') {
             res = false;
         }
-    } else {
-       res = !(dni.match(/(\d{8})([aA-zZ]{1})/) === null || '');
-    }
+    } /*else {
+       res = !(orcid.match(/(\d{8})([aA-zZ]{1})/) === null || '');
+    }*/
     return res;
 };
 

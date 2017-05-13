@@ -55,7 +55,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $scope.disabledSearch = true;
             $scope.addResearcherForm.$setPristine();
             $scope.newResearcher = {};
-            $scope.dniFilter = null;
+            $scope.orcidFilter = null;
         });
     }
 
@@ -77,7 +77,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }
         else if ($scope.actionTitle == "Update researcher") {
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
-            $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.dni, $scope.newResearcher, {
+            $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.orcid, $scope.newResearcher, {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
                 }
@@ -108,7 +108,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.deleteResearcher = function(idx) {
         if (confirm("Are you sure!?")) {
             console.log("Deleting researcher " + $scope.researchers[idx].name);
-            $http.delete("/api/v1/researchers/" + $scope.researchers[idx].dni, {
+            $http.delete("/api/v1/researchers/" + $scope.researchers[idx].orcid, {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
                 }
@@ -131,7 +131,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.updateCreateResult = null;
         $scope.updateCreateError = null;
         $scope.researcherToUpdate = $scope.researchers[idx];
-        $scope.newResearcher.dni = $scope.researcherToUpdate.dni;
+        $scope.newResearcher.orcid = $scope.researcherToUpdate.orcid;
         $scope.newResearcher.name = $scope.researcherToUpdate.name;
         $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
@@ -141,8 +141,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     };
 
     $scope.searchResearcher = function() {
-        console.log("Get researcher " + $scope.dniFilter);
-        $http.get("/api/v1/researchers/" + $scope.dniFilter, {
+        console.log("Get researcher " + $scope.orcidFilter);
+        $http.get("/api/v1/researchers/" + $scope.orcidFilter, {
             headers: {
                 'Authorization': 'Bearer ' + $scope.token
             }

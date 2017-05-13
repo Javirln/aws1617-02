@@ -22,12 +22,12 @@ router.get('/', passport.authenticate('bearer', {
 
 });
 
-router.get('/:dni', passport.authenticate('bearer', {
+router.get('/:orcid', passport.authenticate('bearer', {
     session: false
 }), function(req, res) {
-    const dni = req.params.dni;
+    const orcid = req.params.orcid;
 
-    researchers.get(dni, (err, researcher) => {
+    researchers.get(orcid, (err, researcher) => {
         if (err) {
             res.status(404).send({
                 msg: err
@@ -35,7 +35,7 @@ router.get('/:dni', passport.authenticate('bearer', {
         }
         else if (researcher.length === 0) {
             res.status(404).send({
-                msg: 'No existe investigador con ese DNI'
+                msg: 'No existe investigador con ese ORCID'
             });
         }
         else {
@@ -49,7 +49,7 @@ router.post('/', passport.authenticate('bearer', {
     session: false
 }), function(req, res) {
 
-    researchers.get(req.body.dni, (err, researcher) => {
+    researchers.get(req.body.orcid, (err, researcher) => {
         if (err) {
             res.status(500).send({
                 msg: 'Internal server error'
@@ -57,7 +57,7 @@ router.post('/', passport.authenticate('bearer', {
         }
         if (Object.keys(researcher).length !== 0) {
             res.status(409).send({
-                msg: 'Ya existe un investigador con ese DNI'
+                msg: 'Ya existe un investigador con ese ORCID'
             });
         }
         else if (researchers.isValid(req.body, null) && Object.keys(researcher).length === 0) {
@@ -80,13 +80,13 @@ router.post('/', passport.authenticate('bearer', {
     });
 });
 
-router.put('/:dni', passport.authenticate('bearer', {
+router.put('/:orcid', passport.authenticate('bearer', {
     session: false
 }), function(req, res) {
-    const dni = req.params.dni;
+    const orcid = req.params.orcid;
     const updatedResearcher = req.body;
 
-    researchers.get(dni, (err, researcher) => {
+    researchers.get(orcid, (err, researcher) => {
         if (err) {
             res.status(500).send({
                 msg: 'Internal server error'
@@ -94,11 +94,11 @@ router.put('/:dni', passport.authenticate('bearer', {
         }
         if (Object.keys(researcher).length === 0) {
             res.status(404).send({
-                msg: 'No existe ningún investigador con ese DNI'
+                msg: 'No existe ningún investigador con ese ORCID'
             });
         }
-        else if (researchers.isValid(null, dni) && Object.keys(researcher).length !== 0) {
-            researchers.update(dni, updatedResearcher, (err, numUpdates) => {
+        else if (researchers.isValid(null, orcid) && Object.keys(researcher).length !== 0) {
+            researchers.update(orcid, updatedResearcher, (err, numUpdates) => {
                 if (err || numUpdates === 0) {
                     res.statusCode = 404;
                     res.send({
@@ -113,18 +113,18 @@ router.put('/:dni', passport.authenticate('bearer', {
         }
         else {
             res.status(400).send({
-                msg: 'El DNI no es válido'
+                msg: 'El ORCID no es válido'
             });
         }
     });
 });
 
 
-router.delete('/:dni', passport.authenticate('bearer', {
+router.delete('/:orcid', passport.authenticate('bearer', {
     session: false
 }), function(req, res) {
 
-    researchers.get(req.params.dni, (err, researcher) => {
+    researchers.get(req.params.orcid, (err, researcher) => {
         if (err) {
             res.status(500).send({
                 msg: 'Internal server error'
@@ -132,11 +132,11 @@ router.delete('/:dni', passport.authenticate('bearer', {
         }
         if (Object.keys(researcher).length === 0) {
             res.status(404).send({
-                msg: 'No existe ningún investigador con ese DNI'
+                msg: 'No existe ningún investigador con ese ORCID'
             });
         }
-        else if (researchers.isValid(null, req.params.dni) && Object.keys(researcher).length !== 0) {
-            researchers.remove(req.params.dni, (err, numRemoved) => {
+        else if (researchers.isValid(null, req.params.orcid) && Object.keys(researcher).length !== 0) {
+            researchers.remove(req.params.orcid, (err, numRemoved) => {
                 if (err) {
                     res.status(404).send({
                         msg: err
@@ -150,7 +150,7 @@ router.delete('/:dni', passport.authenticate('bearer', {
         }
         else {
             res.status(400).send({
-                msg: 'El DNI no es válido'
+                msg: 'El ORCID no es válido'
             });
         }
     });

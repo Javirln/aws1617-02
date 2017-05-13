@@ -4,9 +4,9 @@ const express = require('express');
 const router = express.Router();
 const tokens = require('./tokens-service');
 
-router.delete('/:dni', function(req, res) {
+router.delete('/:orcid', function(req, res) {
 
-    tokens.get(req.params.dni, (err, token) => {
+    tokens.get(req.params.orcid, (err, token) => {
         if (err) {
             res.status(500).send({
                 msg: 'Internal server error'
@@ -14,11 +14,11 @@ router.delete('/:dni', function(req, res) {
         }
         if (Object.keys(token).length === 0) {
             res.status(404).send({
-                msg: 'That DNI is not correct, please register it'
+                msg: 'That ORCID is not correct, please register it'
             });
         }
         else {
-            tokens.remove(req.params.dni, (err, numRemoved) => {
+            tokens.remove(req.params.orcid, (err, numRemoved) => {
                 if (err) {
                     res.status(404).send({
                         msg: err
@@ -35,7 +35,7 @@ router.delete('/:dni', function(req, res) {
 
 router.post('/', function(req, res) {
 
-    tokens.get(req.body.dni, (err, token) => {
+    tokens.get(req.body.orcid, (err, token) => {
         if (err) {
             res.status(500).send({
                 msg: 'Internal server error'
@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
         }
         if (Object.keys(token).length !== 0) {
             res.status(409).send({
-                msg: 'We already have that DNI in use'
+                msg: 'We already have that ORCID in use'
             });
         }
         else {
@@ -63,7 +63,7 @@ router.post('/', function(req, res) {
 
 router.post('/authenticate', function(req, res) {
 
-    tokens.get(req.body.dni, (err, token) => {
+    tokens.get(req.body.orcid, (err, token) => {
         if (err) {
             res.status(500).send({
                 msg: 'Internal server error'
@@ -73,12 +73,12 @@ router.post('/authenticate', function(req, res) {
             res.status(201).send({
                 success: true,
                 message: 'Enjoy your token!',
-                token: tokens.createToken(req.body.dni)
+                token: tokens.createToken(req.body.orcid)
             });
         }
         else {
             res.status(404).send({
-                msg: 'That DNI is not correct, please register it'
+                msg: 'That ORCID is not correct, please register it'
             });
         }
     });

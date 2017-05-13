@@ -8,7 +8,7 @@ const config = require('./config');
 const Tokens = function () {};
 
 var User = function(params) {
-    this.dni = params.dni;
+    this.orcid = params.orcid;
     this.token = params.token;
     this.apicalls = params.apicalls;
 };
@@ -26,15 +26,15 @@ Tokens.prototype.connectDb = function(callback) {
 };
 
 Tokens.prototype.add = function(user, callback) {
-    return db.insert({dni:user.dni, token:this.createToken(user), apicalls:0}, callback);
+    return db.insert({orcid:user.orcid, token:this.createToken(user), apicalls:0}, callback);
 };
 
 Tokens.prototype.addWithToken = function(user, callback) {
-    return db.insert({dni:user.dni, token:user.token, apicalls:0}, callback);
+    return db.insert({orcid:user.orcid, token:user.token, apicalls:0}, callback);
 };
 
-Tokens.prototype.get = function(dni, callback) {
-    return db.find({dni:dni}).toArray(callback);
+Tokens.prototype.get = function(orcid, callback) {
+    return db.find({orcid:orcid}).toArray(callback);
 };
 
 Tokens.prototype.compareToken = function(user, callback) {
@@ -51,8 +51,8 @@ Tokens.prototype.compareToken = function(user, callback) {
     });
 };
 
-Tokens.prototype.remove = function(dni, callback) {
-    return db.remove({dni:dni},{ multi: true}, callback);
+Tokens.prototype.remove = function(orcid, callback) {
+    return db.remove({orcid:orcid},{ multi: true}, callback);
 };
 
 Tokens.prototype.removeAll = function(callback) {

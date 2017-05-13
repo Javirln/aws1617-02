@@ -2,7 +2,7 @@ angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $ht
 
 
     $scope.createToken = function() {
-        console.log("Create token for DNI " + $scope.newToken.dni);
+        console.log("Create token for ORCID " + $scope.newToken.orcid);
 
         $http.post("/api/v1/tokens", $scope.newToken).then(function() {
             //Success
@@ -23,7 +23,7 @@ angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $ht
             $http.post("/api/v1/tokens/authenticate", $scope.newToken).then(function(response) {
                 $scope.tokenResult = "alert alert-danger";
                 $scope.result = "Ups!";
-                $scope.tokenGenerated = "It looks like that DNI is already used. Please try again or use this token: " + response.data.token;
+                $scope.tokenGenerated = "It looks like that ORCID is already used. Please try again or use this token: " + response.data.token;
                 console.log("Error: " + response.data.msg);
             }, function(response) {
                 $scope.tokenResult = "alert alert-danger";
@@ -36,8 +36,8 @@ angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $ht
 
     $scope.deleteToken = function() {
         if (confirm("Are you sure!?")) {
-            console.log("Deleting token for DNI " + $scope.existingToken.dni);
-            $http.delete("/api/v1/tokens/" + $scope.existingToken.dni).then(function() {
+            console.log("Deleting token for ORCID " + $scope.existingToken.orcid);
+            $http.delete("/api/v1/tokens/" + $scope.existingToken.orcid).then(function() {
                 $scope.tokendeleteResult = "alert alert-success";
                 $scope.resultdelete = "Its okay!";
                 $scope.tokendeleteGenerated = "Your token has been deleted";
@@ -45,7 +45,7 @@ angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $ht
                 console.log("Error: " + response.data.msg);
                 $scope.tokendeleteResult = "alert alert-danger";
                 $scope.resultdelete = "Ups!";
-                $scope.tokendeleteGenerated = "We don't have tokens associated to that DNI.";
+                $scope.tokendeleteGenerated = "We don't have tokens associated to that ORCID.";
             });
         }
     };

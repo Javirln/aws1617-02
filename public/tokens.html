@@ -48,14 +48,14 @@
                     <div class="panel-body p-t-0">
                         <h2>Get Token</h2>
                         <hr>
-                        <h4>Write your DNI and we'll create a token for you :-)</h4>
+                        <h4>Write your ORCID and we'll create a token for you :-)</h4>
                         <form name="addTokenForm" ng-submit="createToken()" novalidate>
-                            <div class="form-group" ng-class="{ 'has-error' : addTokenForm.dni.$invalid && !addTokenForm.dni.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : addTokenForm.orcid.$invalid && !addTokenForm.orcid.$pristine }">
                                 <div class="input-group">
-                                    <span class="input-group-addon">DNI</span>
-                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-change="newToken.dni = (newToken.dni | uppercase)" ng-pattern="/(\d{8})([aA-zZ]{1})/" maxlength="9" ng-model="newToken.dni" required>
+                                    <span class="input-group-addon">ORCID</span>
+                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newToken.orcid = (newToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" maxlength="9" ng-model="newToken.orcid" required>
                                 </div>
-                                <p ng-show="addTokenForm.dni.$invalid && !addTokenForm.dni.$pristine" class="help-block">DNI is required.</p>
+                                <p ng-show="addTokenForm.orcid.$invalid && !addTokenForm.orcid.$pristine" class="help-block">ORCID is required.</p>
                             </div>
                             <div ng-class="tokenResult" class="divToken">
                                 <strong>{{result}}</strong> {{tokenGenerated}}
@@ -70,14 +70,14 @@
                     <div class="panel-body p-t-0">
                         <h2>Delete Token</h2>
                         <hr>
-                        <h4>Write your DNI and press destroy.</h4>
+                        <h4>Write your ORCID and press destroy.</h4>
                         <form name="deleteTokenForm" ng-submit="deleteToken()" novalidate>
-                            <div class="form-group" ng-class="{ 'has-error' : deleteTokenForm.dni.$invalid && !deleteTokenForm.dni.$pristine }">
+                            <div class="form-group" ng-class="{ 'has-error' : deleteTokenForm.orcid.$invalid && !deleteTokenForm.orcid.$pristine }">
                                 <div class="input-group">
-                                    <span class="input-group-addon">DNI</span>
-                                    <input type="text" name="dni" class="form-control" placeholder="45784524X" ng-change="existingToken.dni = (existingToken.dni | uppercase)" ng-pattern="/(\d{8})([aA-zZ]{1})/" ng-model="existingToken.dni" required>
+                                    <span class="input-group-addon">ORCID</span>
+                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="existingToken.orcid = (existingToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" ng-model="existingToken.orcid" required>
                                 </div>
-                                <p ng-show="deleteTokenForm.dni.$invalid && !deleteTokenForm.dni.$pristine" class="help-block">DNI is required.</p>
+                                <p ng-show="deleteTokenForm.orcid.$invalid && !deleteTokenForm.orcid.$pristine" class="help-block">ORCID is required.</p>
                             </div>
                             <div ng-class="tokendeleteResult" class="divToken">
                                 <strong>{{resultdelete}}</strong> {{tokendeleteGenerated}}
