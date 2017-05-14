@@ -21,19 +21,26 @@ describe('Testing Researchers API functionalities', function() {
                 }
 
                 researchers.add([{
-                    orcid: "0000-0002-1825-0097",
-                    name: "Pepe",
-                    phone: "654657748",
-                    email: "pepe@us.com",
+                    orcid: "0000-0003-1575-406X",
+                    name: "Manuel Resinas",
+                    phone: "954553867",
+                    email: "resinas@us.es",
                     address: "Sevilla",
                     gender: "male"
                 }, {
-                    orcid: "0000-0002-1825-0098",
-                    name: "Anne",
-                    phone: "722548896",
-                    email: "anne@london.com",
-                    address: "London",
-                    gender: "female"
+                    orcid: "0000-0001-9827-1834",
+                    name: "Antonio Ruiz",
+                    phone: "954553867",
+                    email: "aruiz@us.es",
+                    address: "Sevilla",
+                    gender: "male"
+                }, {
+                    orcid: "0000-0002-8763-0819",
+                    name: "Pablo Fernandez",
+                    phone: "954556236",
+                    email: "pablofm@us.es",
+                    address: "Sevilla",
+                    gender: "male"
                 }], done);
             });
         });
@@ -46,9 +53,10 @@ describe('Testing Researchers API functionalities', function() {
                     return done(err);
                 }
 
-                expect(res).to.have.lengthOf(2);
-                expect(res).to.contain.an.item.with.property('name', 'Pepe');
-                expect(res).to.contain.an.item.with.property('name', 'Anne');
+                expect(res).to.have.lengthOf(3);
+                expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas');
+                expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
+                expect(res).to.contain.an.item.with.property('name', 'Pablo Fernandez');
                 done();
             });
         });
@@ -56,13 +64,13 @@ describe('Testing Researchers API functionalities', function() {
 
     describe('#get()', function() {
         it('should return one researcher', function(done) {
-            researchers.get('0000-0002-1825-0097', (err, res) => {
+            researchers.get('0000-0003-1575-406X', (err, res) => {
                 if (err) {
                     return done(err);
                 }
 
                 expect(res).to.have.lengthOf(1);
-                expect(res).to.contain.an.item.with.property('name', 'Pepe');
+                expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas');
                 done();
             });
         });
@@ -72,11 +80,11 @@ describe('Testing Researchers API functionalities', function() {
         it('should add one more researcher to the default list', function(done) {
             researchers.add([{
                 orcid: "0000-0002-1825-0099",
-                name: "Manuel",
-                phone: "987654321",
-                email: "manuel@us.com",
+                name: "Ana Gomez",
+                phone: "954878584",
+                email: "anagomez@us.com",
                 address: "Sevilla",
-                gender: "male"
+                gender: "female"
             }], (err) => {
 
                 if (err) {
@@ -88,10 +96,11 @@ describe('Testing Researchers API functionalities', function() {
                         return done(err);
                     }
 
-                    expect(res).to.have.lengthOf(3);
-                    expect(res).to.contain.an.item.with.property('name', 'Pepe');
-                    expect(res).to.contain.an.item.with.property('name', 'Anne');
-                    expect(res).to.contain.an.item.with.property('name', 'Manuel');
+                    expect(res).to.have.lengthOf(4);
+                    expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas');
+                    expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
+                    expect(res).to.contain.an.item.with.property('name', 'Pablo Fernandez');
+                    expect(res).to.contain.an.item.with.property('name', 'Ana Gomez');
                     done();
                 });
             });
@@ -119,7 +128,7 @@ describe('Testing Researchers API functionalities', function() {
 
     describe('#remove()', function() {
         it('should delete one researcher of the default list', function(done) {
-            researchers.remove('0000-0002-1825-0097', (err) => {
+            researchers.remove('0000-0003-1575-406X', (err) => {
                 if (err) {
                     return done(err);
                 }
@@ -129,9 +138,10 @@ describe('Testing Researchers API functionalities', function() {
                         return done(err);
                     }
 
-                    expect(res).to.have.lengthOf(1);
-                    expect(res).not.to.contain.an.item.with.property('name', 'Pepe');
-                    expect(res).to.contain.an.item.with.property('name', 'Anne');
+                    expect(res).to.have.lengthOf(2);
+                    expect(res).not.to.contain.an.item.with.property('name', 'Manuel Resinas');
+                    expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
+                    expect(res).to.contain.an.item.with.property('name', 'Pablo Fernandez');
                     done();
                 });
             });
@@ -140,11 +150,11 @@ describe('Testing Researchers API functionalities', function() {
 
     describe('#update()', function() {
         it('should update one researcher of the default list', function(done) {
-            researchers.update('0000-0002-1825-0097', {
-                orcid: "0000-0002-1825-0099",
-                name: "Manuel",
-                phone: "987654321",
-                email: "manuel@us.com",
+            researchers.update('0000-0003-1575-406X', {
+                orcid: "0000-0003-1575-406X",
+                name: "Manuel Resinas Updated",
+                phone: "954553867",
+                email: "resinas@us.com",
                 address: "Sevilla",
                 gender: "male"
             }, (err) => {
@@ -157,10 +167,10 @@ describe('Testing Researchers API functionalities', function() {
                         return done(err);
                     }
 
-                    expect(res).to.have.lengthOf(2);
-                    expect(res).to.contain.an.item.with.property('name', 'Manuel');
-                    expect(res).to.contain.an.item.with.property('orcid', '0000-0002-1825-0099');
-                    expect(res).to.contain.an.item.with.property('name', 'Anne');
+                    expect(res).to.have.lengthOf(3);
+                    expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas Updated');
+                    expect(res).to.contain.an.item.with.property('orcid', '0000-0003-1575-406X');
+                    expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
                     done();
                 });
             });
@@ -181,19 +191,26 @@ describe('Testing API Code status responses', function() {
                 }
 
                 researchers.add([{
-                    orcid: "0000-0002-1825-0097",
-                    name: "Pepe",
-                    phone: "654657748",
-                    email: "pepe@us.com",
+                    orcid: "0000-0003-1575-406X",
+                    name: "Manuel Resinas",
+                    phone: "954553867",
+                    email: "resinas@us.es",
                     address: "Sevilla",
                     gender: "male"
                 }, {
-                    orcid: "0000-0002-1825-0098",
-                    name: "Anne",
-                    phone: "722548896",
-                    email: "anne@london.com",
-                    address: "London",
-                    gender: "female"
+                    orcid: "0000-0001-9827-1834",
+                    name: "Antonio Ruiz",
+                    phone: "954553867",
+                    email: "aruiz@us.es",
+                    address: "Sevilla",
+                    gender: "male"
+                }, {
+                    orcid: "0000-0002-8763-0819",
+                    name: "Pablo Fernandez",
+                    phone: "954556236",
+                    email: "pablofm@us.es",
+                    address: "Sevilla",
+                    gender: "male"
                 }]);
             });
         });
@@ -225,7 +242,7 @@ describe('Testing API Code status responses', function() {
                     if (err) {
                         return done(err);
                     }
-                    expect(res.body).to.have.lengthOf(2);
+                    expect(res.body).to.have.lengthOf(3);
                     expect(res).to.have.status(200);
                     done();
                 });
@@ -235,7 +252,7 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - GET one', function() {
         it('should return 200', function(done) {
             chai.request(app)
-                .get('/api/v1/researchers/0000-0002-1825-0097')
+                .get('/api/v1/researchers/0000-0003-1575-406X')
                 .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E')
                 .end(function(err, res) {
                     if (err) {
@@ -251,7 +268,7 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - GET non-existing one', function() {
         it('should return 404', function(done) {
             chai.request(app)
-                .get('/api/v1/researchers/55578945B')
+                .get('/api/v1/researchers/0000-0003-0000-4067')
                 .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E')
                 .end(function(err, res) {
                     if (err && res.status === 404) {
@@ -273,7 +290,7 @@ describe('Testing API Code status responses', function() {
                 .send({
                     orcid: "0000-0002-1825-0099",
                     name: "Manuel",
-                    phone: "987654321",
+                    phone: "954553867",
                     email: "manuel@us.com",
                     address: "Sevilla",
                     gender: "male"
@@ -294,11 +311,11 @@ describe('Testing API Code status responses', function() {
                 .post('/api/v1/researchers/')
                 .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E')
                 .send({
-                    orcid: "0000-0002-1825-0098",
-                    name: "Anne",
-                    phone: "722548896",
-                    email: "anne@london.com",
-                    address: "London",
+                    orcid: "0000-0001-9827-1834",
+                    name: "Antonio Ruiz",
+                    phone: "954553867",
+                    email: "aruiz@us.es",
+                    address: "Sevilla",
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -316,14 +333,14 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - PUT existing researcher', function() {
         it('should return 200', function(done) {
             chai.request(app)
-                .put('/api/v1/researchers/0000-0002-1825-0098')
+                .put('/api/v1/researchers/0000-0001-9827-1834')
                 .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E')
                 .send({
-                    orcid: "0000-0002-1825-0098",
-                    name: "NewAnne",
+                    orcid: "0000-0001-9827-1834",
+                    name: "NewAntonio Ruiz",
                     phone: "987654322",
-                    email: "newanne@us.com",
-                    address: "London",
+                    email: "newAntonio Ruiz@us.com",
+                    address: "Sevilla",
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -342,11 +359,11 @@ describe('Testing API Code status responses', function() {
                 .put('/api/v1/researchers/11224455V')
                 .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E')
                 .send({
-                    orcid: "0000-0002-1825-0098",
-                    name: "NewAnne",
+                    orcid: "0000-0001-9827-1834",
+                    name: "NewAntonio Ruiz",
                     phone: "987654322",
-                    email: "newanne@us.com",
-                    address: "London",
+                    email: "newAntonio Ruiz@us.com",
+                    address: "Sevilla",
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -399,7 +416,7 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - GET one unauthorized', function() {
         it('should return 401', function(done) {
             chai.request(app)
-                .get('/api/v1/researchers/0000-0002-1825-0097')
+                .get('/api/v1/researchers/0000-0003-1575-406X')
                 .end(function(err, res) {
                     if (err && res.status === 401) {
                         expect(res).to.have.status(401);
@@ -415,7 +432,7 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - GET one token invalid', function() {
         it('should return 401', function(done) {
             chai.request(app)
-                .get('/api/v1/researchers/0000-0002-1825-0097')
+                .get('/api/v1/researchers/0000-0003-1575-406X')
                 .set('Authorization', 'Bearer ThisIsABadToken')
                 .end(function(err, res) {
                     if (err && res.status === 401) {
@@ -436,7 +453,7 @@ describe('Testing API Code status responses', function() {
                 .send({
                     orcid: "0000-0002-1825-0099",
                     name: "Manuel",
-                    phone: "987654321",
+                    phone: "954553867",
                     email: "manuel@us.com",
                     address: "Sevilla",
                     gender: "male"
@@ -461,7 +478,7 @@ describe('Testing API Code status responses', function() {
                 .send({
                     orcid: "0000-0002-1825-0099",
                     name: "Manuel",
-                    phone: "987654321",
+                    phone: "954553867",
                     email: "manuel@us.com",
                     address: "Sevilla",
                     gender: "male"
@@ -481,13 +498,13 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - PUT existing researcher unauthorized', function() {
         it('should return 401', function(done) {
             chai.request(app)
-                .put('/api/v1/researchers/0000-0002-1825-0098')
+                .put('/api/v1/researchers/0000-0001-9827-1834')
                 .send({
-                    orcid: "0000-0002-1825-0098",
-                    name: "NewAnne",
+                    orcid: "0000-0001-9827-1834",
+                    name: "NewAntonio Ruiz",
                     phone: "987654322",
-                    email: "newanne@us.com",
-                    address: "London",
+                    email: "newAntonio Ruiz@us.com",
+                    address: "Sevilla",
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -505,14 +522,14 @@ describe('Testing API Code status responses', function() {
     describe('HTTP - PUT existing researcher token invalid', function() {
         it('should return 401', function(done) {
             chai.request(app)
-                .put('/api/v1/researchers/0000-0002-1825-0098')
+                .put('/api/v1/researchers/0000-0001-9827-1834')
                 .set('Authorization', 'Bearer ThisIsABadToken')
                 .send({
-                    orcid: "0000-0002-1825-0098",
-                    name: "NewAnne",
+                    orcid: "0000-0001-9827-1834",
+                    name: "NewAntonio Ruiz",
                     phone: "987654322",
-                    email: "newanne@us.com",
-                    address: "London",
+                    email: "newAntonio Ruiz@us.com",
+                    address: "Sevilla",
                     gender: "female"
                 })
                 .end(function(err, res) {
