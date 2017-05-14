@@ -51,7 +51,8 @@
                         <hr>
                         <div data-ng-form class="input-group" name="searchForm">
                             <span class="input-group-addon">ORCID</span>
-                            <input type="text" id="orcidFilter" ng-change="orcidFilter = (orcidFilter | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" ng-model="orcidFilter" class="form-control" placeholder="Search" maxlength="9" required>
+                            <input type="text" id="orcidFilter" ng-change="orcidFilter = (orcidFilter | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" ng-model="orcidFilter" class="form-control" placeholder="Search" maxlength="9"
+                                required>
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-success" ng-click="searchResearcher()" ng-disabled="searchForm.$invalid">Search</button>
                             <button type="button" class="btn btn-info"  ng-click="refresh()">Clear</button>
@@ -108,7 +109,8 @@
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.orcid.$invalid && !addResearcherForm.orcid.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">ORCID</span>
-                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newResearcher.orcid = (newResearcher.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" ng-model="newResearcher.orcid" maxlength="19" required>
+                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newResearcher.orcid = (newResearcher.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" ng-model="newResearcher.orcid"
+                                        maxlength="19" required>
                                 </div>
                                 <p ng-show="addResearcherForm.orcid.$invalid && !addResearcherForm.orcid.$pristine" class="help-block">ORCID is required.</p>
                             </div>
@@ -141,7 +143,31 @@
                                 </div>
                                 <p ng-show="addResearcherForm.address.$invalid && !addResearcherForm.address.$pristine" class="help-block">Address is required.</p>
                             </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">University</span>
+                                    <select class="form-control" name="university" ng-model="newResearcher.university" required>
+                                        <option ng-repeat="x in universities" value="{{x.id}}">{{x.name}}</option>
+                                    </select>
+                                </div>
+                                <p ng-show="addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine" class="help-block">University is required.</p>
+                            </div>
                             <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.proyects.$invalid && !addResearcherForm.proyects.$pristine }">
+                                            <div class="col-lg-3">
+                                                <h4 for="proyects">Proyects</h4>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="radio" ng-repeat="x in proyects">
+                                                    <input type="checkbox" name="selectedProyects[]" value="{{x.id}}" ng-model="newResearcher.proyects"> {{x.name}}
+                                                </div>
+                                                <p ng-show="addResearcherForm.proyects.$invalid && !addResearcherForm.proyects.$pristine" class="help-block">Proyects is required.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-lg-8">
                                     <div class="row">
                                         <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.gender.$invalid && !addResearcherForm.gender.$pristine }">

@@ -26,6 +26,8 @@ describe('Testing Researchers API functionalities', function() {
                     phone: "954553867",
                     email: "resinas@us.es",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1],
                     gender: "male"
                 }, {
                     orcid: "0000-0001-9827-1834",
@@ -33,6 +35,8 @@ describe('Testing Researchers API functionalities', function() {
                     phone: "954553867",
                     email: "aruiz@us.es",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1, 2],
                     gender: "male"
                 }, {
                     orcid: "0000-0002-8763-0819",
@@ -40,6 +44,8 @@ describe('Testing Researchers API functionalities', function() {
                     phone: "954556236",
                     email: "pablofm@us.es",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [2],
                     gender: "male"
                 }], done);
             });
@@ -84,6 +90,8 @@ describe('Testing Researchers API functionalities', function() {
                 phone: "954878584",
                 email: "anagomez@us.com",
                 address: "Sevilla",
+                university: 1,
+                proyects: [1],
                 gender: "female"
             }], (err) => {
 
@@ -156,6 +164,8 @@ describe('Testing Researchers API functionalities', function() {
                 phone: "954553867",
                 email: "resinas@us.com",
                 address: "Sevilla",
+                university: 1,
+                proyects: [1],
                 gender: "male"
             }, (err) => {
                 if (err) {
@@ -196,6 +206,8 @@ describe('Testing API Code status responses', function() {
                     phone: "954553867",
                     email: "resinas@us.es",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1],
                     gender: "male"
                 }, {
                     orcid: "0000-0001-9827-1834",
@@ -203,6 +215,8 @@ describe('Testing API Code status responses', function() {
                     phone: "954553867",
                     email: "aruiz@us.es",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1, 2],
                     gender: "male"
                 }, {
                     orcid: "0000-0002-8763-0819",
@@ -210,6 +224,8 @@ describe('Testing API Code status responses', function() {
                     phone: "954556236",
                     email: "pablofm@us.es",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [2],
                     gender: "male"
                 }]);
             });
@@ -289,11 +305,13 @@ describe('Testing API Code status responses', function() {
                 .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E')
                 .send({
                     orcid: "0000-0002-1825-0099",
-                    name: "Manuel",
-                    phone: "954553867",
-                    email: "manuel@us.com",
+                    name: "Ana Gomez",
+                    phone: "954878584",
+                    email: "anagomez@us.com",
                     address: "Sevilla",
-                    gender: "male"
+                    university: 1,
+                    proyects: [1],
+                    gender: "female"
                 })
                 .end(function(err, res) {
                     if (err) {
@@ -456,6 +474,8 @@ describe('Testing API Code status responses', function() {
                     phone: "954553867",
                     email: "manuel@us.com",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1],
                     gender: "male"
                 })
                 .end(function(err, res) {
@@ -481,6 +501,8 @@ describe('Testing API Code status responses', function() {
                     phone: "954553867",
                     email: "manuel@us.com",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1],
                     gender: "male"
                 })
                 .end(function(err, res) {
@@ -505,6 +527,8 @@ describe('Testing API Code status responses', function() {
                     phone: "987654322",
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1],
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -530,6 +554,8 @@ describe('Testing API Code status responses', function() {
                     phone: "987654322",
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
+                    university: 1,
+                    proyects: [1],
                     gender: "female"
                 })
                 .end(function(err, res) {

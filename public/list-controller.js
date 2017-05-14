@@ -2,6 +2,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     var socket = io();
 
+    $scope.universities = [];
+    $scope.proyects = [];
+  
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id);
     });
@@ -57,6 +60,38 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $scope.newResearcher = {};
             $scope.orcidFilter = null;
         });
+
+        if ($scope.universities.length == 0) {
+            /*
+            //Load universities for adding form
+            $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
+                
+            }).then(function(response) {
+                //Fill universities array
+            });*/
+
+            $scope.universities.push({
+                id: 1,
+                name: "Universidad de Sevilla"
+            });
+            /*
+            //Load proyects for adding form
+            $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {
+                
+            }).then(function(response) {
+                console.log(response.data);
+            });*/
+
+            $scope.proyects.push({
+                id: 1,
+                name: "Service Level Agreements"
+            });
+            $scope.proyects.push({
+                id: 2,
+                name: "SOA Governance"
+            });
+            // Maybe: http://stackoverflow.com/questions/14514461/how-do-i-bind-to-list-of-checkbox-values-with-angularjs
+        }
     }
 
     $scope.submitForm = function() {
@@ -136,8 +171,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
+        $scope.newResearcher.university = $scope.researcherToUpdate.university; //<---------
+        $scope.newResearcher.proyects = $scope.researcherToUpdate.proyects; //<------
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
-
     };
 
     $scope.searchResearcher = function() {

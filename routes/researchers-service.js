@@ -44,24 +44,24 @@ Researchers.prototype.update = function(orcid, updatedContact, callback) {
 
 Researchers.prototype.isValid = function (researcher, orcid){
     let res = true;
-    const model = ["orcid", "name", "email", "phone", "address", "gender"];
+    const model = ["orcid", "name", "email", "phone", "address", "university", "proyects", "gender"];
     if (orcid === (undefined || null)) {
         if (!_.isEqual(model.sort(), Object.keys(researcher).sort())) {
             res = false;
         } else if (researcher.email.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/) === (null || ''))  {
             res = false;
-        } /*else if (researcher.orcid.match(/(\d{8})([aA-zZ]{1})/)  === (null || '')) {
+        } else if (researcher.orcid.match(/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/)  === (null || '')) {
             res = false; 
-        } */else if (researcher.phone.toString().length !== 9) {
+        } else if (researcher.phone.toString().length !== 9) {
             res = false;
         } else if ((researcher.name || researcher.email || researcher.phone || researcher.address || researcher.gender) === ('' || null)) {
             res = false;
         } else if (researcher.gender !== 'male' && researcher.gender !== 'female') {
             res = false;
         }
-    } /*else {
-       res = !(orcid.match(/(\d{8})([aA-zZ]{1})/) === null || '');
-    }*/
+    } else {
+       res = !(orcid.match(/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/) === null || '');
+    }
     return res;
 };
 
