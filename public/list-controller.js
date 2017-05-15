@@ -79,6 +79,10 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 id: 1,
                 name: "Universidad de Sevilla"
             });
+            $scope.universities.push({
+                id: 2,
+                name: "Universidad de Cadiz"
+            });
             /*
             //Load proyects for adding form
             $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {
@@ -99,9 +103,10 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     }
 
     $scope.submitForm = function() {
+        $scope.newResearcher.university = $scope.newResearcher.university.id;
+        $scope.newResearcher.proyects = $scope.researcher.proyects;
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
-            $scope.newResearcher.proyects = $scope.researcher.proyects;
             $http.post("/api/v1/researchers", $scope.newResearcher, {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
@@ -117,7 +122,6 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }
         else if ($scope.actionTitle == "Update researcher") {
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
-            $scope.newResearcher.proyects = $scope.researcher.proyects;
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.orcid, $scope.newResearcher, {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
@@ -177,7 +181,15 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
-        $scope.newResearcher.university = $scope.researcherToUpdate.university;
+        console.log("University option: "+$scope.researcherToUpdate.university);
+
+        var index = $scope.universities.findIndex(function(item, i){
+          return item.id === $scope.researcherToUpdate.university;
+        });
+        
+        console.log(index);
+        $scope.newResearcher.university = $scope.universities[index];
+       // $scope.newResearcher.university = $scope.researcherToUpdate.university;
         $scope.researcher.proyects = $scope.researcherToUpdate.proyects;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
     };

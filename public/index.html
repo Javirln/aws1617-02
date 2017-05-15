@@ -147,8 +147,8 @@
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">University</span>
-                                    <select class="form-control" name="university" ng-model="newResearcher.university" required>
-                                        <option ng-repeat="x in universities" value="{{x.id}}">{{x.name}}</option>
+                                    <select class="form-control" name="university" ng-model="newResearcher.university" ng-options="x.name for x in universities track by x.id" required>
+                                        <!--<option ng-repeat="x in universities" value="{{x.id}}">{{x.name}}</option>-->
                                     </select>
                                 </div>
                                 <p ng-show="addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine" class="help-block">University is required.</p>
