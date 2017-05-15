@@ -12,6 +12,7 @@
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/bower_components/socket.io-client/dist/socket.io.min.js"></script>
+    <script src='checklist-model.js'></script>
     <script type="text/javascript" src="researcher-list-app.js"></script>
     <script type="text/javascript" src="list-controller.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -155,16 +156,13 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="row">
-                                        <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.proyects.$invalid && !addResearcherForm.proyects.$pristine }">
-                                            <div class="col-lg-3">
-                                                <h4 for="proyects">Proyects</h4>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <div class="radio" ng-repeat="x in proyects">
-                                                    <input type="checkbox" name="selectedProyects[]" value="{{x.id}}" ng-model="newResearcher.proyects"> {{x.name}}
-                                                </div>
-                                                <p ng-show="addResearcherForm.proyects.$invalid && !addResearcherForm.proyects.$pristine" class="help-block">Proyects is required.</p>
-                                            </div>
+                                        <div class="col-lg-3">
+                                            <h4 for="proyects">Proyects</h4>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <label ng-repeat="proyect in proyects">
+                                                <input type="checkbox" checklist-model="researcher.proyects" checklist-value="proyect.id"> {{proyect.name}}
+                                            </label>
                                         </div>
                                     </div>
                                 </div>

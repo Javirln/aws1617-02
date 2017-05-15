@@ -4,6 +4,10 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     $scope.universities = [];
     $scope.proyects = [];
+    $scope.researcher = {
+        proyects: [],
+        university: 0,
+    };
   
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id);
@@ -36,6 +40,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
+        $scope.researcher.proyects = [];
         $scope.searchResult = null;
         $scope.searchError = null;
         $scope.updateCreateResult = null;
@@ -90,13 +95,13 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 id: 2,
                 name: "SOA Governance"
             });
-            // Maybe: http://stackoverflow.com/questions/14514461/how-do-i-bind-to-list-of-checkbox-values-with-angularjs
         }
     }
 
     $scope.submitForm = function() {
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
+            $scope.newResearcher.proyects = $scope.researcher.proyects;
             $http.post("/api/v1/researchers", $scope.newResearcher, {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
@@ -112,6 +117,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         }
         else if ($scope.actionTitle == "Update researcher") {
             console.log("Updating researcher " + $scope.researcherToUpdate.name);
+            $scope.newResearcher.proyects = $scope.researcher.proyects;
             $http.put("/api/v1/researchers/" + $scope.researcherToUpdate.orcid, $scope.newResearcher, {
                 headers: {
                     'Authorization': 'Bearer ' + $scope.token
@@ -171,8 +177,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
-        $scope.newResearcher.university = $scope.researcherToUpdate.university; //<---------
-        $scope.newResearcher.proyects = $scope.researcherToUpdate.proyects; //<------
+        $scope.newResearcher.university = $scope.researcherToUpdate.university;
+        $scope.researcher.proyects = $scope.researcherToUpdate.proyects;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
     };
 
