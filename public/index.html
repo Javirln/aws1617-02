@@ -52,7 +52,7 @@
                         <hr>
                         <div data-ng-form class="input-group" name="searchForm">
                             <span class="input-group-addon">ORCID</span>
-                            <input type="text" id="orcidFilter" ng-change="orcidFilter = (orcidFilter | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" ng-model="orcidFilter" class="form-control" placeholder="Search" maxlength="9"
+                            <input type="text" id="orcidFilter" ng-change="orcidFilter = (orcidFilter | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" ng-model="orcidFilter" class="form-control" placeholder="Search" maxlength="19"
                                 required>
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-success" ng-click="searchResearcher()" ng-disabled="searchForm.$invalid">Search</button>
