@@ -8,7 +8,6 @@
     <link rel="image_src" href="/bower_components/chosen/chosen-sprite.png">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="./css/styles.css" rel="stylesheet">
-
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/chosen/chosen.jquery.js"></script>
@@ -43,7 +42,7 @@
                     <li><a href="/api/v1/tests">Tests</a></li>
                     <li><a href="/api/v1/tokens">Tokens</a></li>
                     <li><a href="/documentation">Docs</a></li>
-                    <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
+                    <li><a href="https://github.com/Javirln/aws1617-02">GitHub</a></li>
                 </ul>
             </div>
         </div>
@@ -160,12 +159,12 @@
                                 <div class="col-lg-8">
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <h4 for="proyects">Proyects</h4>
+                                            <h4 for="projects">Projects</h4>
                                         </div>
                                         <div class="col-lg-9">
-                                            <div ng-show="proyects.length == 0"><p>No projects found or University not selected</p></div>
-                                            <label ng-repeat="proyect in proyects">
-                                                <input type="checkbox" checklist-model="researcher.proyects" checklist-value="proyect.id"> {{proyect.titulo}}
+                                            <div ng-show="projects.length == 0"><p>No projects found or University not selected</p></div>
+                                            <label ng-repeat="project in projects">
+                                                <input type="checkbox" checklist-model="researcher.projects" checklist-value="project.id"> {{project.titulo}}
                                             </label>
                                         </div>
                                     </div>

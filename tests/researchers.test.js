@@ -27,7 +27,7 @@ describe('Testing Researchers API functionalities', function() {
                     email: "resinas@us.es",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "male"
                 }, {
                     orcid: "0000-0001-9827-1834",
@@ -36,7 +36,7 @@ describe('Testing Researchers API functionalities', function() {
                     email: "aruiz@us.es",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1, 2],
+                    projects: [1, 2],
                     gender: "male"
                 }, {
                     orcid: "0000-0002-8763-0819",
@@ -45,7 +45,7 @@ describe('Testing Researchers API functionalities', function() {
                     email: "pablofm@us.es",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [2],
+                    projects: [2],
                     gender: "male"
                 }], done);
             });
@@ -91,7 +91,7 @@ describe('Testing Researchers API functionalities', function() {
                 email: "anagomez@us.com",
                 address: "Sevilla",
                 university: 1,
-                proyects: [1],
+                projects: [1],
                 gender: "female"
             }], (err) => {
 
@@ -165,7 +165,7 @@ describe('Testing Researchers API functionalities', function() {
                 email: "resinas@us.com",
                 address: "Sevilla",
                 university: 1,
-                proyects: [1],
+                projects: [1],
                 gender: "male"
             }, (err) => {
                 if (err) {
@@ -207,7 +207,7 @@ describe('Testing API Code status responses', function() {
                     email: "resinas@us.es",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "male"
                 }, {
                     orcid: "0000-0001-9827-1834",
@@ -216,7 +216,7 @@ describe('Testing API Code status responses', function() {
                     email: "aruiz@us.es",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1, 2],
+                    projects: [1, 2],
                     gender: "male"
                 }, {
                     orcid: "0000-0002-8763-0819",
@@ -225,7 +225,7 @@ describe('Testing API Code status responses', function() {
                     email: "pablofm@us.es",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [2],
+                    projects: [2],
                     gender: "male"
                 }]);
             });
@@ -310,7 +310,7 @@ describe('Testing API Code status responses', function() {
                     email: "anagomez@us.com",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -475,7 +475,7 @@ describe('Testing API Code status responses', function() {
                     email: "manuel@us.com",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "male"
                 })
                 .end(function(err, res) {
@@ -502,7 +502,7 @@ describe('Testing API Code status responses', function() {
                     email: "manuel@us.com",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "male"
                 })
                 .end(function(err, res) {
@@ -528,7 +528,7 @@ describe('Testing API Code status responses', function() {
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "female"
                 })
                 .end(function(err, res) {
@@ -555,7 +555,7 @@ describe('Testing API Code status responses', function() {
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
                     university: 1,
-                    proyects: [1],
+                    projects: [1],
                     gender: "female"
                 })
                 .end(function(err, res) {
