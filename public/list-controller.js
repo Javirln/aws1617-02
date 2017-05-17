@@ -8,7 +8,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         proyects: [],
         university: 0,
     };
-  
+
     socket.on('connect', function() {
         console.log("Connected to socket: " + socket.id);
     });
@@ -66,41 +66,38 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $scope.orcidFilter = null;
         });
 
-        if ($scope.universities.length == 0) {
-            /*
-            //Load universities for adding form
-            $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
-                
-            }).then(function(response) {
-                //Fill universities array
-            });*/
-
-            $scope.universities.push({
-                id: 1,
-                name: "Universidad de Sevilla"
-            });
-            $scope.universities.push({
-                id: 2,
-                name: "Universidad de Cadiz"
-            });
-            /*
-            //Load proyects for adding form
-            $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {
-                
-            }).then(function(response) {
-                console.log(response.data);
-            });*/
-
-            $scope.proyects.push({
-                id: 1,
-                name: "Service Level Agreements"
-            });
-            $scope.proyects.push({
-                id: 2,
-                name: "SOA Governance"
-            });
-        }
+        $scope.loadUniversities();
     }
+
+    $scope.loadUniversities = function() {
+
+        /*
+        //Load universities for adding form
+        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
+            
+        }).then(function(response) {
+            //Fill universities array
+        });*/
+        $scope.universities.push({
+            id: 1,
+            name: "Universidad de Sevilla",
+            icon: "http://ftp.us.es/ftp/pub/Logos/marca-tinta-roja_300.gif"
+        });
+        $scope.universities.push({
+            id: 2,
+            name: "Universidad de Cadiz",
+            icon: "http://actividades.uca.es/logotipos/LogoUCA/image_preview"
+        });
+    };
+
+    $scope.loadResearchGroups = function() {
+        $scope.proyects = [];
+
+        $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {}).then(function(response) {
+            $scope.proyects = response.data;
+        });
+
+    };
 
     $scope.submitForm = function() {
         $scope.newResearcher.university = $scope.newResearcher.university.id;
@@ -181,15 +178,15 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
-        console.log("University option: "+$scope.researcherToUpdate.university);
+        console.log("University option: " + $scope.researcherToUpdate.university);
 
-        var index = $scope.universities.findIndex(function(item, i){
-          return item.id === $scope.researcherToUpdate.university;
+        var index = $scope.universities.findIndex(function(item, i) {
+            return item.id === $scope.researcherToUpdate.university;
         });
-        
+
         console.log(index);
         $scope.newResearcher.university = $scope.universities[index];
-       // $scope.newResearcher.university = $scope.researcherToUpdate.university;
+        // $scope.newResearcher.university = $scope.researcherToUpdate.university;
         $scope.researcher.proyects = $scope.researcherToUpdate.proyects;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
     };

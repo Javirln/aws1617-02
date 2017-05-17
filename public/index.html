@@ -4,13 +4,17 @@
     <title>Researchers Info</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/chosen/chosen.css" type="text/css" />
+    <link rel="image_src" href="/bower_components/chosen/chosen-sprite.png">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="./css/styles.css" rel="stylesheet">
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-chosen/angular-chosen.min.js"></script>
     <script type="text/javascript" src="/bower_components/socket.io-client/dist/socket.io.min.js"></script>
     <script src='checklist-model.js'></script>
     <script type="text/javascript" src="researcher-list-app.js"></script>
@@ -148,9 +152,7 @@
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">University</span>
-                                    <select class="form-control" name="university" ng-model="newResearcher.university" ng-options="x.name for x in universities track by x.id" required>
-                                        <!--<option ng-repeat="x in universities" value="{{x.id}}">{{x.name}}</option>-->
-                                    </select>
+                                    <select chosen option="university" id="universitiesSelect" class="form-control" name="university" ng-model="newResearcher.university" ng-change="loadResearchGroups()" ng-options="x.name for x in universities track by x.id" required></select>
                                 </div>
                                 <p ng-show="addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine" class="help-block">University is required.</p>
                             </div>
@@ -161,8 +163,9 @@
                                             <h4 for="proyects">Proyects</h4>
                                         </div>
                                         <div class="col-lg-9">
+                                            <div ng-show="proyects.length == 0"><p>No projects found or University not selected</p></div>
                                             <label ng-repeat="proyect in proyects">
-                                                <input type="checkbox" checklist-model="researcher.proyects" checklist-value="proyect.id"> {{proyect.name}}
+                                                <input type="checkbox" checklist-model="researcher.proyects" checklist-value="proyect.id"> {{proyect.titulo}}
                                             </label>
                                         </div>
                                     </div>
