@@ -66,8 +66,8 @@
                     <div class="panel">
                         <div class="panel-body p-t-10">
                             <div class="media-main">
-                                <div class="pull-left">
-                                    <img class="thumb-lg bx-s" ng-src="{{university.icon}}" alt="University icon">
+                                <div class="pull-left" style="padding: 10px;">
+                                    <img class="thumb-lg bx-s" ng-src="{{university.icon}}" alt="University icon" style="width: 100%; height: auto;">
                                 </div>
                                 <div class="info">
                                     <h4>{{project.titulo}}</h4>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <ul class="list-group">
-                                        <li class="list-group-item"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{project.presupuesto}}</li>
+                                        <li class="list-group-item"><h4><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{project.presupuesto}}</h4></li>
                                         <li class="list-group-item btn btn-warning" ng-click="showResearchersProject(project)">
                                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Researchers
                                         </li>
