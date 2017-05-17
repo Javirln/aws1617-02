@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/researcher-list-app.js"></script>
     <script type="text/javascript" src="/integration-controller.js"></script>
     <script type="text/javascript" src="/token-controller.js"></script>
+    <script src='/checklist-model.js'></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +45,7 @@
                     <li><a href="/api/v1/tests">Tests</a></li>
                     <li class="active"><a href="#">Tokens</a></li>
                     <li><a href="/documentation">Docs</a></li>
-                    <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
+                    <li><a href="https://github.com/Javirln/aws1617-02">GitHub</a></li>
                 </ul>
             </div>
         </div>
@@ -61,7 +62,8 @@
                             <div class="form-group" ng-class="{ 'has-error' : addTokenForm.orcid.$invalid && !addTokenForm.orcid.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">ORCID</span>
-                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newToken.orcid = (newToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" maxlength="9" ng-model="newToken.orcid" required>
+                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newToken.orcid = (newToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" maxlength="19" ng-model="newToken.orcid"
+                                        required>
                                 </div>
                                 <p ng-show="addTokenForm.orcid.$invalid && !addTokenForm.orcid.$pristine" class="help-block">ORCID is required.</p>
                             </div>
@@ -83,7 +85,8 @@
                             <div class="form-group" ng-class="{ 'has-error' : deleteTokenForm.orcid.$invalid && !deleteTokenForm.orcid.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">ORCID</span>
-                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="existingToken.orcid = (existingToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" ng-model="existingToken.orcid" required>
+                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="existingToken.orcid = (existingToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" maxlength="19" ng-model="existingToken.orcid"
+                                        required>
                                 </div>
                                 <p ng-show="deleteTokenForm.orcid.$invalid && !deleteTokenForm.orcid.$pristine" class="help-block">ORCID is required.</p>
                             </div>
