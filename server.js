@@ -207,6 +207,7 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec, false, o
 // Configuration of statics
 app.use('/', express.static(path.join(__dirname + '/public')));
 app.use(baseApi + '/tests', express.static(path.join(__dirname + '/public/tests.html')));
+app.use(baseApi + '/integration', express.static(path.join(__dirname + '/public/integration.html')));
 app.use(baseApi + '/tokens', express.static(path.join(__dirname + '/public/tokens.html')));
 app.use('/favicon.ico', express.static('./favicon.ico'));
 /**

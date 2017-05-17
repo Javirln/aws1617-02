@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Javirln/researcher-api#readme",
   "dependencies": {
+    "autocomplete": "0.0.1",
     "body-parser": "^1.17.1",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",

@@ -1,0 +1,125 @@
+<html ng-app="ResearcherListApp">
+
+<head>
+    <title>Researchers Info - Integration</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/chosen/chosen.css" type="text/css" />
+    <link rel="image_src" href="/bower_components/chosen/chosen-sprite.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-chosen/angular-chosen.min.js"></script>
+    <script type="text/javascript" src="/bower_components/socket.io-client/dist/socket.io.min.js"></script>
+    <script src='/checklist-model.js'></script>
+    <script type="text/javascript" src="/researcher-list-app.js"></script>
+    <script type="text/javascript" src="/integration-controller.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body ng-controller="IntCtrl">
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Researchers</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="#">Integration</a></li>
+                    <li><a href="/api/v1/tests">Tests</a></li>
+                    <li><a href="/api/v1/tokens">Tokens</a></li>
+                    <li><a href="/documentation">Docs</a></li>
+                    <li><a href="https://github.com/Javirln/researcher-api">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body p-t-0">
+                        <h2>Search projects by University</h2>
+                        <hr>
+                        <div class="ui-widget">
+                            <label>Please, select a University: </label>
+                            <select chosen option="university" id="universitiesSelect" ng-model="university" ng-change="loadResearchGroups()" ng-options="u.name for u in universities track by u.id"></select>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="project in projects">
+                    <div class="panel">
+                        <div class="panel-body p-t-10">
+                            <div class="media-main">
+                                <div class="pull-left">
+                                    <img class="thumb-lg bx-s" ng-src="{{university.icon}}" alt="University icon">
+                                </div>
+                                <div class="info">
+                                    <h4>{{project.titulo}}</h4>
+                                    <p class="text-muted">{{project.resumen}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <p align="justify">{{project.objetivo}}</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{project.presupuesto}}</li>
+                                        <li class="list-group-item btn btn-warning" ng-click="showResearchersProject(project)">
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Researchers
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div style="text-align:center;" ng-show='selectedProject != null'>
+                    <h4>Researchers in {{selectedProject.titulo}} project</h4>
+                </div>
+                <div ng-repeat="researcher in researchers">
+                    <div class="panel">
+                        <div class="panel-body p-t-10">
+                            <div class="media-main">
+                                <div class="pull-left">
+                                    <img class="thumb-lg img-circle bx-s" ng-src="/img/user_{{researcher.gender}}.png" alt="User pic">
+                                </div>
+                                <div class="info">
+                                    <h4>{{researcher.name}}</h4>
+                                    <p class="text-muted">{{researcher.orcid}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <ul class="list-inline">
+                                <li class="list-group-item"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>{{researcher.phone}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>{{researcher.email}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{researcher.address}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
