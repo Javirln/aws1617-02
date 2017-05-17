@@ -1,4 +1,4 @@
-angular.module("ResearcherListApp", ['angular.chosen']).controller("IntCtrl", function($scope, $http, $location) {
+angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http, $location) {
 
     $scope.universities = [];
     $scope.projects = [];
