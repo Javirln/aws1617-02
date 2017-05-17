@@ -54,7 +54,7 @@
                             <div class="form-group" ng-class="{ 'has-error' : addTokenForm.orcid.$invalid && !addTokenForm.orcid.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">ORCID</span>
-                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newToken.orcid = (newToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[Z]))/" maxlength="9" ng-model="newToken.orcid" required>
+                                    <input type="text" name="orcid" class="form-control" placeholder="0000-0002-1825-0097" ng-change="newToken.orcid = (newToken.orcid | uppercase)" ng-pattern="/([0-9]{4,4})-([0-9]{4,4})-([0-9]{4,4})-(([0-9]{4,4})|([0-9]{3,3}[X]))/" maxlength="19" ng-model="newToken.orcid" required>
                                 </div>
                                 <p ng-show="addTokenForm.orcid.$invalid && !addTokenForm.orcid.$pristine" class="help-block">ORCID is required.</p>
                             </div>

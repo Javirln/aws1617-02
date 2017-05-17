@@ -3,9 +3,9 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     var socket = io();
 
     $scope.universities = [];
-    $scope.proyects = [];
+    $scope.projects = [];
     $scope.researcher = {
-        proyects: [],
+        projects: [],
         university: 0,
     };
   
@@ -40,7 +40,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.actionTitle = "Add researcher";
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
-        $scope.researcher.proyects = [];
+        $scope.researcher.projects = [];
         $scope.searchResult = null;
         $scope.searchError = null;
         $scope.updateCreateResult = null;
@@ -84,18 +84,18 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
                 name: "Universidad de Cadiz"
             });
             /*
-            //Load proyects for adding form
+            //Load projects for adding form
             $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {
                 
             }).then(function(response) {
                 console.log(response.data);
             });*/
 
-            $scope.proyects.push({
+            $scope.projects.push({
                 id: 1,
                 name: "Service Level Agreements"
             });
-            $scope.proyects.push({
+            $scope.projects.push({
                 id: 2,
                 name: "SOA Governance"
             });
@@ -104,7 +104,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
 
     $scope.submitForm = function() {
         $scope.newResearcher.university = $scope.newResearcher.university.id;
-        $scope.newResearcher.proyects = $scope.researcher.proyects;
+        $scope.newResearcher.projects = $scope.researcher.projects;
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
             $http.post("/api/v1/researchers", $scope.newResearcher, {
@@ -190,7 +190,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log(index);
         $scope.newResearcher.university = $scope.universities[index];
        // $scope.newResearcher.university = $scope.researcherToUpdate.university;
-        $scope.researcher.proyects = $scope.researcherToUpdate.proyects;
+        $scope.researcher.projects = $scope.researcherToUpdate.projects;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
     };
 
