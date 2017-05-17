@@ -1,6 +1,5 @@
 angular.module("ResearcherListApp").controller("TokenCtrl", function($scope, $http) {
 
-
     $scope.createToken = function() {
         console.log("Create token for ORCID " + $scope.newToken.orcid);
 
