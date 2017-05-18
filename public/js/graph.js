@@ -229,9 +229,10 @@ function loadInfo(d) {
             $.get(
                 "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + id, {},
                 function(data) {
-                    $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\""+data.logo+"\" style=\"height: 150;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a><br></div></div>");
+                    $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.logo + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
                 }
             );
+            getTweets("Universidad de Sevilla");
             break;
         case 2:
             //Group
@@ -412,7 +413,7 @@ function loadResources() {
     );
 
     promises.push(request);
-    
+
     $.when.apply(null, promises).done(function() {
         loadEdges(responses, dataset);
     });
@@ -501,4 +502,29 @@ function getCapitals(input) {
             return response;
     }
     return response;
+}
+
+function getTweets(query) {
+    $.get("/api/v1/tweets/" + query, {},
+        function(data) {
+            var text = "";
+            var tweets = data.statuses;
+
+            for (var i in tweets) {
+                //text += "<blockquote class=\"twitter-tweet tw-align-center\"><p>" + tweets[i].text + "</p>&mdash; " + tweets[i].user.name + " (@" + tweets[i].user.screen_name + ") <a href=\"https://twitter.com/HubSpot/status/312028320004980736\">March 14, 2013</a></blockquote>";
+                twttr.widgets.createTweet(
+                        tweets[i].id_str,
+                        document.getElementById('tweets'), {
+                            align: 'left'
+                        })
+                    .then(function(el) {
+                        console.log("Tweet displayed." + el);
+                    });
+                if (i == 5)
+                    break;
+            }
+
+            $("#tweets").html(text);
+        }
+    );
 }

@@ -17,6 +17,7 @@ const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = require('./swaggerDef');
+const Twitter = require('twitter');
 const passport = require('passport'),
     BearerStrategy = require('passport-http-bearer').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
@@ -233,20 +234,22 @@ io.sockets.on('connection', (socket) => {
 });
 
 // Twitter API
-/*
-var Twitter = require('twitter');
-
 var client = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
-/*
-client.get('search/tweets', {q: 'Universidad de Sevilla'}, function(error, tweets, response) {
-   console.log(tweets);
+
+app.get(baseApi + '/tweets/:query', function(req, res) {
+    var query = req.params.query;
+    client.get('search/tweets', {
+        q: query
+    }, function(error, tweets) {
+        res.send(tweets);
+    });
 });
-*/
+
 // Starting up the service
 researchersService.connectDb((err) => {
     if (err) {
