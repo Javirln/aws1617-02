@@ -41,6 +41,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
         $scope.researcher.projects = [];
+        $scope.projects = [];
         $scope.searchResult = null;
         $scope.searchError = null;
         $scope.updateCreateResult = null;
@@ -72,7 +73,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     }
 
     $scope.loadUniversities = function() {
-
+        console.log("Loading universities");
+        $scope.universities = [];
         /*
         //Load universities for adding form
         $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
@@ -92,11 +94,15 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         });
     };
 
-    $scope.loadResearchGroups = function() {
+    $scope.loadResearchGroups = function(university) {
+        console.log("Loading projects for university " + university);
         $scope.projects = [];
 
         $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {}).then(function(response) {
             $scope.projects = response.data;
+            for (var i = 0; i < $scope.projects.length; i++) {
+                $scope.projects[i].id = parseInt($scope.projects[i].id);
+            }
         });
 
     };
@@ -180,16 +186,13 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.newResearcher.phone = parseInt($scope.researcherToUpdate.phone);
         $scope.newResearcher.email = $scope.researcherToUpdate.email;
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
-        console.log("University option: " + $scope.researcherToUpdate.university);
 
         var index = $scope.universities.findIndex(function(item, i) {
             return item.id === $scope.researcherToUpdate.university;
         });
 
-        console.log(index);
         $scope.newResearcher.university = $scope.universities[index];
-
-       // $scope.newResearcher.university = $scope.researcherToUpdate.university;
+        $scope.loadResearchGroups($scope.newResearcher.university.id);
         $scope.researcher.projects = $scope.researcherToUpdate.projects;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
     };

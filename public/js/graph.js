@@ -412,7 +412,7 @@ function loadResources() {
     );
 
     promises.push(request);
-
+    
     $.when.apply(null, promises).done(function() {
         loadEdges(responses, dataset);
     });

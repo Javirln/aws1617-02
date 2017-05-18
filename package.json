@@ -49,6 +49,7 @@
     "socket.io": "^1.7.3",
     "swagger-jsdoc": "^1.9.2",
     "swagger-ui-express": "^1.0.5",
+    "twitter": "^1.7.0",
     "util": "^0.10.3"
   },
   "devDependencies": {
