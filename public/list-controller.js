@@ -98,13 +98,12 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Loading projects for university " + university);
         $scope.projects = [];
 
-        $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {}).then(function(response) {
+        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
             $scope.projects = response.data;
             for (var i = 0; i < $scope.projects.length; i++) {
                 $scope.projects[i].id = parseInt($scope.projects[i].id);
             }
         });
-
     };
 
     $scope.submitForm = function() {

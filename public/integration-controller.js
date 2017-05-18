@@ -26,22 +26,40 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         });
     };
 
-    $scope.loadResearchGroups = function() {
+    /*$scope.loadResearchGroups = function() {
         $scope.projects = [];
         $scope.selectedProject = null;
         $scope.researchers = [];
-        
+
         $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {}).then(function(response) {
             $scope.projects = response.data;
         });
 
+    };*/
+
+    $scope.loadResearchGroups = function() {
+        var university = $scope.university.id;
+        console.log("Loading projects for university " + university);
+        $scope.projects = [];
+        $scope.selectedProject = null;
+        $scope.researchers = [];
+
+        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
+            $scope.projects = response.data;
+            for (var i = 0; i < $scope.projects.length; i++) {
+                $scope.projects[i].id = parseInt($scope.projects[i].id);
+            }
+        }, function errorCallback(response) {
+            console.log("No projects for that university");
+            alert("There are no projects for that university!");
+        });
     };
 
     $scope.showResearchersProject = function(project) {
         $scope.researchers = [];
         $scope.selectedProject = project;
         project.investigador.forEach((element) => {
-            $http.get("https://aws1617-02.herokuapp.com/api/v1/researchers/"+element, {}).then(function(response) {
+            $http.get("https://aws1617-02.herokuapp.com/api/v1/researchers/" + element, {}).then(function(response) {
                 $scope.researchers.push(response.data[0]);
             });
         });
