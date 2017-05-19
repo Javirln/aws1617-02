@@ -46,6 +46,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.buttonClass = "btn btn-primary";
         $scope.researcher.projects = [];
         $scope.projects = [];
+        $scope.groups = [];
         $scope.searchResult = null;
         $scope.searchError = null;
         $scope.updateCreateResult = null;
