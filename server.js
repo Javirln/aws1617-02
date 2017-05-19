@@ -30,14 +30,14 @@ passport.use(new GoogleStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
         tokensService.compareToken({
-            dni: profile.id
+            orcid: profile.id
         }, function(err, user) {
             if (err) {
                 return done(err);
             }
             if (!user) {
                 var userAux = {
-                    dni: profile.id,
+                    orcid: profile.id,
                     token: accessToken,
                     apicalls: 0
                 };
@@ -71,14 +71,14 @@ passport.use(new FacebookStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
         tokensService.compareToken({
-            dni: profile.id
+            orcid: profile.id
         }, function(err, user) {
             if (err) {
                 return done(err);
             }
             if (!user) {
                 var userAux = {
-                    dni: profile.id,
+                    orcid: profile.id,
                     token: accessToken,
                     apicalls: 0
                 };
@@ -125,7 +125,7 @@ passport.use(new BearerStrategy(
                 return done(null, false);
             }
             tokensService.update(token, {
-                dni: user.dni,
+                orcid: user.orcid,
                 token: user.token,
                 apicalls: (user.apicalls + 1)
             }, (err, numUpdates) => {
