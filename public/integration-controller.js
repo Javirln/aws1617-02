@@ -59,7 +59,11 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         $scope.researchers = [];
         $scope.selectedProject = project;
         project.investigador.forEach((element) => {
-            $http.get("https://aws1617-02.herokuapp.com/api/v1/researchers/" + element, {}).then(function(response) {
+            $http.get("/api/v1/researchers/" + element, {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                }
+            }).then(function(response) {
                 $scope.researchers.push(response.data[0]);
             });
         });
