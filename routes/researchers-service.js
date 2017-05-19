@@ -44,7 +44,7 @@ Researchers.prototype.update = function(orcid, updatedContact, callback) {
 
 Researchers.prototype.isValid = function (researcher, orcid){
     let res = true;
-    const model = ["orcid", "name", "email", "phone", "address", "university", "projects", "gender"];
+    const model = ["orcid", "name", "email", "phone", "address", "university", "group", "projects", "gender"];
     if (orcid === (undefined || null)) {
         if (!_.isEqual(model.sort(), Object.keys(researcher).sort())) {
             res = false;

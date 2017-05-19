@@ -3,10 +3,10 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     var socket = io();
 
     $scope.universities = [];
+    $scope.groups = [];
     $scope.projects = [];
     $scope.researcher = {
-        projects: [],
-        university: 0,
+        projects: []
     };
 
     socket.on('connect', function() {
@@ -51,14 +51,6 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.updateCreateResult = null;
         $scope.updateCreateError = null;
 
-        /*$http.post("/api/v1/tokens/authenticate", {
-            dni: "49561474Q"
-        }).then(function(response) {
-            //Success
-            
-        }, function(response) {
-            console.log("Error getting the default token: " + response.data.msg);
-        });*/
         $http.get("/api/v1/researchers", {
             headers: {
                 'Authorization': 'Bearer ' + $scope.token
@@ -80,30 +72,61 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Loading universities");
         $scope.universities = [];
         /*
-        //Load universities for adding form
+        //GET A 01 universities
         $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
             
         }).then(function(response) {
             //Fill universities array
         });*/
         $scope.universities.push({
-            id: 1,
             name: "Universidad de Sevilla",
+            acronym: "US",
             icon: "http://ftp.us.es/ftp/pub/Logos/marca-tinta-roja_300.gif"
         });
         $scope.universities.push({
-            id: 2,
             name: "Universidad de Cadiz",
+            acronym: "UCA",
             icon: "http://actividades.uca.es/logotipos/LogoUCA/image_preview"
         });
     };
 
     $scope.loadResearchGroups = function() {
-        var university = $scope.newResearcher.university.id;
-        console.log("Loading projects for university " + university);
+        var university = $scope.newResearcher.university.acronym;
+        console.log("Loading groups for university " + university);
+        $scope.groups = [];
+
+        //GET A 03 group by university
+        /*$http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
+            $scope.projects = response.data;
+            for (var i = 0; i < $scope.projects.length; i++) {
+                $scope.projects[i].id = parseInt($scope.projects[i].id);
+            }
+        });*/
+        if (university == "US") {
+            $scope.groups.push({
+                id: 1,
+                name: "Ingeniería del Software Aplicada",
+                icon: "Grupo de investigación de la US",
+                university: "US"
+            });
+        }
+        else if (university == "UCA") {
+            $scope.groups.push({
+                id: 2,
+                name: "Ingeniería Informatica",
+                icon: "Grupo de investigación de la UCA",
+                university: "UCA"
+            });
+        }
+    };
+
+    $scope.loadResearchProjects = function() {
+        var group = $scope.newResearcher.group.id;
+        console.log("Loading projects for group " + group);
         $scope.projects = [];
 
-        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
+        //CAMBIAR A projectsByGroup
+        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + group, {}).then(function(response) {
             $scope.projects = response.data;
             for (var i = 0; i < $scope.projects.length; i++) {
                 $scope.projects[i].id = parseInt($scope.projects[i].id);
@@ -112,7 +135,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     };
 
     $scope.submitForm = function() {
-        $scope.newResearcher.university = $scope.newResearcher.university.id;
+        $scope.newResearcher.university = $scope.newResearcher.university.acronym;
+        $scope.newResearcher.group = $scope.newResearcher.group.id;
         $scope.newResearcher.projects = $scope.researcher.projects;
         if ($scope.actionTitle == "Add researcher") {
             console.log("Adding researcher " + $scope.newResearcher.name);
@@ -192,11 +216,17 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.newResearcher.address = $scope.researcherToUpdate.address;
 
         var index = $scope.universities.findIndex(function(item, i) {
-            return item.id === $scope.researcherToUpdate.university;
+            return item.acronym === $scope.researcherToUpdate.university;
         });
-        
         $scope.newResearcher.university = $scope.universities[index];
-        $scope.loadResearchGroups($scope.newResearcher.university.id);
+        $scope.loadResearchGroups();
+
+        index = $scope.groups.findIndex(function(item, i) {
+            return item.id === $scope.researcherToUpdate.group;
+        });
+        $scope.newResearcher.group = $scope.groups[index];
+        $scope.loadResearchProjects();
+
         $scope.researcher.projects = $scope.researcherToUpdate.projects;
         $scope.newResearcher.gender = $scope.researcherToUpdate.gender;
     };
