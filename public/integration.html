@@ -26,6 +26,24 @@
 </head>
 
 <body ng-controller="IntCtrl">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modal-header"></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-body"></p>
+                    <p id="modal-papers"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -81,9 +99,11 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <ul class="list-group">
-                                        <li class="list-group-item"><h4><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{project.presupuesto}}</h4></li>
+                                        <li class="list-group-item">
+                                            <h4><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{project.presupuesto}}</h4>
+                                        </li>
                                         <li class="list-group-item btn btn-warning" ng-click="showResearchersProject(project)">
-                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Researchers
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Researchers
                                         </li>
                                     </ul>
                                 </div>
@@ -107,6 +127,7 @@
                                     <h4>{{researcher.name}}</h4>
                                     <p class="text-muted">{{researcher.orcid}}</p>
                                 </div>
+                                <button type="button" class="btn btn-info" id="load-papers" ng-click="loadPapers(researcher.orcid)">Load papers</button>
                             </div>
                             <hr>
                             <ul class="list-inline">
