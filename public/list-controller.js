@@ -26,6 +26,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     function refresh() {
         if ($location.search().access_token == undefined) {
             console.log("Using default token");
+            $('#login-provider').show();
+            $('#logout-provider').hide();
             $scope.titleLogin = "Log in"
             $scope.messageLogin = "Right now you are using the default token. Click on some of this providers to log in with them.";
             $scope.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E ";
@@ -34,6 +36,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             console.log("Using non-default token");
             $scope.titleLogin = "Logged!"
             $scope.messageLogin = "Right now you are using a token provided by Google or Facebook.";
+            $('#login-provider').hide();
+            $('#logout-provider').show();
             $scope.token = $location.search().access_token;
         }
         console.log("Refreshing");
@@ -94,7 +98,8 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         });
     };
 
-    $scope.loadResearchGroups = function(university) {
+    $scope.loadResearchGroups = function() {
+        var university = $scope.newResearcher.university.id;
         console.log("Loading projects for university " + university);
         $scope.projects = [];
 
@@ -189,7 +194,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         var index = $scope.universities.findIndex(function(item, i) {
             return item.id === $scope.researcherToUpdate.university;
         });
-
+        
         $scope.newResearcher.university = $scope.universities[index];
         $scope.loadResearchGroups($scope.newResearcher.university.id);
         $scope.researcher.projects = $scope.researcherToUpdate.projects;
