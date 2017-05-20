@@ -72,37 +72,38 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body p-t-0">
-                        <h2>Search projects by University</h2>
+                        <h2>Search groups by University</h2>
                         <hr>
                         <div class="ui-widget">
                             <label>Please, select a University: </label>
-                            <select chosen option="university" id="universitiesSelect" ng-model="university" ng-change="loadResearchGroups()" ng-options="u.name for u in universities track by u.id"></select>
+                            <select chosen option="university" id="universitiesSelect" ng-model="university" ng-change="loadResearchGroups()" ng-options="u.name for u in universities track by u.acronym"></select>
                         </div>
                     </div>
                 </div>
-                <div ng-repeat="project in projects">
+                <div ng-repeat="group in groups">
                     <div class="panel">
                         <div class="panel-body p-t-10">
                             <div class="media-main">
-                                <div class="pull-left" style="padding: 10px;">
-                                    <img class="thumb-lg bx-s" ng-src="{{university.icon}}" alt="University icon" style="width: 100%; height: auto;">
-                                </div>
-                                <div class="info">
-                                    <h4>{{project.titulo}}</h4>
-                                    <p class="text-muted">{{project.resumen}}</p>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="pull-left" style="padding: 10px;">
+                                            <img class="thumb-lg bx-s" ng-src="{{university.icon}}" alt="University icon" style="width: 100%; height: auto;">
+                                        </div>
+                                        <div class="info">
+                                            <h4>{{group.name}}</h4>
+                                            <p class="text-muted"><a href="{{university.url}}">{{university.name}}</a></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-lg-8">
-                                    <p align="justify">{{project.objetivo}}</p>
+                                    <p align="justify">{{group.description}}</p>
                                 </div>
                                 <div class="col-lg-4">
                                     <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <h4><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{project.presupuesto}}</h4>
-                                        </li>
-                                        <li class="list-group-item btn btn-warning" ng-click="showResearchersProject(project)">
+                                        <li class="list-group-item btn btn-warning" ng-click="showResearchersGroup(group)">
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Researchers
                                         </li>
                                     </ul>
@@ -114,7 +115,7 @@
             </div>
             <div class="col-lg-6">
                 <div style="text-align:center;" ng-show='selectedProject != null'>
-                    <h4>Researchers in {{selectedProject.titulo}} project</h4>
+                    <h4>Researchers in {{selectedGroup.name}} group</h4>
                 </div>
                 <div ng-repeat="researcher in researchers">
                     <div class="panel">
