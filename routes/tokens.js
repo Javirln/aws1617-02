@@ -18,7 +18,7 @@ router.delete('/:orcid', function(req, res) {
             });
         }
         else {
-            tokens.remove(req.params.orcid, (err, numRemoved) => {
+            tokens.remove(req.params.orcid, (err) => {
                 if (err) {
                     res.status(404).send({
                         msg: err

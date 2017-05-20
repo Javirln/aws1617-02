@@ -34,6 +34,10 @@ Researchers.prototype.get = function(orcid, callback) {
     return db.find({orcid:orcid}).toArray(callback);
 };
 
+Researchers.prototype.getQuery = function(query, callback) {
+    return db.find(query).toArray(callback);
+};
+
 Researchers.prototype.remove = function(orcid, callback) {
     return db.remove({orcid:orcid},{ multi: true}, callback);
 };

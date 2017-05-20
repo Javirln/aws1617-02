@@ -8,17 +8,47 @@ const passport = require("passport");
 router.get('/', passport.authenticate('bearer', {
     session: false
 }), function(req, res) {
+    var query = req.query;
+    if (Object.keys(req.query).length === 0) {
+        researchers.allResearchers((err, researchers) => {
+            if (err) {
+                res.status(404).send({
+                    msg: err
+                });
+            }
+            else {
+                res.status(200).send(researchers);
+            }
+        });
+    }
+    else if (query !== {}) {
+        //EXAMPLE: http://aws-researcher-api-aws1617dcp.c9users.io/api/v1/researchers?group=1&projects=1,2
+        if (query.hasOwnProperty("group"))
+            query.group = parseInt(query.group);
 
-    researchers.allResearchers((err, researchers) => {
-        if (err) {
-            res.status(404).send({
-                msg: err
-            });
+        if (query.hasOwnProperty("projects")) {
+            query.projects = req.query.projects.split(',');
+            var n = query.projects.length;
+            for (var i = 0; i < n; i++) {
+                query.projects[i] = parseInt(query.projects[i]);
+            }
         }
-        else {
-            res.status(200).send(researchers);
-        }
-    });
+        researchers.getQuery(query, (err, researchers) => {
+            if (err) {
+                res.status(404).send({
+                    msg: err
+                });
+            }
+            else {
+                res.status(200).send(researchers);
+            }
+        });
+    }
+    else {
+        res.status(400).send({
+            msg: 'Data is wrong'
+        });
+    }
 
 });
 
@@ -35,7 +65,7 @@ router.get('/:orcid', passport.authenticate('bearer', {
         }
         else if (researcher.length === 0) {
             res.status(404).send({
-                msg: 'No existe investigador con ese ORCID'
+                msg: 'We dont have a researcher with that ORCID'
             });
         }
         else {
@@ -57,7 +87,7 @@ router.post('/', passport.authenticate('bearer', {
         }
         if (Object.keys(researcher).length !== 0) {
             res.status(409).send({
-                msg: 'Ya existe un investigador con ese ORCID'
+                msg: 'We already have a researcher with that ORCID'
             });
         }
         else if (researchers.isValid(req.body, null) && Object.keys(researcher).length === 0) {
@@ -74,7 +104,7 @@ router.post('/', passport.authenticate('bearer', {
         }
         else {
             res.status(400).send({
-                msg: 'Los datos están mal introducidos'
+                msg: 'Data is wrong'
             });
         }
     });
@@ -94,7 +124,7 @@ router.put('/:orcid', passport.authenticate('bearer', {
         }
         if (Object.keys(researcher).length === 0) {
             res.status(404).send({
-                msg: 'No existe ningún investigador con ese ORCID'
+                msg: 'We dont have a researcher with that ORCID'
             });
         }
         else if (researchers.isValid(null, orcid) && Object.keys(researcher).length !== 0) {
@@ -113,7 +143,7 @@ router.put('/:orcid', passport.authenticate('bearer', {
         }
         else {
             res.status(400).send({
-                msg: 'El ORCID no es válido'
+                msg: 'ORCID is not valid'
             });
         }
     });
@@ -132,7 +162,7 @@ router.delete('/:orcid', passport.authenticate('bearer', {
         }
         if (Object.keys(researcher).length === 0) {
             res.status(404).send({
-                msg: 'No existe ningún investigador con ese ORCID'
+                msg: 'We dont have a researcher with that ORCID'
             });
         }
         else if (researchers.isValid(null, req.params.orcid) && Object.keys(researcher).length !== 0) {
@@ -150,7 +180,7 @@ router.delete('/:orcid', passport.authenticate('bearer', {
         }
         else {
             res.status(400).send({
-                msg: 'El ORCID no es válido'
+                msg: 'ORCID is not valid'
             });
         }
     });
