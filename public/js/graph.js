@@ -225,9 +225,9 @@ function loadInfo(d) {
             //University
             $("#modal-header").html("<b>University</b> | " + d.name);
             var acronym = d.acronym;
-            console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + acronym);
+            console.log("Invoking https://aws1617-04.herokuapp.com/api/v1/universities/" + acronym);
             $.get(
-                "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + acronym, {},
+                "https://aws1617-04.herokuapp.com/api/v1/universities/" + acronym, {},
                 function(data) {
                     $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.logo + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
                 }
@@ -332,9 +332,9 @@ function loadResources() {
     };
     var promises = [];
 
-    console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/");
+    console.log("Invoking https://aws1617-04.herokuapp.com/api/v1/universities");
     var request = $.get(
-        "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/", {},
+        "https://aws1617-04.herokuapp.com/api/v1/universities", {},
         function(data) {
             responses.universities = data;
             for (var key in data) {

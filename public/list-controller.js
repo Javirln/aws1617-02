@@ -72,13 +72,11 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     $scope.loadUniversities = function() {
         console.log("Loading universities");
         $scope.universities = [];
+
+        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {}).then(function(response) {
+            $scope.universities = response.data;
+        });
         /*
-        //GET A 01 universities
-        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
-            
-        }).then(function(response) {
-            //Fill universities array
-        });*/
         $scope.universities.push({
             name: "Universidad de Sevilla",
             acronym: "US",
@@ -88,7 +86,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             name: "Universidad de Cadiz",
             acronym: "UCA",
             icon: "http://actividades.uca.es/logotipos/LogoUCA/image_preview"
-        });
+        });*/
     };
 
     $scope.loadResearchGroups = function() {
