@@ -224,10 +224,10 @@ function loadInfo(d) {
         case 1:
             //University
             $("#modal-header").html("<b>University</b> | " + d.name);
-            var id = d.id;
-            console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + id);
+            var acronym = d.acronym;
+            console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + acronym);
             $.get(
-                "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + id, {},
+                "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + acronym, {},
                 function(data) {
                     $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.logo + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
                 }
@@ -327,7 +327,7 @@ function loadResources() {
     };
     var promises = [];
 
-    console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/1");
+    console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/");
     var request = $.get(
         "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/", {},
         function(data) {
@@ -337,7 +337,7 @@ function loadResources() {
                     var university = data[key];
                     var abb = getCapitals(university.name);
                     dataset.nodes.push({
-                        id: university.id,
+                        acronym: university.acronym,
                         name: university.name,
                         abb: abb,
                         difference: getWidthOfText(abb, "Arial, Helvetica, sans-serif", whichSize(1)),
@@ -475,9 +475,9 @@ function loadEdges(responses, dataset) {
     //Groups
     for (var key in responses.groups) {
         if (responses.groups.hasOwnProperty(key)) {
-            var id_university = responses.groups[key].id_university;
+            var id_university = responses.groups[key].university;
             dataset.nodes.find(function(item, j) {
-                if (item.id === id_university && item.type === 1) {
+                if (item.acronym === id_university && item.type === 1) {
                     indexT = j;
                 }
             });

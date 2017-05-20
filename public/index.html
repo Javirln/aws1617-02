@@ -158,9 +158,17 @@
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">University</span>
-                                    <select chosen option="university" id="universitiesSelect" class="form-control" name="university" ng-model="newResearcher.university" ng-change="loadResearchGroups()" ng-options="x.name for x in universities track by x.id" required></select>
+                                    <!--<select chosen option="university" id="universitiesSelect" class="form-control" name="university" ng-model="newResearcher.university" ng-change="loadResearchGroups()" ng-options="x.name for x in universities track by x.acronym" required></select>-->
+                                    <select class="form-control" name="group" ng-model="newResearcher.university" ng-options="x.name for x in universities track by x.acronym" ng-change="loadResearchGroups()" required></select>
                                 </div>
                                 <p ng-show="addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine" class="help-block">University is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.group.$invalid && !addResearcherForm.group.$pristine }">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Group</span>
+                                    <select class="form-control" name="group" ng-model="newResearcher.group" ng-options="x.name for x in groups track by x.id" ng-change="loadResearchProjects()" required></select>
+                                </div>
+                                <p ng-show="addResearcherForm.group.$invalid && !addResearcherForm.group.$pristine" class="help-block">Group is required.</p>
                             </div>
                             <div class="row">
                                 <div class="col-lg-8">
@@ -170,7 +178,7 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div ng-show="projects.length == 0">
-                                                <p>No projects found or University not selected</p>
+                                                <p>No projects found or group not selected yet</p>
                                             </div>
                                             <label ng-repeat="project in projects">
                                                 <input type="checkbox" checklist-model="researcher.projects" checklist-value="project.id"> {{project.titulo}}

@@ -18,15 +18,16 @@ router.delete('/:orcid', function(req, res) {
             });
         }
         else {
-            tokens.remove(req.params.orcid, (err, numRemoved) => {
+            tokens.remove(req.params.orcid, (err) => {
                 if (err) {
                     res.status(404).send({
                         msg: err
                     });
                 }
                 else {
-                    res.statusCode = 200;
-                    res.send(numRemoved.toString());
+                    res.status(200).send({
+                        msg: 'Token deleted!'
+                    });
                 }
             });
         }

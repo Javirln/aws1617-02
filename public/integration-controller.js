@@ -2,7 +2,9 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
 
     $scope.universities = [];
     $scope.projects = [];
+    $scope.groups = [];
     $scope.selectedProject = null;
+    $scope.selectedGroup = null;
     $scope.researchers = [];
 
     $scope.loadUniversities = function() {
@@ -15,29 +17,33 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             //Fill universities array
         });*/
         $scope.universities.push({
-            id: 1,
+            acronym: "US",
             name: "Universidad de Sevilla",
             icon: "http://ftp.us.es/ftp/pub/Logos/marca-tinta-roja_300.gif"
         });
         $scope.universities.push({
-            id: 2,
+            acronym: "UCA",
             name: "Universidad de Cadiz",
             icon: "http://actividades.uca.es/logotipos/LogoUCA/image_preview"
         });
     };
 
-    /*$scope.loadResearchGroups = function() {
-        $scope.projects = [];
-        $scope.selectedProject = null;
+    $scope.loadResearchGroups = function() {
+        $scope.groups = [];
+        $scope.selectedGroup = null;
         $scope.researchers = [];
-
-        $http.get("https://aws1617-01.herokuapp.com/api/v1/projects", {}).then(function(response) {
-            $scope.projects = response.data;
+        var university_acronym = $scope.university.acronym;
+        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=acronym_university&values="+university_acronym, {
+            headers: {
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDYyMzc0ODcxMDAyMDE3ODM1NCIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1MzI2OTIxLCJpYXQiOjE0OTUyOTA5MjEsIm5vbmNlIjoiR3R2ZC5uSW5-ZVUtdExSaFktbDNLcXNrZ2dpOUhyMC0iLCJhdF9oYXNoIjoiLUgzVDdkMTJuYnVNMzMxOUQ3d0JRQSJ9.lLHIBhQa1UogQMYNqxf-oEKkW4XqTpwQc1eTTk8OfNv-Axc7KZSuK_xQMMh_H1aUXeSJiDBfzr1q47jnZOdKn83flS56CDwjvbTepGANIxl830jmlWJ-YkgFDG3HVKkJ_XXLh3RMwcPvtBiAl-xkr7BG-tCmnR-yuEZO4oCyMHmdHmU6RZlGg07BiJSq2fj69qLB8wjB7zUfVwCKodtOdK05gtZ0cNPXyQbs4fytQjsAeTvohSwLMhHVliZytHGyBr0U4Qowa0bytE9HNPmfYg4qJca2NDd5TyZ23pQhvJrzOAsmLKv0wRqqlcTlRxE-3EqjAv4Gu0sFBRi-TLsHxw'
+                }
+        }).then(function(response) {
+            $scope.groups = response.data;
         });
 
-    };*/
+    };
 
-    $scope.loadResearchGroups = function() {
+    $scope.loadResearchProjects = function() {
         var university = $scope.university.id;
         console.log("Loading projects for university " + university);
         $scope.projects = [];
@@ -71,7 +77,20 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             });
         });
 
-    }
+    };
+    
+    $scope.showResearchersGroup = function(group) {
+        $scope.researchers = [];
+        $scope.selectedGroup = group;
+        
+        $http.get("/api/v1/researchers?group" + $scope.selectedGroup.id, {
+            headers: {
+                'Authorization': 'Bearer ' + $scope.token
+            }
+        }).then(function(response) {
+            $scope.researchers = response.data;
+        });
+    };
 
     $scope.loadPapers = function(orcid) {
         console.log("Invoking https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid);
