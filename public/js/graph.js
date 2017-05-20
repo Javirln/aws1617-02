@@ -229,10 +229,10 @@ function loadInfo(d) {
             $.get(
                 "https://aws1617-04.herokuapp.com/api/v1/universities/" + acronym, {},
                 function(data) {
-                    $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.logo + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
+                    $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.icon + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>Country:</b> " + data.country + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
+                    getTweets(data.name);
                 }
             );
-            getTweets("Universidad de Sevilla");
             break;
         case 2:
             //Group
