@@ -263,12 +263,17 @@ function loadInfo(d) {
             $("#modal-header").html("<b>Researcher</b> | " + d.name);
             var orcid = d.orcid;
             console.log("Invoking https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid);
-            $.get(
-                "https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid, {},
-                function(data) {
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://aws1617-02.herokuapp.com/api/v1/researchers/' + orcid,
+                headers: {
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
+                },
+                success: function(data, textStatus, request) {
                     $("#modal-body").html("<b>ORCID:</b> " + data[0].orcid + "<br><b>Name:</b> " + data[0].name + "<br><b>Phone:</b> " + data[0].phone + "<br><b>Email: </b><a href=\"mailto:" + data[0].email + "\">" + data[0].email + "</a><br><b>Address:</b> " + data[0].address + "<br><b>Gender: </b>" + data[0].gender + "<br>");
                 }
-            );
+            });
 
             $("#load-papers").click(function() {
                 $.get(
@@ -397,9 +402,13 @@ function loadResources() {
     promises.push(request);
 
     console.log("Invoking https://aws1617-02.herokuapp.com/api/v1/researchers/");
-    request = $.get(
-        "https://aws1617-02.herokuapp.com/api/v1/researchers/", {},
-        function(data) {
+    request = $.ajax({
+        type: 'GET',
+        url: 'https://aws1617-02.herokuapp.com/api/v1/researchers/',
+        headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
+        },
+        success: function(data, textStatus, request) {
             responses.researchers = data;
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
@@ -415,7 +424,7 @@ function loadResources() {
                 }
             }
         }
-    );
+    });
 
     promises.push(request);
 

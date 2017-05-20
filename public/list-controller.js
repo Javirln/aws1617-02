@@ -126,8 +126,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         console.log("Loading projects for group " + group);
         $scope.projects = [];
 
-        //CAMBIAR A projectsByGroup
-        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + group, {}).then(function(response) {
+        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbygroup/" + group, {}).then(function(response) {
             $scope.projects = response.data;
             for (var i = 0; i < $scope.projects.length; i++) {
                 $scope.projects[i].id = parseInt($scope.projects[i].id);
