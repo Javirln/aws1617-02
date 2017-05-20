@@ -82,8 +82,8 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
     $scope.showResearchersGroup = function(group) {
         $scope.researchers = [];
         $scope.selectedGroup = group;
-        
-        $http.get("/api/v1/researchers?group" + $scope.selectedGroup.id, {
+        console.log(group);
+        $http.get("/api/v1/researchers?group=" + $scope.selectedGroup.id, {
             headers: {
                 'Authorization': 'Bearer ' + $scope.token
             }
