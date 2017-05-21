@@ -8,23 +8,8 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
     $scope.researchers = [];
 
     $scope.loadUniversities = function() {
-
-        /*
-        //Load universities for adding form
-        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
-            
-        }).then(function(response) {
-            //Fill universities array
-        });*/
-        $scope.universities.push({
-            acronym: "US",
-            name: "Universidad de Sevilla",
-            icon: "http://ftp.us.es/ftp/pub/Logos/marca-tinta-roja_300.gif"
-        });
-        $scope.universities.push({
-            acronym: "UCA",
-            name: "Universidad de Cadiz",
-            icon: "http://actividades.uca.es/logotipos/LogoUCA/image_preview"
+        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {}).then(function(response) {
+            $scope.universities = response.data;
         });
     };
 
@@ -33,14 +18,13 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         $scope.selectedGroup = null;
         $scope.researchers = [];
         var university_acronym = $scope.university.acronym;
-        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=acronym_university&values="+university_acronym, {
+        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=university&values=" + university_acronym, {
             headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDYyMzc0ODcxMDAyMDE3ODM1NCIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1MzI2OTIxLCJpYXQiOjE0OTUyOTA5MjEsIm5vbmNlIjoiR3R2ZC5uSW5-ZVUtdExSaFktbDNLcXNrZ2dpOUhyMC0iLCJhdF9oYXNoIjoiLUgzVDdkMTJuYnVNMzMxOUQ3d0JRQSJ9.lLHIBhQa1UogQMYNqxf-oEKkW4XqTpwQc1eTTk8OfNv-Axc7KZSuK_xQMMh_H1aUXeSJiDBfzr1q47jnZOdKn83flS56CDwjvbTepGANIxl830jmlWJ-YkgFDG3HVKkJ_XXLh3RMwcPvtBiAl-xkr7BG-tCmnR-yuEZO4oCyMHmdHmU6RZlGg07BiJSq2fj69qLB8wjB7zUfVwCKodtOdK05gtZ0cNPXyQbs4fytQjsAeTvohSwLMhHVliZytHGyBr0U4Qowa0bytE9HNPmfYg4qJca2NDd5TyZ23pQhvJrzOAsmLKv0wRqqlcTlRxE-3EqjAv4Gu0sFBRi-TLsHxw'
-                }
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1OTIxOTBmYTU0OWQxZjIzZDM4YjBjMzEiLCJhdWQiOiJFUkJ0eXhzaTVKVENPVFhlN3RxcHh6SFVmWldFS05LVCIsImV4cCI6MTQ5NTQyNjg0NSwiaWF0IjoxNDk1MzkwODQ1LCJhdF9oYXNoIjoibDN6b1B1NVJjRUhDYXl5RVhIcWpWZyJ9.rO4gAX4Xxe5nHcujtwoocRUr_Gg50jmqzpXLPaPfZqqYcujscq1HDmx6XHbxBqKwvcbRYYot0xnacpV4GwvNuw7T-lOD9GzYFt4de_y53POacDRuQ8N2japztLD0Maam-evWIX3rIA1K3iAdKTXPuww70nlPCQC_JQgav8wLGmjc6BYSbD1HBX8Z5JNvct8XrLd4duBPl6DkVOc7JJEnGu5xDOvSY1E_jLhDYKDIbA1gN7INlSH5oViJEUUkPZCALk4oiPCvlLeHpxuCMVnq0slAqpxaPsejnSlOG0DXqUIwKP-sQ1NhYHXwai6zNCyfqq9qRjbA-iAHADGPjausrw'
+            }
         }).then(function(response) {
             $scope.groups = response.data;
         });
-
     };
 
     $scope.loadResearchProjects = function() {
@@ -52,7 +36,7 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         $("#modal-header").empty();
         $("#modal-body").empty();
         $("#modal-papers").empty();
-        
+
         $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
             $scope.projects = response.data;
             for (var i = 0; i < $scope.projects.length; i++) {
@@ -78,11 +62,10 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         });
 
     };
-    
+
     $scope.showResearchersGroup = function(group) {
         $scope.researchers = [];
         $scope.selectedGroup = group;
-        console.log(group);
         $http.get("/api/v1/researchers?group=" + $scope.selectedGroup.id, {
             headers: {
                 'Authorization': 'Bearer ' + $scope.token
@@ -101,7 +84,7 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             $("#modal-body").html("<b>ORCID:</b> " + response.data[0].orcid + "<br><b>Name:</b> " + response.data[0].name + "<br><b>Phone:</b> " + response.data[0].phone + "<br><b>Email: </b><a href=\"mailto:" + response.data[0].email + "\">" + response.data[0].email + "</a><br><b>Address:</b> " + response.data[0].address + "<br><b>Gender: </b>" + response.data[0].gender + "<br>");
             $("#myModal").modal();
         });
-        
+
         // ONLY WORKS IN US NETWORK
         /*$http.get(
             "https://api.elsevier.com/content/search/author?query=orcid(" + orcid + ")&apiKey=c3fc66dd92e97d5b54e49a58e001bdb1"
