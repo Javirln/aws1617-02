@@ -35,6 +35,8 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             }
         }).then(function(response) {
             $scope.groups = response.data;
+            if ($scope.groups.length == 0)
+                alert("There are no groups for that university!");
         }, function errorCallback(response) {
             console.log("No groups for that university");
             alert("There are no groups for that university!");
