@@ -20,28 +20,35 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         $scope.groups = [];
         $scope.selectedGroup = null;
         $scope.researchers = [];
+        var university_acronym = $scope.university.acronym;
+        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=university&values=" + university_acronym, {
+            headers: {
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1OTIxOTBmYTU0OWQxZjIzZDM4YjBjMzEiLCJhdWQiOiJFUkJ0eXhzaTVKVENPVFhlN3RxcHh6SFVmWldFS05LVCIsImV4cCI6MTQ5NTQyNjg0NSwiaWF0IjoxNDk1MzkwODQ1LCJhdF9oYXNoIjoibDN6b1B1NVJjRUhDYXl5RVhIcWpWZyJ9.rO4gAX4Xxe5nHcujtwoocRUr_Gg50jmqzpXLPaPfZqqYcujscq1HDmx6XHbxBqKwvcbRYYot0xnacpV4GwvNuw7T-lOD9GzYFt4de_y53POacDRuQ8N2japztLD0Maam-evWIX3rIA1K3iAdKTXPuww70nlPCQC_JQgav8wLGmjc6BYSbD1HBX8Z5JNvct8XrLd4duBPl6DkVOc7JJEnGu5xDOvSY1E_jLhDYKDIbA1gN7INlSH5oViJEUUkPZCALk4oiPCvlLeHpxuCMVnq0slAqpxaPsejnSlOG0DXqUIwKP-sQ1NhYHXwai6zNCyfqq9qRjbA-iAHADGPjausrw'
+            }
+        }).then(function(response) {
+            $scope.groups = response.data;
+        });
+    };
 
+    $scope.loadResearchProjects = function() {
+        var university = $scope.university.id;
+        console.log("Loading projects for university " + university);
+        $scope.projects = [];
+        $scope.selectedProject = null;
+        $scope.researchers = [];
         $("#modal-header").empty();
         $("#modal-body").empty();
         $("#modal-papers").empty();
 
-        var university_acronym = $scope.university.acronym;
-
-        console.log("Loading groups for university " + university_acronym);
-
-        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=university&values=" + university_acronym, {
-            headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDY5NDc2Mzg0ODg5OTg3MTY2NyIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1NDAxNzY5LCJpYXQiOjE0OTUzNjU3NjksIm5vbmNlIjoiLWZpeGJxZE1IMW0udHppNy1xLmRqQlU5VE1iUW5FMWoiLCJhdF9oYXNoIjoiSG82X2RBS2VQcW9nS1dxU2xKYy1mdyJ9.BCAMsrEZkSdzE3uC6XCKBNYt5qA9bS285LojvAx3G7pUOmpn0I69lKzGDH3kgRoCq4C4Wz10TXXVn0-AuGkhP6qB_KJHXmJpY0qEQSHzHKw63n2wCAw7XkKTeqFnxkMYJE6LEyqXixfkzbERFiNtl4ZbH_WZdZs9YQa_eOQl_VclhzoeVA6q_RI-cvrNdkxF8Iswd9hLjAkS-v8nYkfp3i0y2TPOoRUrHMSIcOerk6ZaM7sesqpUhXs533o21FQrbv9hHApRne0vbog4FQEamzju5-nvHgHOvE5VO5xF6RKfNatqHLoIt-e5SR0raBaX4gOavMKDAsCkQ1_G0o3bwg'
+        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
+            $scope.projects = response.data;
+            for (var i = 0; i < $scope.projects.length; i++) {
+                $scope.projects[i].id = parseInt($scope.projects[i].id);
             }
-        }).then(function(response) {
-            $scope.groups = response.data;
-            if ($scope.groups.length == 0)
-                alert("There are no groups for that university!");
         }, function errorCallback(response) {
-            console.log("No groups for that university");
-            alert("There are no groups for that university!");
+            console.log("No projects for that university");
+            alert("There are no projects for that university!");
         });
-
     };
 
     $scope.showResearchersGroup = function(group) {
