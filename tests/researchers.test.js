@@ -27,7 +27,7 @@ describe('Testing Researchers API functionalities', function() {
                     email: "resinas@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "male"
                 }, {
@@ -37,7 +37,7 @@ describe('Testing Researchers API functionalities', function() {
                     email: "aruiz@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1, 2],
                     gender: "male"
                 }, {
@@ -47,7 +47,7 @@ describe('Testing Researchers API functionalities', function() {
                     email: "pablofm@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [2],
                     gender: "male"
                 }], done);
@@ -94,7 +94,7 @@ describe('Testing Researchers API functionalities', function() {
                 email: "anagomez@us.com",
                 address: "Sevilla",
                 university: "US",
-                group: 1,
+                group: "5921861c7233de0011769f0c",
                 projects: [1],
                 gender: "female"
             }], (err) => {
@@ -169,7 +169,7 @@ describe('Testing Researchers API functionalities', function() {
                 email: "resinas@us.com",
                 address: "Sevilla",
                 university: "US",
-                group: 1,
+                group: "5921861c7233de0011769f0c",
                 projects: [1],
                 gender: "male"
             }, (err) => {
@@ -212,7 +212,7 @@ describe('Testing API Code status responses', function() {
                     email: "resinas@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "male"
                 }, {
@@ -222,7 +222,7 @@ describe('Testing API Code status responses', function() {
                     email: "aruiz@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1, 2],
                     gender: "male"
                 }, {
@@ -232,7 +232,7 @@ describe('Testing API Code status responses', function() {
                     email: "pablofm@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [2],
                     gender: "male"
                 }]);
@@ -318,7 +318,7 @@ describe('Testing API Code status responses', function() {
                     email: "anagomez@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "female"
                 })
@@ -344,7 +344,7 @@ describe('Testing API Code status responses', function() {
                     email: "aruiz@us.es",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "female"
                 })
@@ -372,7 +372,7 @@ describe('Testing API Code status responses', function() {
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "female"
                 })
@@ -398,7 +398,7 @@ describe('Testing API Code status responses', function() {
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "female"
                 })
@@ -493,7 +493,7 @@ describe('Testing API Code status responses', function() {
                     email: "manuel@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "male"
                 })
@@ -521,7 +521,7 @@ describe('Testing API Code status responses', function() {
                     email: "manuel@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "male"
                 })
@@ -548,7 +548,7 @@ describe('Testing API Code status responses', function() {
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "female"
                 })
@@ -576,7 +576,7 @@ describe('Testing API Code status responses', function() {
                     email: "newAntonio Ruiz@us.com",
                     address: "Sevilla",
                     university: "US",
-                    group: 1,
+                    group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "female"
                 })

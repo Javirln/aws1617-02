@@ -8,23 +8,11 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
     $scope.researchers = [];
 
     $scope.loadUniversities = function() {
+        console.log("Loading universities");
+        $scope.universities = [];
 
-        /*
-        //Load universities for adding form
-        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {
-            
-        }).then(function(response) {
-            //Fill universities array
-        });*/
-        $scope.universities.push({
-            acronym: "US",
-            name: "Universidad de Sevilla",
-            icon: "http://ftp.us.es/ftp/pub/Logos/marca-tinta-roja_300.gif"
-        });
-        $scope.universities.push({
-            acronym: "UCA",
-            name: "Universidad de Cadiz",
-            icon: "http://actividades.uca.es/logotipos/LogoUCA/image_preview"
+        $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {}).then(function(response) {
+            $scope.universities = response.data;
         });
     };
 
@@ -32,19 +20,19 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         $scope.groups = [];
         $scope.selectedGroup = null;
         $scope.researchers = [];
-        
+
         $("#modal-header").empty();
         $("#modal-body").empty();
         $("#modal-papers").empty();
-        
+
         var university_acronym = $scope.university.acronym;
-        
+
         console.log("Loading groups for university " + university_acronym);
 
-        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=acronym_university&values="+university_acronym, {
+        $http.get("https://aws1617-03.herokuapp.com/api/v1/groups?fields=university&values=" + university_acronym, {
             headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDYyMzc0ODcxMDAyMDE3ODM1NCIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1MzI2OTIxLCJpYXQiOjE0OTUyOTA5MjEsIm5vbmNlIjoiR3R2ZC5uSW5-ZVUtdExSaFktbDNLcXNrZ2dpOUhyMC0iLCJhdF9oYXNoIjoiLUgzVDdkMTJuYnVNMzMxOUQ3d0JRQSJ9.lLHIBhQa1UogQMYNqxf-oEKkW4XqTpwQc1eTTk8OfNv-Axc7KZSuK_xQMMh_H1aUXeSJiDBfzr1q47jnZOdKn83flS56CDwjvbTepGANIxl830jmlWJ-YkgFDG3HVKkJ_XXLh3RMwcPvtBiAl-xkr7BG-tCmnR-yuEZO4oCyMHmdHmU6RZlGg07BiJSq2fj69qLB8wjB7zUfVwCKodtOdK05gtZ0cNPXyQbs4fytQjsAeTvohSwLMhHVliZytHGyBr0U4Qowa0bytE9HNPmfYg4qJca2NDd5TyZ23pQhvJrzOAsmLKv0wRqqlcTlRxE-3EqjAv4Gu0sFBRi-TLsHxw'
-                }
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDY5NDc2Mzg0ODg5OTg3MTY2NyIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1NDAxNzY5LCJpYXQiOjE0OTUzNjU3NjksIm5vbmNlIjoiLWZpeGJxZE1IMW0udHppNy1xLmRqQlU5VE1iUW5FMWoiLCJhdF9oYXNoIjoiSG82X2RBS2VQcW9nS1dxU2xKYy1mdyJ9.BCAMsrEZkSdzE3uC6XCKBNYt5qA9bS285LojvAx3G7pUOmpn0I69lKzGDH3kgRoCq4C4Wz10TXXVn0-AuGkhP6qB_KJHXmJpY0qEQSHzHKw63n2wCAw7XkKTeqFnxkMYJE6LEyqXixfkzbERFiNtl4ZbH_WZdZs9YQa_eOQl_VclhzoeVA6q_RI-cvrNdkxF8Iswd9hLjAkS-v8nYkfp3i0y2TPOoRUrHMSIcOerk6ZaM7sesqpUhXs533o21FQrbv9hHApRne0vbog4FQEamzju5-nvHgHOvE5VO5xF6RKfNatqHLoIt-e5SR0raBaX4gOavMKDAsCkQ1_G0o3bwg'
+            }
         }).then(function(response) {
             $scope.groups = response.data;
         }, function errorCallback(response) {
@@ -53,50 +41,14 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         });
 
     };
-/*
-    $scope.loadResearchProjects = function() {
-        var university = $scope.university.id;
-        console.log("Loading projects for university " + university);
-        $scope.projects = [];
-        $scope.selectedProject = null;
-        $scope.researchers = [];
-        $("#modal-header").empty();
-        $("#modal-body").empty();
-        $("#modal-papers").empty();
-        
-        $http.get("https://aws1617-01.herokuapp.com/api/v1/projectsbyuniversity/" + university, {}).then(function(response) {
-            $scope.projects = response.data;
-            for (var i = 0; i < $scope.projects.length; i++) {
-                $scope.projects[i].id = parseInt($scope.projects[i].id);
-            }
-        }, function errorCallback(response) {
-            console.log("No projects for that university");
-            alert("There are no projects for that university!");
-        });
-    };
 
-    $scope.showResearchersProject = function(project) {
-        $scope.researchers = [];
-        $scope.selectedProject = project;
-        project.investigador.forEach((element) => {
-            $http.get("/api/v1/researchers/" + element, {
-                headers: {
-                    'Authorization': 'Bearer ' + $scope.token
-                }
-            }).then(function(response) {
-                $scope.researchers.push(response.data[0]);
-            });
-        });
-
-    };
-*/   
     $scope.showResearchersGroup = function(group) {
         $scope.researchers = [];
         $scope.selectedGroup = group;
         console.log(group);
-        $http.get("/api/v1/researchers?group=" + $scope.selectedGroup.id, {
+        $http.get("/api/v1/researchers?group=" + $scope.selectedGroup._id, {
             headers: {
-                'Authorization': 'Bearer ' + $scope.token
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -112,7 +64,7 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             $("#modal-body").html("<b>ORCID:</b> " + response.data[0].orcid + "<br><b>Name:</b> " + response.data[0].name + "<br><b>Phone:</b> " + response.data[0].phone + "<br><b>Email: </b><a href=\"mailto:" + response.data[0].email + "\">" + response.data[0].email + "</a><br><b>Address:</b> " + response.data[0].address + "<br><b>Gender: </b>" + response.data[0].gender + "<br>");
             $("#myModal").modal();
         });
-        
+
         // ONLY WORKS IN US NETWORK
         /*$http.get(
             "https://api.elsevier.com/content/search/author?query=orcid(" + orcid + ")&apiKey=c3fc66dd92e97d5b54e49a58e001bdb1"

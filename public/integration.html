@@ -8,7 +8,6 @@
     <link rel="image_src" href="/bower_components/chosen/chosen-sprite.png">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
-
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/chosen/chosen.jquery.js"></script>
@@ -19,7 +18,6 @@
     <script src='/checklist-model.js'></script>
     <script type="text/javascript" src="/researcher-list-app.js"></script>
     <script type="text/javascript" src="/integration-controller.js"></script>
-
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,9 +72,12 @@
                     <div class="panel-body p-t-0">
                         <h2>Search groups by University</h2>
                         <hr>
-                        <div class="ui-widget">
+                        <div class="form-group">
                             <label>Please, select a University: </label>
-                            <select chosen option="university" id="universitiesSelect" ng-model="university" ng-change="loadResearchGroups()" ng-options="u.name for u in universities track by u.acronym"></select>
+                            <div class="input-group">
+                                <span class="input-group-addon">University</span>
+                                <select class="form-control" option="university" id="universitiesSelect" ng-model="university" ng-change="loadResearchGroups()" ng-options="u.name for u in universities track by u.acronym"></select>
+                            </div>
                         </div>
                     </div>
                 </div>

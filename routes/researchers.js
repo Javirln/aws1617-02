@@ -22,10 +22,6 @@ router.get('/', passport.authenticate('bearer', {
         });
     }
     else if (query !== {}) {
-        //EXAMPLE: http://aws-researcher-api-aws1617dcp.c9users.io/api/v1/researchers?group=1&projects=1,2
-        if (query.hasOwnProperty("group")){
-            query.group = parseInt(query.group);
-        }
         if (query.hasOwnProperty("projects")) {
             query.projects = req.query.projects.split(',');
             var n = query.projects.length;
