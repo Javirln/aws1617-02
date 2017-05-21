@@ -27,9 +27,11 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             }
         }).then(function(response) {
             $scope.groups = response.data;
+            if ($scope.groups.length == 0)
+                alert("There are no groups for that university!");
         });
     };
-
+/*
     $scope.loadResearchProjects = function() {
         var university = $scope.university.id;
         console.log("Loading projects for university " + university);
@@ -50,6 +52,7 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
             alert("There are no projects for that university!");
         });
     };
+*/
 
     $scope.showResearchersGroup = function(group) {
         $scope.researchers = [];

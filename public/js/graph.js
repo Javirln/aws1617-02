@@ -243,7 +243,7 @@ function loadInfo(d) {
                 type: 'GET',
                 url: 'https://aws1617-03.herokuapp.com/api/v1/groups/' + id,
                 headers: {
-                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDY5NDc2Mzg0ODg5OTg3MTY2NyIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1NDAxNzY5LCJpYXQiOjE0OTUzNjU3NjksIm5vbmNlIjoiLWZpeGJxZE1IMW0udHppNy1xLmRqQlU5VE1iUW5FMWoiLCJhdF9oYXNoIjoiSG82X2RBS2VQcW9nS1dxU2xKYy1mdyJ9.BCAMsrEZkSdzE3uC6XCKBNYt5qA9bS285LojvAx3G7pUOmpn0I69lKzGDH3kgRoCq4C4Wz10TXXVn0-AuGkhP6qB_KJHXmJpY0qEQSHzHKw63n2wCAw7XkKTeqFnxkMYJE6LEyqXixfkzbERFiNtl4ZbH_WZdZs9YQa_eOQl_VclhzoeVA6q_RI-cvrNdkxF8Iswd9hLjAkS-v8nYkfp3i0y2TPOoRUrHMSIcOerk6ZaM7sesqpUhXs533o21FQrbv9hHApRne0vbog4FQEamzju5-nvHgHOvE5VO5xF6RKfNatqHLoIt-e5SR0raBaX4gOavMKDAsCkQ1_G0o3bwg'
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1OTIxOTBmYTU0OWQxZjIzZDM4YjBjMzEiLCJhdWQiOiJFUkJ0eXhzaTVKVENPVFhlN3RxcHh6SFVmWldFS05LVCIsImV4cCI6MTQ5NTQyNjg0NSwiaWF0IjoxNDk1MzkwODQ1LCJhdF9oYXNoIjoibDN6b1B1NVJjRUhDYXl5RVhIcWpWZyJ9.rO4gAX4Xxe5nHcujtwoocRUr_Gg50jmqzpXLPaPfZqqYcujscq1HDmx6XHbxBqKwvcbRYYot0xnacpV4GwvNuw7T-lOD9GzYFt4de_y53POacDRuQ8N2japztLD0Maam-evWIX3rIA1K3iAdKTXPuww70nlPCQC_JQgav8wLGmjc6BYSbD1HBX8Z5JNvct8XrLd4duBPl6DkVOc7JJEnGu5xDOvSY1E_jLhDYKDIbA1gN7INlSH5oViJEUUkPZCALk4oiPCvlLeHpxuCMVnq0slAqpxaPsejnSlOG0DXqUIwKP-sQ1NhYHXwai6zNCyfqq9qRjbA-iAHADGPjausrw'
                 },
                 success: function(data, textStatus, request) {
                     $("#modal-body").html("<b>Name:</b> " + data.name + "<br><b>Description:</b> " + data.description + "<br>");
@@ -364,7 +364,7 @@ function loadResources() {
         type: 'GET',
         url: 'https://aws1617-03.herokuapp.com/api/v1/groups/',
         headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDY5NDc2Mzg0ODg5OTg3MTY2NyIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1NDAxNzY5LCJpYXQiOjE0OTUzNjU3NjksIm5vbmNlIjoiLWZpeGJxZE1IMW0udHppNy1xLmRqQlU5VE1iUW5FMWoiLCJhdF9oYXNoIjoiSG82X2RBS2VQcW9nS1dxU2xKYy1mdyJ9.BCAMsrEZkSdzE3uC6XCKBNYt5qA9bS285LojvAx3G7pUOmpn0I69lKzGDH3kgRoCq4C4Wz10TXXVn0-AuGkhP6qB_KJHXmJpY0qEQSHzHKw63n2wCAw7XkKTeqFnxkMYJE6LEyqXixfkzbERFiNtl4ZbH_WZdZs9YQa_eOQl_VclhzoeVA6q_RI-cvrNdkxF8Iswd9hLjAkS-v8nYkfp3i0y2TPOoRUrHMSIcOerk6ZaM7sesqpUhXs533o21FQrbv9hHApRne0vbog4FQEamzju5-nvHgHOvE5VO5xF6RKfNatqHLoIt-e5SR0raBaX4gOavMKDAsCkQ1_G0o3bwg'
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1OTIxOTBmYTU0OWQxZjIzZDM4YjBjMzEiLCJhdWQiOiJFUkJ0eXhzaTVKVENPVFhlN3RxcHh6SFVmWldFS05LVCIsImV4cCI6MTQ5NTQyNjg0NSwiaWF0IjoxNDk1MzkwODQ1LCJhdF9oYXNoIjoibDN6b1B1NVJjRUhDYXl5RVhIcWpWZyJ9.rO4gAX4Xxe5nHcujtwoocRUr_Gg50jmqzpXLPaPfZqqYcujscq1HDmx6XHbxBqKwvcbRYYot0xnacpV4GwvNuw7T-lOD9GzYFt4de_y53POacDRuQ8N2japztLD0Maam-evWIX3rIA1K3iAdKTXPuww70nlPCQC_JQgav8wLGmjc6BYSbD1HBX8Z5JNvct8XrLd4duBPl6DkVOc7JJEnGu5xDOvSY1E_jLhDYKDIbA1gN7INlSH5oViJEUUkPZCALk4oiPCvlLeHpxuCMVnq0slAqpxaPsejnSlOG0DXqUIwKP-sQ1NhYHXwai6zNCyfqq9qRjbA-iAHADGPjausrw'
         },
         success: function(data, textStatus, request) {
             responses.groups = data;
@@ -443,27 +443,32 @@ function loadResources() {
 
 function loadEdges(responses, dataset) {
     console.log("All nodes loaded! Staring with edges...");
+    var indexT = -1,
+        indexS = -1;
     //Researchers
     for (var key in responses.researchers) {
         if (responses.researchers.hasOwnProperty(key)) {
             var id_projects = responses.researchers[key].projects;
             for (var i in id_projects) {
-                var indexT = -1,
-                    indexS = -1;
-                dataset.nodes.find(function(item, j) {
-                    if (item.orcid === responses.researchers[key].orcid && item.type === 4) {
-                        indexS = j;
-                    }
-                });
-                dataset.nodes.find(function(item, j) {
-                    if (item.id === id_projects[i] && item.type === 3) {
-                        indexT = j;
-                    }
-                });
-                dataset.edges.push({
-                    source: indexS,
-                    target: indexT
-                });
+                indexT = -1;
+                indexS = -1;
+                var orcid = responses.researchers[key].orcid;
+                if (orcid !== undefined && id_projects[i] !== undefined) {
+                    dataset.nodes.find(function(item, j) {
+                        if (item.orcid === orcid && item.type === 4) {
+                            indexS = j;
+                        }
+                    });
+                    dataset.nodes.find(function(item, j) {
+                        if (item.id === id_projects[i] && item.type === 3) {
+                            indexT = j;
+                        }
+                    });
+                    dataset.edges.push({
+                        source: indexS,
+                        target: indexT
+                    });
+                }
             }
         }
     }
@@ -472,20 +477,24 @@ function loadEdges(responses, dataset) {
     for (var key in responses.projects) {
         if (responses.projects.hasOwnProperty(key)) {
             var id_group = responses.projects[key].grupo;
-            dataset.nodes.find(function(item, j) {
-                if (item.id === parseInt(responses.projects[key].id) && item.type === 3) {
-                    indexS = j;
-                }
-            });
-            dataset.nodes.find(function(item, j) {
-                if (item.id === id_group && item.type === 2) {
-                    indexT = j;
-                }
-            });
-            dataset.edges.push({
-                source: indexS,
-                target: indexT
-            });
+            var id_project = parseInt(responses.projects[key].id);
+            if (id_group !== undefined && id_project !== undefined) {
+                dataset.nodes.find(function(item, j) {
+                    if (item.id === id_project && item.type === 3) {
+                        indexS = j;
+                    }
+                });
+                dataset.nodes.find(function(item, j) {
+                    if (item.id === id_group && item.type === 2) {
+                        indexT = j;
+                    }
+                });
+                console.log("P- Creating link btwn: " + indexS + " nd " + indexT);
+                dataset.edges.push({
+                    source: indexS,
+                    target: indexT
+                });
+            }
         }
     }
 
@@ -493,20 +502,23 @@ function loadEdges(responses, dataset) {
     for (var key in responses.groups) {
         if (responses.groups.hasOwnProperty(key)) {
             var id_university = responses.groups[key].university;
-            dataset.nodes.find(function(item, j) {
-                if (item.acronym === id_university && item.type === 1) {
-                    indexT = j;
-                }
-            });
-            dataset.nodes.find(function(item, j) {
-                if (item.id === responses.groups[key].id && item.type === 2) {
-                    indexS = j;
-                }
-            });
-            dataset.edges.push({
-                source: indexS,
-                target: indexT
-            });
+            var id_group = responses.groups[key]._id;
+            if (id_university !== undefined && id_group !== undefined) {
+                dataset.nodes.find(function(item, j) {
+                    if (item.acronym === id_university && item.type === 1) {
+                        indexT = j;
+                    }
+                });
+                dataset.nodes.find(function(item, j) {
+                    if (item.id === id_group && item.type === 2) {
+                        indexS = j;
+                    }
+                });
+                dataset.edges.push({
+                    source: indexS,
+                    target: indexT
+                });
+            }
         }
     }
 

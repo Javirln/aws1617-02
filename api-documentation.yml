@@ -263,5 +263,6 @@ definitions:
       - address
       - university
       - group
+      - projects
     uniqueItems:
       - orcid
