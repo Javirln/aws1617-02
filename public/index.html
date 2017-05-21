@@ -91,6 +91,7 @@
                                 <li class="list-group-item"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>{{researcher.phone}}</li>
                                 <li class="list-group-item"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>{{researcher.email}}</li>
                                 <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{researcher.address}}</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-education" aria-hidden="true"></span>{{researcher.university}}</li>
                             </ul>
                         </div>
                     </div>
@@ -158,14 +159,18 @@
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">University</span>
-                                    <select class="form-control" name="group" ng-model="newResearcher.university" ng-options="x.name for x in universities track by x.acronym" ng-change="loadResearchGroups()" required></select>
+                                    <select class="form-control" name="university" ng-model="newResearcher.university" ng-options="x.name for x in universities track by x.acronym" ng-change="loadResearchGroups()" required>
+                                        <option value="">Select university</option>
+                                    </select>
                                 </div>
                                 <p ng-show="addResearcherForm.university.$invalid && !addResearcherForm.university.$pristine" class="help-block">University is required.</p>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : addResearcherForm.group.$invalid && !addResearcherForm.group.$pristine }">
                                 <div class="input-group">
                                     <span class="input-group-addon">Group</span>
-                                    <select class="form-control" name="group" ng-model="newResearcher.group" ng-options="x.name for x in groups track by x._id" ng-change="loadResearchProjects()" required></select>
+                                    <select class="form-control" name="group" ng-model="newResearcher.group" ng-options="x.name for x in groups track by x._id" ng-change="loadResearchProjects()" required>
+                                        <option value="">Select group</option>
+                                    </select>
                                 </div>
                                 <p ng-show="addResearcherForm.group.$invalid && !addResearcherForm.group.$pristine" class="help-block">Group is required.</p>
                             </div>

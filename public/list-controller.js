@@ -45,6 +45,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
         $scope.action = "Add";
         $scope.buttonClass = "btn btn-primary";
         $scope.researcher.projects = [];
+        //$scope.universities = [];
         $scope.projects = [];
         $scope.groups = [];
         $scope.searchResult = null;
@@ -64,7 +65,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
             $scope.orcidFilter = null;
         });
 
-        $scope.loadUniversities();
+        //$scope.loadUniversities();
     }
 
     $scope.loadUniversities = function() {
@@ -239,6 +240,7 @@ angular.module("ResearcherListApp").controller("ListCtrl", function($scope, $htt
     socket.on('newResearcher', function(data) {
         updateResearchList();
     });
-
+    
+    $scope.loadUniversities();
     refresh();
 });
