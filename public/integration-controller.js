@@ -8,6 +8,9 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
     $scope.researchers = [];
 
     $scope.loadUniversities = function() {
+        console.log("Loading universities");
+        $scope.universities = [];
+
         $http.get("https://aws1617-04.herokuapp.com/api/v1/universities", {}).then(function(response) {
             $scope.universities = response.data;
         });
@@ -48,27 +51,13 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         });
     };
 
-    $scope.showResearchersProject = function(project) {
-        $scope.researchers = [];
-        $scope.selectedProject = project;
-        project.investigador.forEach((element) => {
-            $http.get("/api/v1/researchers/" + element, {
-                headers: {
-                    'Authorization': 'Bearer ' + $scope.token
-                }
-            }).then(function(response) {
-                $scope.researchers.push(response.data[0]);
-            });
-        });
-
-    };
-
     $scope.showResearchersGroup = function(group) {
         $scope.researchers = [];
         $scope.selectedGroup = group;
-        $http.get("/api/v1/researchers?group=" + $scope.selectedGroup.id, {
+        console.log(group);
+        $http.get("/api/v1/researchers?group=" + $scope.selectedGroup._id, {
             headers: {
-                'Authorization': 'Bearer ' + $scope.token
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
             }
         }).then(function(response) {
             $scope.researchers = response.data;
@@ -77,12 +66,17 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
 
     $scope.loadPapers = function(orcid) {
         console.log("Invoking https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid);
-        $http.get(
-            "https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid
-        ).then(function(response) {
-            $("#modal-header").html("<b>Researcher</b> | " + response.data[0].name);
-            $("#modal-body").html("<b>ORCID:</b> " + response.data[0].orcid + "<br><b>Name:</b> " + response.data[0].name + "<br><b>Phone:</b> " + response.data[0].phone + "<br><b>Email: </b><a href=\"mailto:" + response.data[0].email + "\">" + response.data[0].email + "</a><br><b>Address:</b> " + response.data[0].address + "<br><b>Gender: </b>" + response.data[0].gender + "<br>");
-            $("#myModal").modal();
+        $.ajax({
+            type: 'GET',
+            url: 'https://aws1617-02.herokuapp.com/api/v1/researchers/' + orcid,
+            headers: {
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
+            },
+            success: function(data, textStatus, request) {
+                $("#modal-header").html("<b>Researcher</b> | " + data[0].name);
+                $("#modal-body").html("<b>ORCID:</b> " + data[0].orcid + "<br><b>Name:</b> " + data[0].name + "<br><b>Phone:</b> " + data[0].phone + "<br><b>Email: </b><a href=\"mailto:" + data[0].email + "\">" + data[0].email + "</a><br><b>Address:</b> " + data[0].address + "<br><b>Gender: </b>" + data[0].gender + "<br>");
+                $("#myModal").modal();
+            }
         });
 
         // ONLY WORKS IN US NETWORK

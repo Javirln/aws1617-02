@@ -225,26 +225,30 @@ function loadInfo(d) {
             //University
             $("#modal-header").html("<b>University</b> | " + d.name);
             var acronym = d.acronym;
-            console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + acronym);
+            console.log("Invoking https://aws1617-04.herokuapp.com/api/v1/universities/" + acronym);
             $.get(
-                "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/" + acronym, {},
+                "https://aws1617-04.herokuapp.com/api/v1/universities/" + acronym, {},
                 function(data) {
-                    $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.logo + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
+                    $("#modal-body").html("<div class=\"row\"><div class=\"col-lg-3\"><img src=\"" + data.icon + "\" style=\"height: 150; padding: 10px;\"/></div><div class=\"col-lg-9\"><b>Name:</b> " + data.name + "<br><b>Acronym:</b> " + data.acronym + "<br><b>Country:</b> " + data.country + "<br><b>URL:</b> <a href=\"" + data.url + "\">" + data.url + "</a></div></div><hr><h4><b>Tweets</b></h4><div id=\"tweets\"></div></div>");
+                    getTweets(data.name);
                 }
             );
-            getTweets("Universidad de Sevilla");
             break;
         case 2:
             //Group
             $("#modal-header").html("<b>Researcher Group</b> | " + d.name);
             var id = d.id;
-            console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/groups/" + id);
-            $.get(
-                "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/groups/" + id, {},
-                function(data) {
+            console.log("Invoking https://aws1617-03.herokuapp.com/api/v1/groups/" + id);
+            $.ajax({
+                type: 'GET',
+                url: 'https://aws1617-03.herokuapp.com/api/v1/groups/' + id,
+                headers: {
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDY5NDc2Mzg0ODg5OTg3MTY2NyIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1NDAxNzY5LCJpYXQiOjE0OTUzNjU3NjksIm5vbmNlIjoiLWZpeGJxZE1IMW0udHppNy1xLmRqQlU5VE1iUW5FMWoiLCJhdF9oYXNoIjoiSG82X2RBS2VQcW9nS1dxU2xKYy1mdyJ9.BCAMsrEZkSdzE3uC6XCKBNYt5qA9bS285LojvAx3G7pUOmpn0I69lKzGDH3kgRoCq4C4Wz10TXXVn0-AuGkhP6qB_KJHXmJpY0qEQSHzHKw63n2wCAw7XkKTeqFnxkMYJE6LEyqXixfkzbERFiNtl4ZbH_WZdZs9YQa_eOQl_VclhzoeVA6q_RI-cvrNdkxF8Iswd9hLjAkS-v8nYkfp3i0y2TPOoRUrHMSIcOerk6ZaM7sesqpUhXs533o21FQrbv9hHApRne0vbog4FQEamzju5-nvHgHOvE5VO5xF6RKfNatqHLoIt-e5SR0raBaX4gOavMKDAsCkQ1_G0o3bwg'
+                },
+                success: function(data, textStatus, request) {
                     $("#modal-body").html("<b>Name:</b> " + data.name + "<br><b>Description:</b> " + data.description + "<br>");
                 }
-            );
+            });
             break;
         case 3:
             //Project
@@ -263,12 +267,17 @@ function loadInfo(d) {
             $("#modal-header").html("<b>Researcher</b> | " + d.name);
             var orcid = d.orcid;
             console.log("Invoking https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid);
-            $.get(
-                "https://aws1617-02.herokuapp.com/api/v1/researchers/" + orcid, {},
-                function(data) {
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://aws1617-02.herokuapp.com/api/v1/researchers/' + orcid,
+                headers: {
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
+                },
+                success: function(data, textStatus, request) {
                     $("#modal-body").html("<b>ORCID:</b> " + data[0].orcid + "<br><b>Name:</b> " + data[0].name + "<br><b>Phone:</b> " + data[0].phone + "<br><b>Email: </b><a href=\"mailto:" + data[0].email + "\">" + data[0].email + "</a><br><b>Address:</b> " + data[0].address + "<br><b>Gender: </b>" + data[0].gender + "<br>");
                 }
-            );
+            });
 
             $("#load-papers").click(function() {
                 $.get(
@@ -327,9 +336,9 @@ function loadResources() {
     };
     var promises = [];
 
-    console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/");
+    console.log("Invoking https://aws1617-04.herokuapp.com/api/v1/universities");
     var request = $.get(
-        "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/universities/", {},
+        "https://aws1617-04.herokuapp.com/api/v1/universities", {},
         function(data) {
             responses.universities = data;
             for (var key in data) {
@@ -350,17 +359,21 @@ function loadResources() {
 
     promises.push(request);
 
-    console.log("Invoking https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/groups/");
-    request = $.get(
-        "https://aws1617-dcp-sandbox-aws1617dcp.c9users.io/api/v1/groups/", {},
-        function(data) {
+    console.log("Invoking https://aws1617-03.herokuapp.com/api/v1/groups/");
+    request = $.ajax({
+        type: 'GET',
+        url: 'https://aws1617-03.herokuapp.com/api/v1/groups/',
+        headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwUkJNemt5T1RWQlEwWTFNVFZDUlRjelJUZ3hRMFF4TkVSRVFqWkdOemcyTVVNMk0wWTFSUSJ9.eyJpc3MiOiJodHRwczovL2Rhbmk4YXJ0LmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMDY5NDc2Mzg0ODg5OTg3MTY2NyIsImF1ZCI6IkVSQnR5eHNpNUpUQ09UWGU3dHFweHpIVWZaV0VLTktUIiwiZXhwIjoxNDk1NDAxNzY5LCJpYXQiOjE0OTUzNjU3NjksIm5vbmNlIjoiLWZpeGJxZE1IMW0udHppNy1xLmRqQlU5VE1iUW5FMWoiLCJhdF9oYXNoIjoiSG82X2RBS2VQcW9nS1dxU2xKYy1mdyJ9.BCAMsrEZkSdzE3uC6XCKBNYt5qA9bS285LojvAx3G7pUOmpn0I69lKzGDH3kgRoCq4C4Wz10TXXVn0-AuGkhP6qB_KJHXmJpY0qEQSHzHKw63n2wCAw7XkKTeqFnxkMYJE6LEyqXixfkzbERFiNtl4ZbH_WZdZs9YQa_eOQl_VclhzoeVA6q_RI-cvrNdkxF8Iswd9hLjAkS-v8nYkfp3i0y2TPOoRUrHMSIcOerk6ZaM7sesqpUhXs533o21FQrbv9hHApRne0vbog4FQEamzju5-nvHgHOvE5VO5xF6RKfNatqHLoIt-e5SR0raBaX4gOavMKDAsCkQ1_G0o3bwg'
+        },
+        success: function(data, textStatus, request) {
             responses.groups = data;
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
                     var group = data[key];
                     var abb = getCapitals(group.name);
                     dataset.nodes.push({
-                        id: group.id,
+                        id: group._id,
                         name: group.name,
                         abb: abb,
                         difference: getWidthOfText(abb, "Arial, Helvetica, sans-serif", whichSize(2)),
@@ -369,7 +382,7 @@ function loadResources() {
                 }
             }
         }
-    );
+    });
 
     promises.push(request);
 
@@ -397,9 +410,13 @@ function loadResources() {
     promises.push(request);
 
     console.log("Invoking https://aws1617-02.herokuapp.com/api/v1/researchers/");
-    request = $.get(
-        "https://aws1617-02.herokuapp.com/api/v1/researchers/", {},
-        function(data) {
+    request = $.ajax({
+        type: 'GET',
+        url: 'https://aws1617-02.herokuapp.com/api/v1/researchers/',
+        headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTI3NjYyMjQsImV4cCI6MTQ5Mzk3NTgyNH0.WExNusVFHUcM6LKCwp3cz2SudqM1-CWF3DCZZIPNF-E '
+        },
+        success: function(data, textStatus, request) {
             responses.researchers = data;
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
@@ -415,7 +432,7 @@ function loadResources() {
                 }
             }
         }
-    );
+    });
 
     promises.push(request);
 
@@ -454,7 +471,7 @@ function loadEdges(responses, dataset) {
     //Projects
     for (var key in responses.projects) {
         if (responses.projects.hasOwnProperty(key)) {
-            var id_group = parseInt(responses.projects[key].grupo);
+            var id_group = responses.projects[key].grupo;
             dataset.nodes.find(function(item, j) {
                 if (item.id === parseInt(responses.projects[key].id) && item.type === 3) {
                     indexS = j;
