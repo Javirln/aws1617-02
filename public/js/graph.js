@@ -1,13 +1,13 @@
 function createGraph(dataset) {
     var svg = d3.select("#graph").append("svg").attr({
         "width": $("#graph").width(),
-        "height": $("#graph").height()
+        "height": $(document).height(),
     });
 
     var force = d3.layout.force()
         .nodes(dataset.nodes)
         .links(dataset.edges)
-        .size([$("#graph").width(), 500])
+        .size([$("#graph").width(), $(document).height()])
         .linkDistance([200])
         .charge([-500])
         .theta(0.1)
