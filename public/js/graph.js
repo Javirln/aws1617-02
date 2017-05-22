@@ -1,7 +1,7 @@
 function createGraph(dataset) {
     var svg = d3.select("#graph").append("svg").attr({
         "width": $("#graph").width(),
-        "height": 500
+        "height": $("#graph").height()
     });
 
     var force = d3.layout.force()
