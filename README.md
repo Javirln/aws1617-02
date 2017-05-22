@@ -58,6 +58,14 @@ Para poder desplegar la API usando un contendor de Docker hay que tener en cuent
 2. `SWAGGER_HOST`: aunque la documentación se podrá consultar, para poder consumir la API desde la misma, hace falta configurar un host. Por defecto es `localhost`.
 3. `MONGODB_URL`: la dirección donde estará escuchando la base de datos MongoDB.
 
+Además para configurar el login con aplicaciones de terceros, hace falta:
+* `FACEBOOK_APP_ID`
+* `FACEBOOK_APP_SECRET`
+* `FACEBOOK_APP_CALLBACK`
+* `GOOGLE_CLIENT_ID`
+* `GOOGLE_CLIENT_SECRET`
+* `GOOGLE_APP_CALLBACK`
+
 Lo anterior resulta útil si vamos a desplegar el servidor en entornos remotos, donde por ejemplo no tengamos control sobre el puerto donde estará corriendo nuestro servicio y solo lo tengamos accesible a través de una variable de entorno que nos faciliten. 
 
 Para el caso anterior lo único que tenemos que hacer es pasar por parámetros las variables de entorno que necesitemos usando el flag `--build-arg <varname>=<value>`. Ejemplo:
