@@ -92,7 +92,8 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="pull-left" style="padding: 10px;">
-                                            <img class="thumb-lg bx-s" ng-src="{{university.icon}}" alt="University icon" style="width: 100%; height: auto;">
+                                            <img class="thumb-lg bx-s" ng-show='university.icon != null && university.icon != ""' ng-src="{{university.icon}}" alt="University icon" style="width: 100%; height: auto;">
+                                            <img class="thumb-lg bx-s" ng-show='university.icon == null || university.icon == ""' ng-src="/img/university.png" alt="University icon" style="width: 100%; height: auto;">
                                         </div>
                                         <div class="info">
                                             <h4>{{group.name}}</h4>
