@@ -60,6 +60,16 @@ describe('Testing Researchers API functionalities', function() {
                     group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "male"
+                },{
+                    orcid: "0000-0001-8816-6213",
+                    name: "Sergio Segura",
+                    phone: "954556881",
+                    email: "sergiosegura@us.es",
+                    address: "Sevilla",
+                    university: "US",
+                    group: "5921861c7233de0011769f0c",
+                    projects: [1, 2],
+                    gender: "male"
                 }], done);
             });
         });
@@ -72,11 +82,12 @@ describe('Testing Researchers API functionalities', function() {
                     return done(err);
                 }
 
-                expect(res).to.have.lengthOf(4);
+                expect(res).to.have.lengthOf(5);
                 expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas');
                 expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
                 expect(res).to.contain.an.item.with.property('name', 'Pablo Fernandez');
                 expect(res).to.contain.an.item.with.property('name', 'Carlos Müller');
+                expect(res).to.contain.an.item.with.property('name', 'Sergio Segura');
                 done();
             });
         });
@@ -119,11 +130,12 @@ describe('Testing Researchers API functionalities', function() {
                         return done(err);
                     }
 
-                    expect(res).to.have.lengthOf(5);
+                    expect(res).to.have.lengthOf(6);
                     expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas');
                     expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
                     expect(res).to.contain.an.item.with.property('name', 'Pablo Fernandez');
                     expect(res).to.contain.an.item.with.property('name', 'Carlos Müller');
+                    expect(res).to.contain.an.item.with.property('name', 'Sergio Segura');
                     expect(res).to.contain.an.item.with.property('name', 'Ana Gomez');
                     done();
                 });
@@ -162,10 +174,11 @@ describe('Testing Researchers API functionalities', function() {
                         return done(err);
                     }
 
-                    expect(res).to.have.lengthOf(3);
+                    expect(res).to.have.lengthOf(4);
                     expect(res).not.to.contain.an.item.with.property('name', 'Manuel Resinas');
                     expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
                     expect(res).to.contain.an.item.with.property('name', 'Carlos Müller');
+                    expect(res).to.contain.an.item.with.property('name', 'Sergio Segura');
                     expect(res).to.contain.an.item.with.property('name', 'Pablo Fernandez');
                     done();
                 });
@@ -195,11 +208,12 @@ describe('Testing Researchers API functionalities', function() {
                         return done(err);
                     }
 
-                    expect(res).to.have.lengthOf(4);
+                    expect(res).to.have.lengthOf(5);
                     expect(res).to.contain.an.item.with.property('name', 'Manuel Resinas Updated');
                     expect(res).to.contain.an.item.with.property('orcid', '0000-0003-1575-406X');
                     expect(res).to.contain.an.item.with.property('name', 'Antonio Ruiz');
                     expect(res).to.contain.an.item.with.property('name', 'Carlos Müller');
+                    expect(res).to.contain.an.item.with.property('name', 'Sergio Segura');
                     done();
                 });
             });
@@ -259,6 +273,16 @@ describe('Testing API Code status responses', function() {
                     group: "5921861c7233de0011769f0c",
                     projects: [1],
                     gender: "male"
+                },{
+                    orcid: "0000-0001-8816-6213",
+                    name: "Sergio Segura",
+                    phone: "954556881",
+                    email: "sergiosegura@us.es",
+                    address: "Sevilla",
+                    university: "US",
+                    group: "5921861c7233de0011769f0c",
+                    projects: [1, 2],
+                    gender: "male"
                 }]);
             });
         });
@@ -290,7 +314,7 @@ describe('Testing API Code status responses', function() {
                     if (err) {
                         return done(err);
                     }
-                    expect(res.body).to.have.lengthOf(4);
+                    expect(res.body).to.have.lengthOf(5);
                     expect(res).to.have.status(200);
                     done();
                 });
