@@ -9,7 +9,7 @@ router.get('/', passport.authenticate('bearer', {
     session: false
 }), function(req, res) {
     var query = req.query;
-    if (Object.keys(req.query).length === 0) {
+    if (Object.keys(req.query).length === 0 || (query.hasOwnProperty("apikey") && !query.hasOwnProperty("projects") && !query.hasOwnProperty("group") && !query.hasOwnProperty("university"))) {
         researchers.allResearchers((err, researchers) => {
             if (err) {
                 res.status(404).send({
@@ -22,6 +22,9 @@ router.get('/', passport.authenticate('bearer', {
         });
     }
     else if (query !== {}) {
+        if (query.hasOwnProperty("apikey")) {
+            delete query.apikey;
+        }
         if (query.hasOwnProperty("projects")) {
             query.projects = req.query.projects.split(',');
             var n = query.projects.length;
