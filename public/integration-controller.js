@@ -83,9 +83,10 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
         });
 
         // ONLY WORKS IN US NETWORK
-        /*$http.get(
+        $http.get(
             "https://api.elsevier.com/content/search/author?query=orcid(" + orcid + ")&apiKey=c3fc66dd92e97d5b54e49a58e001bdb1"
         ).then(function(response) {
+            console.log("Response %o",response);
             var auid = response.data["search-results"].entry[0]["dc:identifier"];
             auid = auid.substring(10, auid.length);
             $http.get(
@@ -100,7 +101,7 @@ angular.module("ResearcherListApp").controller("IntCtrl", function($scope, $http
                 }
                 $("#modal-papers").html(papers + "</ul>");
             });
-        });*/
+        });
     }
 
     $scope.loadUniversities();
