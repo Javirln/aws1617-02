@@ -116,3 +116,7 @@ Para poder empezar a desarrollar hay que seguir los siguientes pasos:
 Para ejecutar los tests hay dos opciones:
 1. `npm run test`
 2. `grunt test`
+
+## Presentación
+
+[Link a la presentación](https://docs.google.com/presentation/d/1lWfu-ow814BkYs9hgsEbKP4qXb7ZHc8-ZPK_W5e19m4/edit?usp=sharing)
